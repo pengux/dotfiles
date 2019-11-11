@@ -40,4 +40,4 @@ alias gsta='git stash push'
 alias gstp='git stash pop'
 
 # Manage dotfiles with git bare repository
-alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
