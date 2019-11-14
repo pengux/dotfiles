@@ -19,3 +19,11 @@ dotfiles add /path/to/file
 dotfiles commit -m "A short message"
 dotfiles push
 ```
+### First-time setup
+```
+chmod +x $HOME/.config/polybar/launch.sh
+chmod +x $HOME/.config/polybar/scripts/check-all-updates.sh
+zplug install
+zplug load
+vim +PlugInstall +qall
+```

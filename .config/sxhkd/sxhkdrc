@@ -5,6 +5,10 @@ super + Escape
 
 # BSPWM HOTKEYS
 
+# Lock screen
+super + shift + Escape
+	slock
+
 # quit/restart bspwm
 super + shift + {q,r}
 	bspc {quit,wm -r}
@@ -67,8 +71,15 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} focused:'^{1-9,10}'
+	bspc {desktop -f,node -f -d} focused:'^{1-9,10}' --follow
 
+# focus next monitor
+super + ctrl + shift + {h,l}
+	bspc monitor -f {last,next}
+
+# focus or send to the next monitor
+super + ctrl + {_,shift + }m
+	bspc {desktop -f --follow,node -m next -f --follow} focused:last --follow
 
 # PRESELECT
 
@@ -122,6 +133,23 @@ super + alt + a
 super + alt + r
 	urxvt -e ranger
 
-#passmenu
+# passmenu
 super + .
 	exec passmenu
+
+XF86MonBrightness{Up,Down}
+	light -{A,U} 5
+
+XF86Audio{Raise,Lower}Volume
+	pactl set-sink-volume @DEFAULT_SINK@ {+,-}1000
+
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# screenshot a selection and save to clipboard
+super + ctrl + shift + 1
+	maim -s | xclip -selection clipboard -t image/png
+
+# screenshot screen and save to clipboard
+super + ctrl + shift + 2
+	maim | xclip -selection clipboard -t image/png

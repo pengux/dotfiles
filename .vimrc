@@ -42,6 +42,7 @@ set guioptions-=lrbRL
 " No audio bell
 set vb
 
+set clipboard=unnamed
 
 let mapleader = "\<Space>"
 
@@ -84,9 +85,9 @@ Plug 'haya14busa/is.vim' " Better incremental search
 Plug 'osyo-manga/vim-anzu'
 
 " JS
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
