@@ -11,6 +11,6 @@ if [ -x /usr/bin/autocutsel ]; then
 fi
 
 # Set key repeat rate
-xset r rate 150 25
+xset r rate 200 25
 
 exec bspwm
