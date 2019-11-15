@@ -7,6 +7,9 @@ export QT_DEVICE_PIXEL_RATIO=2
 
 export EDITOR=vim
 
+# GPG
+export GPG_TTY=$(tty)
+
 # 10ms for key sequences
 KEYTIMEOUT=1
 setopt histignoredups
@@ -63,3 +66,4 @@ setopt prompt_subst
 RPROMPT=\$vcs_info_msg_0_
 # PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%b'
+
