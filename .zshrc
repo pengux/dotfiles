@@ -54,6 +54,8 @@ alias gsta='git stash push'
 alias gstp='git stash pop'
 alias gst='git status'
 alias gcl='git clone'
+alias gco='git checkout'
+alias gup='git pull --rebase'
 
 # Manage dotfiles with git bare repository
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -67,5 +69,3 @@ RPROMPT=\$vcs_info_msg_0_
 # PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%b'
 
-# SSH agent
-eval $(ssh-agent)
