@@ -1,13 +1,13 @@
 #! /bin/sh
 
-bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0
+bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 0
 
 nr_of_external_monitors=$(xrandr -q | grep '^DP' | grep ' connected' | wc -l)
 if [[ $nr_of_external_monitors = 1 ]]; then
 	connected_monitor=$(xrandr -q | grep '^DP' | grep ' connected' | awk '{print $1}')
 
 	bspc monitor $connected_monitor -d 1 2 3 4 5 6 7 8 9 0 -f
-	xrandr --output eDP-1 --mode 3840x2400 --output $connected_monitor --primary --mode 3840x2160 --right-of eDP-1
+	xrandr --output eDP1 --mode 3840x2400 --output $connected_monitor --primary --mode 3840x2160 --right-of eDP1
 
 fi
 
