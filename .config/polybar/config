@@ -51,7 +51,7 @@ height = 40
 radius = 0.0
 fixed-center = true
 bottom = false
-separator =
+separator = " %{F#222}|%{F-} "
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -88,7 +88,7 @@ font-4 = "Font Awesome 5 Brands Regular:pixelsize=16;1"
 
 modules-left = bspwm xwindow
 modules-center =
-modules-right = arrow1 networkspeedup networkspeeddown arrow1 memory2 arrow1 cpu2 arrow1 pulseaudio arrow1 battery arrow1 date
+modules-right = networkspeedup networkspeeddown memory2 cpu2 pulseaudio battery date
 
 tray-detached = false
 tray-offset-x = 0
