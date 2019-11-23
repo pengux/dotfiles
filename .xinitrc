@@ -13,4 +13,7 @@ fi
 # Set key repeat rate
 xset r rate 200 25
 
+# HiDPI
+xrandr --dpi 192
+
 exec bspwm
