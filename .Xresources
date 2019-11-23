@@ -76,7 +76,7 @@ Xft.rgba: rgb
 ! ------------------------------------------------------------------------------
 
 URxvt*depth: 32
-URxvt*background: [75]S_base03
+URxvt*background: S_base03
 URxvt*font: xft:Consolas:antialiasing=true:size=12
 URxvt*letterspace: 0
 URxvt*scrollBar: false
