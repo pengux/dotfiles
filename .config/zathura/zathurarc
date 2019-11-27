@@ -11,3 +11,5 @@ map J zoom out
 map i recolor
 map p print
 set selection-clipboard clipboard
+set window-height 3000
+set window-width 3000
