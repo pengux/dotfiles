@@ -47,6 +47,7 @@ bspc rule -a Skype desktop='3'
 sxhkd &
 picom &
 dunst &
+libinput-gestures-setup start
 ~/.config/polybar/launch.sh &
 # lock screen after 10 mins of inactivity
 xidlehook --not-when-fullscreen --not-when-audio --timer primary 300 'slock' '' &
