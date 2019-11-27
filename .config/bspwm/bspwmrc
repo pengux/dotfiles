@@ -35,12 +35,8 @@ bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
 bspc config pointer_action3 resize_corner
 
-bspc rule -a urxvt desktop='1'
-
 bspc rule -a firefox desktop='2' follow=on focus=on
 bspc rule -a Chromium desktop='2' follow=on focus=on
-
-### Chats
 bspc rule -a Slack desktop='3'
 bspc rule -a Skype desktop='3'
 
@@ -52,6 +48,8 @@ libinput-gestures-setup start
 # lock screen after 10 mins of inactivity
 xidlehook --not-when-fullscreen --not-when-audio --timer primary 300 'slock' '' &
 feh --randomize --bg-fill ~/Downloads/Wallpapers &
+mullvad-vpn &
+nm-applet &
 
 wal -R
 
