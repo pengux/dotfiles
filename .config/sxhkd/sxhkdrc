@@ -134,7 +134,7 @@ super + alt + r
 	urxvt -e ranger
 
 # passmenu
-super + .
+super + e
 	exec passmenu
 
 XF86MonBrightness{Up,Down}
