@@ -27,3 +27,8 @@ zplug install
 zplug load
 vim +PlugInstall +qall
 ```
+
+### Setup optional tools
+```
+go get github.com/joho/godotenv/cmd/godotenv
+```
