@@ -31,4 +31,5 @@ vim +PlugInstall +qall
 ### Setup optional tools
 ```
 go get github.com/joho/godotenv/cmd/godotenv
+systemctl --user enable --now restic-backup-timer
 ```
