@@ -43,12 +43,12 @@ bspc rule -a Skype desktop='3'
 sxhkd &
 picom &
 dunst &
-libinput-gestures-setup start
+libinput-gestures-setup restart
 ~/.config/polybar/launch.sh &
 # lock screen after 10 mins of inactivity
 xidlehook --not-when-fullscreen --not-when-audio --timer primary 300 'slock' '' &
 feh --randomize --bg-fill ~/Downloads/Wallpapers &
-mullvad-vpn &
+# mullvad-vpn &
 nm-applet &
 
 wal -R
