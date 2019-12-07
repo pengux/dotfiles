@@ -2,7 +2,7 @@
 Description=Run restic backup daily
 
 [Timer]
-OnCalendar=10:00,15:00
+OnCalendar="10,15:00"
 Persistent=true
 
 [Install]
