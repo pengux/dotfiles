@@ -2,9 +2,6 @@
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$HOME/.local/bin:$PATH
 
-# HiDPI
-export QT_DEVICE_PIXEL_RATIO=2
-
 export EDITOR=vim
 
 # GPG
