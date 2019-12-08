@@ -46,7 +46,7 @@ dunst &
 libinput-gestures-setup restart
 ~/.config/polybar/launch.sh &
 # lock screen after 10 mins of inactivity
-xidlehook --not-when-fullscreen --not-when-audio --timer primary 300 'slock' '' &
+xidlehook --not-when-fullscreen --not-when-audio --timer 300 'slock' '' &
 feh --randomize --bg-fill ~/Downloads/Wallpapers &
 # mullvad-vpn &
 nm-applet &
