@@ -93,7 +93,7 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 " Autocomplete & Snippets
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips' " C-j and C-k to jump between placeholders
 Plug 'honza/vim-snippets'
 
 Plug 'prabirshrestha/async.vim'
@@ -224,12 +224,12 @@ if executable('java') && filereadable(expand('~/lsp/eclipse.jdt.ls/plugins/org.e
 endif
 
 " Unimpaired
-nmap ¡ [
-nmap ¤ ]
-omap ¡ [
-omap ¤ ]
-xmap ¡ [
-xmap ¤ ]
+nmap Â½ [
+nmap Â§ ]
+omap Â½ [
+omap Â§ ]
+xmap Â½ [
+xmap Â§ ]
 
 " ctrlsf
 nmap     <C-F>f <Plug>CtrlSFPrompt
@@ -270,9 +270,44 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " Location list shortcuts
-map <leader>n :lnext<CR>
-map <leader>N :lprevious<CR>
-nnoremap <leader>a :lclose<CR>
+function! ToggleLocationList()
+  let curbufnr = winbufnr(0)
+  for bufnum in map(filter(split(s:GetBufferList(), '\n'), 'v:val =~ "Location List"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if curbufnr == bufnum
+      lclose
+      return
+    endif
+  endfor
+
+  let winnr = winnr()
+  let prevwinnr = winnr("#")
+
+  let nextbufnr = winbufnr(winnr + 1)
+  try
+    lopen
+  catch /E776/
+      echohl ErrorMsg 
+      echo "Location List is Empty."
+      echohl None
+      return
+  endtry
+  if winbufnr(0) == nextbufnr
+    lclose
+    if prevwinnr > winnr
+      let prevwinnr-=1
+    endif
+  else
+    if prevwinnr > winnr
+      let prevwinnr+=1
+    endif
+  endif
+  " restore previous window
+  exec prevwinnr."wincmd w"
+  exec winnr."wincmd w"
+endfunction
+
+nmap <leader>n :ll<CR>
+nmap <leader>a :call ToggleLocationList()<CR>
 
 " Fast saving
 nnoremap <C-s> :w!<cr>
@@ -301,13 +336,8 @@ nnoremap =x :%!xmllint --format -<CR>
 
 " Netrw
 map <silent> <Leader>e :call ExToggle()<CR>
-noremap <Leader>¤ :call VexToggle(getcwd())<CR>
-noremap <Leader><Tab> :call VexToggle("")<CR>
 " Override settings to show line numbers
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-" Hit enter in the file browser to open the selected
-" file with :vsplit to the right of the browser.
-
 let g:netrw_browse_split = 0    " open files in same buffer
 let g:netrw_dirhistmax=0      " keep more history
 let g:netrw_altfile=1           " last edited file '#'
@@ -316,53 +346,8 @@ let g:netrw_liststyle=0         " thin (change to 3 for tree)
 let g:netrw_banner=0            " no banner
 let g:netrw_altv=1              " open files on right
 let g:netrw_preview=1           " open previews vertically
-
 " Delete the netrw buffer when hidden
 autocmd FileType netrw setl bufhidden=wipe
-
-fun! VexToggle(dir)
-  if exists("t:vex_buf_nr")
-    call VexClose()
-  else
-    call VexOpen(a:dir)
-  endif
-endf
-
-fun! VexOpen(dir)
-  let g:netrw_browse_split=4    " open files in previous window
-  let vex_width = 25
-
-  execute "Vexplore " . a:dir
-  let t:vex_buf_nr = bufnr("%")
-  wincmd H
-
-  call VexSize(vex_width)
-endf
-
-fun! VexClose()
-  let cur_win_nr = winnr()
-  let target_nr = ( cur_win_nr == 1 ? winnr("#") : cur_win_nr )
-
-  1wincmd w
-  close
-  unlet t:vex_buf_nr
-
-  execute (target_nr - 1) . "wincmd w"
-  call NormalizeWidths()
-endf
-
-fun! VexSize(vex_width)
-  execute "vertical resize" . a:vex_width
-  set winfixwidth
-  call NormalizeWidths()
-endf
-
-fun! NormalizeWidths()
-  let eadir_pref = &eadirection
-  set eadirection=hor
-  set equalalways! equalalways!
-  let &eadirection = eadir_pref
-endf
 
 fun! ExToggle()
   if &filetype != "netrw"
@@ -383,10 +368,6 @@ fun! ExClose()
     exe ':b' . g:last_bufnr
   endif
 endf
-
-augroup NetrwGroup
-  autocmd! BufEnter * call NormalizeWidths()
-augroup END
 
 augroup netrw
   autocmd!
