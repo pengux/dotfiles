@@ -77,7 +77,7 @@ Xft.rgba: rgb
 
 URxvt*depth: 32
 URxvt*background: S_base03
-URxvt*font: xft:Consolas:antialiasing=true:size=12
+URxvt*font: xft:Consolas:antialiasing=true:size=12,xft:Inconsolata Nerd Font Mono:size=16
 URxvt*letterspace: 0
 URxvt*scrollBar: false
 URxvt*internalBorder:  20
