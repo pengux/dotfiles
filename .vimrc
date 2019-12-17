@@ -85,9 +85,9 @@ Plug 'haya14busa/is.vim' " Better incremental search
 Plug 'osyo-manga/vim-anzu'
 
 " JS
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'yarn install',
-"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -157,6 +157,8 @@ au FileType proto set expandtab ts=2 sw=2 softtabstop=2
 au FileType less set expandtab ts=2 sw=2 softtabstop=2
 au FileType crontab setlocal nobackup nowritebackup
 au FileType javascript.jsx set expandtab ts=2 sw=2 softtabstop=2
+au FileType css set expandtab ts=2 sw=2 softtabstop=2
+au FileType html set expandtab ts=2 sw=2 softtabstop=2
 
 " Neomake
 " When writing a buffer.

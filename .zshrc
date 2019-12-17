@@ -1,6 +1,6 @@
 # PATH
 export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$HOME/.local/bin:$PATH
+export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$PATH
 
 export EDITOR=vim
 
