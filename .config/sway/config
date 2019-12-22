@@ -27,7 +27,10 @@ default_border pixel 1
 
 ### Output configuration
 #
-output eDP-1 scale 2
+set $laptop eDP-1
+output $laptop scale 2
+output $laptop pos 0 0 res 3840x2400
+output DP-3 pos 1920 0 res 1920x1080
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # output * bg `$HOME/.config/sway/random_bg` fill
@@ -171,6 +174,9 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 bindsym $mod+$mod2+l workspace next
 bindsym $mod+$mod2+h workspace prev
+
+bindsym $mod+Control+l move workspace to output left
+bindsym $mod+Control+h move workspace to output right
 #
 # Layout stuff:
 #
