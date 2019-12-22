@@ -271,6 +271,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id mako
 exec swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -f -c 000000'
 exec --no-startup-id rot8
+exec xrdb -load ~/.Xresources
 
 include "$HOME/.cache/wal/colors-sway"
 exec wal -R
