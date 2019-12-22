@@ -85,7 +85,7 @@ URxvt.intensityStyles: false
 URxvt.depth: 24
 URxvt.geometry:         90x30
 
-URxvt.perl-ext-common: default,matcher,clipboard,keyboard-select,resize-font,url-select
+URxvt.perl-ext-common: default,matcher,clipboard,resize-font,url-select
 URxvt.url-select.launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 URxvt.secondaryWheel: 1
@@ -101,6 +101,4 @@ URxvt.keysym.C-0:   	resize-font:reset
 URxvt.keysym.M-c:       perl:clipboard:copy
 URxvt.keysym.M-v:       perl:clipboard:paste
 URxvt.keysym.M-C-v:     perl:clipboard:paste_escaped
-URxvt.keysym.M-z:  		perl:keyboard-select:activate
-URxvt.keysym.M-s:       perl:keyboard-select:search
 URxvt.keysym.M-u:       perl:url-select:select_next

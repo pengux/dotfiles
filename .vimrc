@@ -11,7 +11,7 @@ set timeoutlen=1000
 set ttimeoutlen=0
 syntax sync minlines=256 " start highlighting from 256 lines backwards
 set synmaxcol=300        " do not highlight very long lines
-set listchars=eol:Â,tab:?\ ,space:á
+set listchars=tab:>-,trail:.,precedes:<,extends:>
 set display+=uhex
 "
 " Display hidden unicode characters as hex
@@ -42,7 +42,7 @@ set guioptions-=lrbRL
 " No audio bell
 set vb
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 let mapleader = "\<Space>"
 
@@ -217,7 +217,7 @@ if executable('java') && filereadable(expand('~/lsp/eclipse.jdt.ls/plugins/org.e
 	\     '-jar',
 	\     expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.400.v20190515-0925.jar'),
 	\     '-configuration',
-	\     expand('~/lsp/eclipse.jdt.ls/config_win'),
+	\     expand('~/lsp/elipse.jdt.ls/config_win'),
 	\     '-data',
 	\     getcwd()
 	\ ]},

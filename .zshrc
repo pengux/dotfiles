@@ -2,7 +2,13 @@
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$PATH
 
-export EDITOR=vim
+export EDITOR=nvim
+export VISUAL=nvim
+
+# Wayland
+export QT_QPA_PLATFORM=wayland-egl
+export CLUTTER_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
 
 # GPG
 export GPG_TTY=$(tty)
@@ -66,3 +72,7 @@ RPROMPT=\$vcs_info_msg_0_
 # PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%b'
 
+# Import colorscheme from 'wal' asynchronously
+# &   # Run the process in the background.
+# ( ) # Hide shell job control messages.
+(cat ~/.cache/wal/sequences &)
