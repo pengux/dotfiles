@@ -31,7 +31,7 @@
     },
     "clock": {
 		"format": "{:%Y-%m-%d %H:%M}",
-        "tooltip-format": "{:%a at week %W, %Y-%m-%d %H:%M:%S}"
+        "tooltip-format": "{:%a at week %W, %Y-%m-%d %H:%M}"
         // "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
