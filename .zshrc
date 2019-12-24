@@ -63,6 +63,9 @@ alias gup='git pull --rebase'
 # Manage dotfiles with git bare repository
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+# Generate password
+alias newpass="head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -w 32 | head -n 1"
+
 # Prompt
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
