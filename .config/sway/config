@@ -150,6 +150,7 @@ bindsym $mod+0 workspace 10
 # App assigned workspaces
 assign [app_id="firefox"] 2
 for_window [app_id="firefox"] focus
+for_window [app_id="firefox"] inhibit_idle fullscreen
 assign [title="Chromium"] 2
 for_window [title="Chromium"] focus
 
