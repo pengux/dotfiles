@@ -83,6 +83,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'haya14busa/is.vim' " Better incremental search
 Plug 'osyo-manga/vim-anzu'
+Plug 'christoomey/vim-tmux-navigator'
 
 " JS
 Plug 'prettier/vim-prettier', {
