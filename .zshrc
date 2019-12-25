@@ -4,6 +4,7 @@ export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$PATH
 
 export EDITOR=nvim
 export VISUAL=nvim
+export BROWSER=firefox
 
 # Wayland
 export QT_QPA_PLATFORM=wayland-egl
