@@ -1,0 +1,7 @@
+text/plain; $EDITOR %s ;
+text/html; openfile %s ; nametemplate=%s.html
+text/html; w3m -I %{charset} -T text/html -o display_link_number=1 ; copiousoutput; nametemplate=%s.html
+image/*; imv %s ; copiousoutput
+video/*; setsid mpv --quiet %s &; copiousoutput
+application/pdf; zathura %s ;
+application/pgp-encrypted; gpg -d '%s'; copiousoutput;
