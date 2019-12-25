@@ -1,0 +1,6 @@
+[Unit]
+Description=Mailsync
+
+[Service]
+Type=oneshot
+ExecStart=mailsync
