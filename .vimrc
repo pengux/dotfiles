@@ -436,7 +436,6 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 
 " Lightline
 let g:lightline = {
-	\ 'colorscheme': 'solarized',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
 	\             [ 'tabs_spaces', 'readonly', 'absolutepath', 'modified' ] ],
