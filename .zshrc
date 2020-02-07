@@ -80,3 +80,6 @@ zstyle ':vcs_info:git:*' formats '%b'
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
 (cat ~/.cache/wal/sequences &)
+
+# added by travis gem
+[ -f /home/peter/.travis/travis.sh ] && source /home/peter/.travis/travis.sh
