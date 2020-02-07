@@ -233,6 +233,7 @@ bindsym Control+Shift+space exec makoctl dismiss -a
 # Screenshot
 bindsym $mod+Control+Shift+1 exec grim -g "$(slurp)" - | wl-copy -t image/png
 bindsym $mod+Control+Shift+2 exec grim - | wl-copy
+bindsym $mod+Control+Shift+3 exec grim -g "$(slurp)" - | tee /tmp/screenshot.png
 
 # Alt+tab
 bindsym $mod+Tab exec swaymsg workspace back_and_forth
