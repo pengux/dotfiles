@@ -1,6 +1,6 @@
 # PATH
 export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$PATH
+export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.7.0/bin:$PATH
 
 export EDITOR=nvim
 export VISUAL=nvim
