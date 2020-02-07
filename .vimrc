@@ -409,6 +409,7 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:go_def_mode = 'gopls'
 let g:go_info_mode = 'gopls'
+let g:go_rename_command = 'gopls'
 let g:go_metalinter_command = 'golangci-lint'
 " neomake already run this on save
 let g:go_metalinter_autosave = 0
