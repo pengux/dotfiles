@@ -17,8 +17,6 @@ set display+=uhex
 " Display hidden unicode characters as hex
 set display+=uhex
 
-" Relative line numbers on, with current line showing current line number
-set relativenumber
 set number
 
 " Highlight all search matches
@@ -51,10 +49,6 @@ call plug#begin('~/.vim/plugged')
 
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
-
-" Syntax
-"Plug 'editorconfig/editorconfig-vim'
-Plug 'sheerun/vim-polyglot' " Replace all syntax plugins with this one
 
 " Tools
 Plug 'neomake/neomake'
@@ -104,6 +98,10 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+
+" Syntax
+"Plug 'editorconfig/editorconfig-vim'
+Plug 'sheerun/vim-polyglot' " Replace all syntax plugins with this one
 
 if executable('ctags')
     Plug 'prabirshrestha/asyncomplete-tags.vim'
@@ -414,6 +412,9 @@ let g:go_metalinter_command = 'golangci-lint'
 " neomake already run this on save
 let g:go_metalinter_autosave = 0
 let g:go_code_completion_enabled = 0
+
+" Disable polyglot for Go files
+let g:polyglot_disabled = ['go']
 
 " let g:go_highlight_functions = 1
 " let g:go_highlight_methods = 1
