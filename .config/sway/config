@@ -19,8 +19,10 @@ set $right l
 set $term alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu dmenu-wl_run -i -h 30 -fn "Inconsolata Nerd Font Mono"
-set $passmenu passmenu -h 30 -fn "Inconsolata Nerd Font Mono"
+set $menu dmenu-wl_run -i -h 30
+#-fn "Inconsolata Nerd Font Mono"
+set $passmenu passmenu -h 30
+# -fn "Inconsolata Nerd Font Mono"
 
 ### Styles
 default_border pixel 1
