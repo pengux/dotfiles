@@ -70,7 +70,7 @@ macro index O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all mail"
 macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
 macro index A "<limit>all\n" "show all messages (undo limit)"
 macro attach C "<pipe-entry>wl-copy<enter>" "copy attachment to clipboard"
-macro compose P "<attach-file>`tmpfile=$(mktemp) && mv "$tmpfile" "$tmpfile".png && wl-paste -t image/png > "$tmpfile".png && echo "$tmpfile".png`<enter>" "attach image from clipboard"
+macro compose P "<attach-file>`/home/peter/.config/mutt/attach-image-from-clipboard.sh`<enter>" "attach image from clipboard"
 
 # Sidebar mappings
 set sidebar_visible = yes
