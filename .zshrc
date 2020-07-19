@@ -18,6 +18,7 @@ export GPG_TTY=$(tty)
 KEYTIMEOUT=1
 setopt histignoredups
 setopt histignorespace
+setopt sharehistory
 setopt menucomplete
 HISTFILE=~/.zshhistory
 HISTSIZE=10000
@@ -66,6 +67,9 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Generate password
 alias newpass="head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -w 32 | head -n 1"
+
+# K8s alias
+alias k='kubectl'
 
 # Prompt
 autoload -Uz vcs_info
