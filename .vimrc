@@ -54,7 +54,7 @@ Plug 'tpope/vim-sensible'
 Plug 'neomake/neomake'
 Plug 'tpope/vim-sleuth'
 Plug 'godlygeek/tabular'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround' " cs and ys, for example ysiw to surround word
 Plug 'tpope/vim-vinegar'
