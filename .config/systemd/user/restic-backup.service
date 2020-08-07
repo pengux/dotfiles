@@ -1,5 +1,6 @@
 [Unit]
 Description=Restic Backup
+OnFailure=systemd-notify@%n
 
 [Service]
 Type=oneshot
