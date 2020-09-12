@@ -1,5 +1,6 @@
 [Unit]
 Description=Mailsync
+OnFailure=systemd-notify@%n
 
 [Service]
 Type=oneshot
