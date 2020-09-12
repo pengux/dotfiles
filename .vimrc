@@ -436,6 +436,22 @@ nmap <Leader>t :BTags<CR>
 nmap <Leader>T :Tags<CR>
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!{.git,node_modules,vendor}/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
+function! GetJumps()
+  redir => cout
+  silent jumps
+  redir END
+  return reverse(split(cout, "\n")[1:])
+endfunction
+function! GoToJump(jump)
+    let jumpnumber = split(a:jump, '\s\+')[0]
+    execute "normal " . jumpnumber . "\<c-o>"
+endfunction
+command! Jumps call fzf#run(fzf#wrap({
+        \ 'source': GetJumps(),
+        \ 'sink': function('GoToJump')}))
+
+nmap <Leader>o :Jumps<CR>
+
 " Lightline
 let g:lightline = {
 	\ 'active': {
