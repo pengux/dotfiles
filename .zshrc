@@ -10,6 +10,7 @@ export BROWSER=firefox
 export QT_QPA_PLATFORM=wayland-egl
 export CLUTTER_BACKEND=wayland
 export MOZ_ENABLE_WAYLAND=1
+export XDG_CURRENT_DESKTOP=sway
 
 # GPG
 export GPG_TTY=$(tty)
