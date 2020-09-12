@@ -233,9 +233,13 @@ bindsym Control+space exec makoctl dismiss
 bindsym Control+Shift+space exec makoctl dismiss -a
 
 # Screenshot
-bindsym $mod+Control+Shift+1 exec grim -g "$(slurp)" - | wl-copy -t image/png
+bindsym $mod+Control+Shift+1 exec grim -g "$(slurp -d)" - | wl-copy -t image/png
 bindsym $mod+Control+Shift+2 exec grim - | wl-copy
-bindsym $mod+Control+Shift+3 exec grim -g "$(slurp)" - | tee /tmp/screenshot.png
+bindsym $mod+Control+Shift+3 exec grim -g "$(slurp -d)" - | tee /tmp/screenshot.png
+# for_window [title="imv.*screenshot"] floating enable
+# for_window [title="imv.*screenshot"] fullscreen on
+# bindsym $mod+Control+Shift+1 exec ~/.scripts/screenshot-clipboard.sh
+# bindsym $mod+Control+Shift+3 exec ~/.scripts/screenshot-tmp-file.sh
 
 # Alt+tab
 bindsym $mod+Tab exec swaymsg workspace back_and_forth
