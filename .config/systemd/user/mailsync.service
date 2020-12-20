@@ -4,4 +4,4 @@ OnFailure=systemd-notify@%n
 
 [Service]
 Type=oneshot
-ExecStart=mailsync
+ExecStart=mbsync -a
