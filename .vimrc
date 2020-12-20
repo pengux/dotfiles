@@ -17,6 +17,7 @@ set display+=uhex
 " Display hidden unicode characters as hex
 set display+=uhex
 
+"set relativenumber
 set number
 
 " Highlight all search matches
