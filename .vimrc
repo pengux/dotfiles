@@ -45,6 +45,10 @@ set clipboard=unnamedplus
 
 let mapleader = "\<Space>"
 
+" Disable polyglot for Go files
+let g:polyglot_disabled = ['go']
+
+
 " Required!
 call plug#begin('~/.vim/plugged')
 
@@ -413,9 +417,6 @@ let g:go_metalinter_command = 'golangci-lint'
 " neomake already run this on save
 let g:go_metalinter_autosave = 0
 let g:go_code_completion_enabled = 0
-
-" Disable polyglot for Go files
-let g:polyglot_disabled = ['go']
 
 " let g:go_highlight_functions = 1
 " let g:go_highlight_methods = 1
