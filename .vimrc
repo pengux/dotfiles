@@ -70,7 +70,7 @@ Plug 'mattn/emmet-vim' " trigger: <C-y-,>
 Plug 'sickill/vim-pasta' " Pasting in Vim with indentation adjusted to destination context.
 Plug 'Lokaltog/vim-easymotion'
 Plug 'miyakogi/conoline.vim' " Highlight current line
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'itchyny/lightline.vim'
