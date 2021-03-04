@@ -486,6 +486,7 @@ function LightlineNeomake()
     return '%{neomake#statusline#LoclistStatus()}'
 endfunction
 
+highlight LspErrorText NONE
 colorscheme wal
 
 " Terraform
