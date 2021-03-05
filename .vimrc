@@ -69,7 +69,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'mattn/emmet-vim' " trigger: <C-y-,>
 Plug 'sickill/vim-pasta' " Pasting in Vim with indentation adjusted to destination context.
 Plug 'Lokaltog/vim-easymotion'
-Plug 'miyakogi/conoline.vim' " Highlight current line
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
@@ -246,11 +245,6 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-
-" Conoline
-" let g:conoline_use_colorscheme_default_normal=1
-" let g:conoline_use_colorscheme_default_insert=1
-
 
 " Key Mappings
 
