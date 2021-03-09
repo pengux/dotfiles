@@ -26,6 +26,7 @@ set include			# include message in replies
 set mail_check=60 # to avoid lags using IMAP with some email providers (yahoo for example)
 auto_view text/html		# automatically show html (mailcap uses w3m)
 auto_view application/pgp-encrypted
+auto_view text/calendar application/ics
 unalternative_order *
 alternative_order multipart/mixed multipart/related text/plain text/enriched text/html
 bind index,pager i noop
