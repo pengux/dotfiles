@@ -480,8 +480,9 @@ function LightlineNeomake()
     return '%{neomake#statusline#LoclistStatus()}'
 endfunction
 
-highlight LspErrorText NONE
 colorscheme wal
+highlight LspErrorText NONE
+highlight Error ctermfg=0 ctermbg=1 guifg=White guibg=Red
 
 " Terraform
 let g:terraform_fmt_on_save=1
