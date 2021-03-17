@@ -201,7 +201,7 @@ endif
 if executable('terraform-lsp')
     au User lsp_setup call lsp#register_server({
 	\ 'name': 'tf',
-	\ 'cmd': {server_info->['terraform-lsp']},
+	\ 'cmd': {server_info->['terraform-ls']},
 	\ 'whitelist': ['tf', 'terraform'],
 	\ })
 endif
