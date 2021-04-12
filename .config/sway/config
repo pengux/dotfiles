@@ -273,6 +273,8 @@ bindsym $mod+r mode "resize"
 gaps outer 2
 gaps inner 2
 
+include /etc/sway/config.d/*
+
 # Autostart applications
 exec --no-startup-id libinput-gestures-setup restart
 exec systemctl --user start mako
@@ -309,6 +311,4 @@ client.focused $color0 $background $foreground $color7 $background
 # bar {
 #     swaybar_command systemctl --user start waybar
 # }
-
-include /etc/sway/config.d/*
 
