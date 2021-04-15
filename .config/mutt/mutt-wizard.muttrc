@@ -33,6 +33,8 @@ bind index,pager i noop
 bind index,pager g noop
 bind index \Cf noop
 
+macro index,pager X "<pipe-message>ripmime -i - -d "
+
 # General rebindings
 bind attach <return> view-mailcap
 bind attach l view-mailcap
