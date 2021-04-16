@@ -34,6 +34,7 @@ bind index,pager g noop
 bind index \Cf noop
 
 macro index,pager X "<pipe-message>ripmime -i - -d "
+macro attach W "<save-entry><bol>~/tmp/<eol>" "Save to tmp folder"
 
 # General rebindings
 bind attach <return> view-mailcap
