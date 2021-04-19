@@ -5,8 +5,8 @@
     // "width": 1280, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["network", "cpu", "memory", "pulseaudio", "battery", "clock", "tray"],
+    // "modules-center": ["sway/window"],
+    "modules-right": ["custom/fcitx", "network", "cpu", "memory", "pulseaudio", "battery", "clock", "tray"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -57,6 +57,12 @@
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
         "format-icons": ["", "", "", "", ""]
+    },
+	"custom/fcitx": {
+		"format": "<b>  </b>{}",
+		"interval": 30,
+		"signal": 1,
+		"exec": "fcitx -d -r"
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
