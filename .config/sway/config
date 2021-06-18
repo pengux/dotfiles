@@ -277,8 +277,6 @@ include /etc/sway/config.d/*
 # Autostart applications
 exec --no-startup-id libinput-gestures-setup restart
 exec systemctl --user start mako
-exec systemctl --user start swayidle
-exec systemctl --user start waybar
 exec --no-startup-id rot8
 exec xrdb -load ~/.Xresources
 exec protonmail-bridge
@@ -308,7 +306,7 @@ client.focused $color0 $background $foreground $color7 $background
 #         inactive_workspace #32323200 #32323200 #5c5c5c
 #     }
 # }
-# bar {
-#     swaybar_command systemctl --user start waybar
-# }
+bar {
+    swaybar_command systemctl --user start waybar
+}
 
