@@ -1,8 +1,16 @@
 # PATH
 export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$PATH
+export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.7.0/bin:$PATH:$HOME/.emacs.d/bin
 
-export EDITOR=vim
+export EDITOR=nvim
+export VISUAL=nvim
+export BROWSER=firefox
+
+# Wayland
+export QT_QPA_PLATFORM=wayland-egl
+export CLUTTER_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
+export XDG_CURRENT_DESKTOP=sway
 
 # GPG
 export GPG_TTY=$(tty)
@@ -11,6 +19,7 @@ export GPG_TTY=$(tty)
 KEYTIMEOUT=1
 setopt histignoredups
 setopt histignorespace
+setopt sharehistory
 setopt menucomplete
 HISTFILE=~/.zshhistory
 HISTSIZE=10000
@@ -57,6 +66,12 @@ alias gup='git pull --rebase'
 # Manage dotfiles with git bare repository
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+# Generate password
+alias newpass="head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -w 32 | head -n 1"
+
+# K8s alias
+alias k='kubectl'
+
 # Prompt
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
@@ -66,3 +81,15 @@ RPROMPT=\$vcs_info_msg_0_
 # PROMPT=\$vcs_info_msg_0_'%# '
 zstyle ':vcs_info:git:*' formats '%b'
 
+# Import colorscheme from 'wal' asynchronously
+# &   # Run the process in the background.
+# ( ) # Hide shell job control messages.
+(cat ~/.cache/wal/sequences &)
+
+# added by travis gem
+[ -f /home/peter/.travis/travis.sh ] && source /home/peter/.travis/travis.sh
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion

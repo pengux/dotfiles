@@ -1,0 +1,4 @@
+[binds]
+
+y = exec cat "$imv_current_file" | wl-copy
+S = exec cat "$imv_current_file" > ~/tmp/image.png

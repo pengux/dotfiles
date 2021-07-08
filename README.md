@@ -26,6 +26,8 @@ chmod +x $HOME/.config/polybar/scripts/check-all-updates.sh
 zplug install
 zplug load
 vim +PlugInstall +qall
+systemctl --user enable --now restic-backup.timer
+systemctl --user enable --now mailsync.timer
 ```
 
 ### Setup optional tools

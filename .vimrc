@@ -11,14 +11,13 @@ set timeoutlen=1000
 set ttimeoutlen=0
 syntax sync minlines=256 " start highlighting from 256 lines backwards
 set synmaxcol=300        " do not highlight very long lines
-set listchars=eol:Â,tab:?\ ,space:á
+set listchars=tab:>-,trail:.,precedes:<,extends:>
 set display+=uhex
 "
 " Display hidden unicode characters as hex
 set display+=uhex
 
-" Relative line numbers on, with current line showing current line number
-set relativenumber
+"set relativenumber
 set number
 
 " Highlight all search matches
@@ -42,9 +41,13 @@ set guioptions-=lrbRL
 " No audio bell
 set vb
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 let mapleader = "\<Space>"
+
+" Disable polyglot for Go files
+let g:polyglot_disabled = ['go']
+
 
 " Required!
 call plug#begin('~/.vim/plugged')
@@ -52,15 +55,11 @@ call plug#begin('~/.vim/plugged')
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
 
-" Syntax
-"Plug 'editorconfig/editorconfig-vim'
-Plug 'sheerun/vim-polyglot' " Replace all syntax plugins with this one
-
 " Tools
 Plug 'neomake/neomake'
 Plug 'tpope/vim-sleuth'
 Plug 'godlygeek/tabular'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround' " cs and ys, for example ysiw to surround word
 Plug 'tpope/vim-vinegar'
@@ -70,8 +69,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'mattn/emmet-vim' " trigger: <C-y-,>
 Plug 'sickill/vim-pasta' " Pasting in Vim with indentation adjusted to destination context.
 Plug 'Lokaltog/vim-easymotion'
-Plug 'miyakogi/conoline.vim' " Highlight current line
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'itchyny/lightline.vim'
@@ -83,6 +81,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'haya14busa/is.vim' " Better incremental search
 Plug 'osyo-manga/vim-anzu'
+Plug 'christoomey/vim-tmux-navigator'
 
 " JS
 Plug 'prettier/vim-prettier', {
@@ -103,6 +102,10 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+
+" Syntax
+"Plug 'editorconfig/editorconfig-vim'
+Plug 'sheerun/vim-polyglot' " Replace all syntax plugins with this one
 
 if executable('ctags')
     Plug 'prabirshrestha/asyncomplete-tags.vim'
@@ -198,7 +201,7 @@ endif
 if executable('terraform-lsp')
     au User lsp_setup call lsp#register_server({
 	\ 'name': 'tf',
-	\ 'cmd': {server_info->['terraform-lsp']},
+	\ 'cmd': {server_info->['terraform-ls']},
 	\ 'whitelist': ['tf', 'terraform'],
 	\ })
 endif
@@ -217,7 +220,7 @@ if executable('java') && filereadable(expand('~/lsp/eclipse.jdt.ls/plugins/org.e
 	\     '-jar',
 	\     expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.400.v20190515-0925.jar'),
 	\     '-configuration',
-	\     expand('~/lsp/eclipse.jdt.ls/config_win'),
+	\     expand('~/lsp/elipse.jdt.ls/config_win'),
 	\     '-data',
 	\     getcwd()
 	\ ]},
@@ -242,11 +245,6 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-
-" Conoline
-" let g:conoline_use_colorscheme_default_normal=1
-" let g:conoline_use_colorscheme_default_insert=1
-
 
 " Key Mappings
 
@@ -408,6 +406,7 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:go_def_mode = 'gopls'
 let g:go_info_mode = 'gopls'
+let g:go_rename_command = 'gopls'
 let g:go_metalinter_command = 'golangci-lint'
 " neomake already run this on save
 let g:go_metalinter_autosave = 0
@@ -433,9 +432,24 @@ nmap <Leader>t :BTags<CR>
 nmap <Leader>T :Tags<CR>
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!{.git,node_modules,vendor}/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
+function! GetJumps()
+  redir => cout
+  silent jumps
+  redir END
+  return reverse(split(cout, "\n")[1:])
+endfunction
+function! GoToJump(jump)
+    let jumpnumber = split(a:jump, '\s\+')[0]
+    execute "normal " . jumpnumber . "\<c-o>"
+endfunction
+command! Jumps call fzf#run(fzf#wrap({
+        \ 'source': GetJumps(),
+        \ 'sink': function('GoToJump')}))
+
+nmap <Leader>o :Jumps<CR>
+
 " Lightline
 let g:lightline = {
-	\ 'colorscheme': 'solarized',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
 	\             [ 'tabs_spaces', 'readonly', 'absolutepath', 'modified' ] ],
@@ -467,7 +481,12 @@ function LightlineNeomake()
 endfunction
 
 colorscheme wal
+highlight LspErrorText NONE
+highlight Error ctermfg=0 ctermbg=1 guifg=White guibg=Red
 
 " Terraform
 let g:terraform_fmt_on_save=1
 let g:terraform_align=1
+
+" Search for visually selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
