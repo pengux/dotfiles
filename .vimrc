@@ -78,7 +78,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'LeonB/vim-previous-buffer'
 Plug 'tpope/vim-speeddating'
 Plug 'dyng/ctrlsf.vim'
-Plug 'dylanaraps/wal.vim'
+"Plug 'dylanaraps/wal.vim'
 Plug 'haya14busa/is.vim' " Better incremental search
 Plug 'osyo-manga/vim-anzu'
 Plug 'christoomey/vim-tmux-navigator'
@@ -182,7 +182,7 @@ if executable('rls')
 	\ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
 	\ 'whitelist': ['rust'],
 	\ })
-  endif
+endif
 if executable('pyls')
     " pip install python-language-server
     au User lsp_setup call lsp#register_server({
@@ -225,6 +225,13 @@ if executable('java') && filereadable(expand('~/lsp/eclipse.jdt.ls/plugins/org.e
 	\     getcwd()
 	\ ]},
 	\ 'whitelist': ['java'],
+	\ })
+endif
+if executable('dart')
+	au User lsp_setup call lsp#register_server({
+	\ 'name': 'dart',
+	\ 'cmd': {server_info->['dart', 'language-server']},
+	\ 'whitelist': ['dart'],
 	\ })
 endif
 
@@ -480,7 +487,8 @@ function LightlineNeomake()
     return '%{neomake#statusline#LoclistStatus()}'
 endfunction
 
-colorscheme wal
+"colorscheme wal
+colorscheme darkblue
 highlight LspErrorText NONE
 highlight Error ctermfg=0 ctermbg=1 guifg=White guibg=Red
 
