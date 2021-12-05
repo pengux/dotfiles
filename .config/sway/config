@@ -279,9 +279,13 @@ exec --no-startup-id libinput-gestures-setup restart
 exec systemctl --user start mako
 exec --no-startup-id rot8
 exec xrdb -load ~/.Xresources
-exec protonmail-bridge
+exec alacritty
 exec mullvad-vpn
 exec fcitx -d -r
+exec firefox
+exec slack
+exec skypeforlinux
+exec signal-desktop
 
 include "$HOME/.cache/wal/colors-sway"
 exec wal -R
