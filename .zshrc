@@ -10,10 +10,17 @@ export BROWSER=firefox
 export QT_QPA_PLATFORM=wayland-egl
 export CLUTTER_BACKEND=wayland
 export MOZ_ENABLE_WAYLAND=1
+export MOZ_DBUS_REMOTE=1
 export XDG_CURRENT_DESKTOP=sway
 
 # GPG
 export GPG_TTY=$(tty)
+
+# Chrome
+export CHROME_EXECUTABLE=google-chrome-stable
+
+# Android SDK
+export ANDROID_HOME=$HOME/Android/Sdk
 
 # 10ms for key sequences
 KEYTIMEOUT=1
