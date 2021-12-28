@@ -80,6 +80,7 @@ Plug 'LeonB/vim-previous-buffer'
 Plug 'tpope/vim-speeddating'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'dylanaraps/wal.vim'
+Plug 'Mofiqul/vscode.nvim'
 Plug 'haya14busa/is.vim' " Better incremental search
 Plug 'osyo-manga/vim-anzu'
 Plug 'christoomey/vim-tmux-navigator'
@@ -88,9 +89,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
-
-" Go
-Plug 'fatih/vim-go', { 'for': 'go' }
 
 " Dart
 Plug 'dart-lang/dart-vim-plugin'
@@ -109,6 +107,11 @@ if has('nvim')
 	Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 	" Plug 'hrsh7th/cmp-vsnip'
 	" Plug 'hrsh7th/vim-vsnip'
+	"
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	
+	" Go
+	Plug 'ray-x/go.nvim'
 else
 	Plug 'prabirshrestha/async.vim'
 	Plug 'prabirshrestha/vim-lsp'
@@ -117,11 +120,15 @@ else
 	Plug 'prabirshrestha/asyncomplete-buffer.vim'
 	Plug 'prabirshrestha/asyncomplete-file.vim'
 	Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-endif
 
-" Syntax
-"Plug 'editorconfig/editorconfig-vim'
-Plug 'sheerun/vim-polyglot' " Replace all syntax plugins with this one
+	" Go
+	Plug 'fatih/vim-go', { 'for': 'go' }
+
+  " Syntax
+  "Plug 'editorconfig/editorconfig-vim'
+  Plug 'sheerun/vim-polyglot' " Replace all syntax plugins with this one
+
+endif
 
 if executable('ctags')
     Plug 'prabirshrestha/asyncomplete-tags.vim'
@@ -333,6 +340,31 @@ if has('nvim')
 set completeopt=menu,menuone,noselect
 
 lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = "maintained",
+
+    -- Install languages synchronously (only applied to `ensure_installed`)
+    -- sync_install = false,
+
+    -- List of parsers to ignore installing
+    -- ignore_install = { "javascript" },
+
+    highlight = {
+      -- `false` will disable the whole extension
+      enable = true,
+
+      -- list of language that will be disabled
+      -- disable = { "c", "rust" },
+
+      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+      -- Using this option may slow down your editor, and you may see some duplicate highlights.
+      -- Instead of true it can also be a list of languages
+      additional_vim_regex_highlighting = false,
+    },
+  }
+
   local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
   end
@@ -473,12 +505,13 @@ lua <<EOF
     buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	  buf_set_keymap('v', '<space>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    -- buf_set_keymap('n', '<space>di', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '<space>fo', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   end
 
@@ -495,13 +528,18 @@ lua <<EOF
 	}
   end
   nvim_lsp['dartls'].setup{
-  	cmd = { "dart", "language-server" },
+  cmd = { "dart", "language-server" },
 	capabilities = capabilities,
 	on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     }
   }
+
+  -- go.nvim
+  require('go').setup()
+  -- Import on save
+  vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
 EOF
 else
 	" Autocomplete
@@ -570,39 +608,40 @@ else
 				\ 'whitelist': ['*'],
 				\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
 				\ }))
+
+	" vim-go {
+	" au FileType go nmap <Leader>s <Plug>(go-implements)
+	" au FileType go nmap <Leader>i <Plug>(go-info)
+	" au FileType go nmap <Leader>gd <Plug>(go-doc)
+	" au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+	" au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+	" au FileType go nmap <leader>c <Plug>(go-coverage)
+	" au FileType go nmap gd <Plug>(go-def)
+	" au FileType go nmap <Leader>ds <Plug>(go-def-split)
+	" au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+	" au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+	let g:go_fmt_command = "goimports"
+	let g:go_fmt_fail_silently = 1
+	let g:go_def_mode = 'gopls'
+	let g:go_info_mode = 'gopls'
+	let g:go_rename_command = 'gopls'
+	let g:go_metalinter_command = 'golangci-lint'
+	" neomake already run this on save
+	let g:go_metalinter_autosave = 0
+	let g:go_code_completion_enabled = 0
+
+	" let g:go_highlight_functions = 1
+	" let g:go_highlight_methods = 1
+	" let g:go_highlight_structs = 1
+	" let g:go_highlight_interfaces = 1
+	" let g:go_highlight_operators = 1
+	let g:go_highlight_build_constraints = 1
+
+	" Snippets
+	let g:UltiSnipsExpandTrigger = "<C-x>"
+
 endif
-
-" Snippets
-let g:UltiSnipsExpandTrigger = "<C-x>"
-
-" vim-go {
-" au FileType go nmap <Leader>s <Plug>(go-implements)
-" au FileType go nmap <Leader>i <Plug>(go-info)
-" au FileType go nmap <Leader>gd <Plug>(go-doc)
-" au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-" au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-" au FileType go nmap <leader>c <Plug>(go-coverage)
-" au FileType go nmap gd <Plug>(go-def)
-" au FileType go nmap <Leader>ds <Plug>(go-def-split)
-" au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-" au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-
-let g:go_fmt_command = "goimports"
-let g:go_fmt_fail_silently = 1
-let g:go_def_mode = 'gopls'
-let g:go_info_mode = 'gopls'
-let g:go_rename_command = 'gopls'
-let g:go_metalinter_command = 'golangci-lint'
-" neomake already run this on save
-let g:go_metalinter_autosave = 0
-let g:go_code_completion_enabled = 0
-
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_interfaces = 1
-" let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
 
 " Dart
 let dart_html_in_string=v:true
@@ -671,7 +710,10 @@ function LightlineNeomake()
 endfunction
 
 "colorscheme wal
-colorscheme darkblue
+" colorscheme darkblue
+set termguicolors
+let g:vscode_style = "dark"
+colorscheme vscode
 highlight LspErrorText NONE
 highlight Error ctermfg=0 ctermbg=1 guifg=White guibg=Red
 
