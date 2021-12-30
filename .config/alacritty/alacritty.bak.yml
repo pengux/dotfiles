@@ -25,7 +25,7 @@ env:
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
 
-window:
+#window:
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
@@ -64,13 +64,6 @@ window:
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
   #decorations: full
-
-  # Background opacity
-  #
-  # Window opacity as a floating point number from `0.0` to `1.0`.
-  # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.9
-  background_opacity: 0.9
 
   # Startup Mode (changes require restart)
   #
@@ -206,9 +199,9 @@ window:
   #
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  cursor:
-    text: CellBackground
-    cursor: CellForeground
+  #cursor:
+  #  text: CellBackground
+  #  cursor: CellForeground
 
   # Vi mode cursor colors
   #
@@ -321,13 +314,6 @@ window:
   #
   #indexed_colors: []
 
-  # Transparent cell backgrounds
-  #
-  # Whether or not `window.opacity` applies to all cell backgrounds or only to
-  # the default background. When set to `true` all cells will be transparent
-  # regardless of their background color.
-  transparent_background_colors: true
-
 # Bell
 #
 # The bell is rung every time the BEL control character is received.
@@ -369,6 +355,10 @@ window:
   #
   #command: None
 
+# Background opacity
+#
+# Window opacity as a floating point number from `0.0` to `1.0`.
+# The value `0.0` is completely transparent and `1.0` is opaque.
 background_opacity: 0.9
 
 #selection:
@@ -445,9 +435,6 @@ background_opacity: 0.9
 # Send ESC (\x1b) before characters when alt is pressed.
 #alt_send_esc: true
 
-# Offer IPC using `alacritty msg` (unix only)
-#ipc_socket: true
-
 #mouse:
   # Click settings
   #
@@ -473,8 +460,8 @@ background_opacity: 0.9
   # Each hint must have a `regex` and either an `action` or a `command` field.
   # The fields `mouse`, `binding` and `post_processing` are optional.
   #
-  # The fields `command`, `binding.key`, `binding.mods`, `binding.mode` and
-  # `mouse.mods` accept the same values as they do in the `key_bindings` section.
+  # The fields `command`, `binding.key`, `binding.mods` and `mouse.mods` accept
+  # the same values as they do in the `key_bindings` section.
   #
   # The `mouse.enabled` field controls if the hint should be underlined while
   # the mouse with all `mouse.mods` keys held or the vi mode cursor is above it.
@@ -522,19 +509,13 @@ background_opacity: 0.9
 #   - Right
 #   - Numeric identifier such as `5`
 #
-# - `action` (see key bindings for actions not exclusive to mouse mode)
-#
-# - Mouse exclusive actions:
-#
-#   - ExpandSelection
-#       Expand the selection to the current mouse cursor location.
+# - `action` (see key bindings)
 #
 # And optionally:
 #
 # - `mods` (see key bindings)
 #mouse_bindings:
-#  - { mouse: Right,             action: ExpandSelection }
-#  - { mouse: Middle, mode: ~Vi, action: PasteSelection  }
+#  - { mouse: Middle, action: PasteSelection }
 
 # Key bindings
 #
@@ -603,8 +584,6 @@ background_opacity: 0.9
 #   - ToggleFullscreen
 #   - SpawnNewInstance
 #       Spawn a new instance of Alacritty.
-#   - CreateNewWindow
-#       Create a new Alacritty window from the current process.
 #   - ClearLogNotice
 #       Clear Alacritty's UI warning and error notice.
 #   - ClearSelection
@@ -754,11 +733,11 @@ key_bindings:
   #- { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
 
   # Vi Mode
-  #- { key: Space,  mods: Shift|Control, mode: ~Search,    action: ToggleViMode            }
   #- { key: Space,  mods: Shift|Control, mode: Vi|~Search, action: ScrollToBottom          }
+  #- { key: Space,  mods: Shift|Control, mode: ~Search,    action: ToggleViMode            }
   #- { key: Escape,                      mode: Vi|~Search, action: ClearSelection          }
-  #- { key: I,                           mode: Vi|~Search, action: ToggleViMode            }
   #- { key: I,                           mode: Vi|~Search, action: ScrollToBottom          }
+  #- { key: I,                           mode: Vi|~Search, action: ToggleViMode            }
   #- { key: C,      mods: Control,       mode: Vi|~Search, action: ToggleViMode            }
   #- { key: Y,      mods: Control,       mode: Vi|~Search, action: ScrollLineUp            }
   #- { key: E,      mods: Control,       mode: Vi|~Search, action: ScrollLineDown          }
