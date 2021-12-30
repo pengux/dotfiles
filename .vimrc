@@ -80,10 +80,10 @@ Plug 'LeonB/vim-previous-buffer'
 Plug 'tpope/vim-speeddating'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'dylanaraps/wal.vim'
-Plug 'Mofiqul/vscode.nvim'
 Plug 'haya14busa/is.vim' " Better incremental search
 Plug 'osyo-manga/vim-anzu'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'NLKNguyen/papercolor-theme'
 
 " JS
 Plug 'prettier/vim-prettier', {
@@ -98,6 +98,8 @@ Plug 'SirVer/ultisnips' " C-j and C-k to jump between placeholders
 Plug 'honza/vim-snippets'
 
 if has('nvim')
+	Plug 'Mofiqul/vscode.nvim'
+
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'hrsh7th/cmp-nvim-lsp'
 	Plug 'hrsh7th/cmp-buffer'
@@ -540,6 +542,12 @@ lua <<EOF
   require('go').setup()
   -- Import on save
   vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+
+  "colorscheme wal
+  " colorscheme darkblue
+  set termguicolors
+  let g:vscode_style = "dark"
+  colorscheme vscode
 EOF
 else
 	" Autocomplete
@@ -641,6 +649,10 @@ else
 	" Snippets
 	let g:UltiSnipsExpandTrigger = "<C-x>"
 
+	" set termguicolors
+	set t_Co=256
+	set background=dark
+	colorscheme PaperColor
 endif
 
 " Dart
@@ -679,6 +691,7 @@ nmap <Leader>o :Jumps<CR>
 
 " Lightline
 let g:lightline = {
+	\ 'colorscheme': 'PaperColor',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
 	\             [ 'tabs_spaces', 'readonly', 'absolutepath', 'modified' ] ],
@@ -709,11 +722,6 @@ function LightlineNeomake()
     return '%{neomake#statusline#LoclistStatus()}'
 endfunction
 
-"colorscheme wal
-" colorscheme darkblue
-set termguicolors
-let g:vscode_style = "dark"
-colorscheme vscode
 highlight LspErrorText NONE
 highlight Error ctermfg=0 ctermbg=1 guifg=White guibg=Red
 
