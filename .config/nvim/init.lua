@@ -234,7 +234,7 @@ vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin
 vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>f', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>f', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
@@ -395,6 +395,13 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>fo', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
+
+-- Show virtual text for lsp diagnostics only on hover
+vim.o.updatetime = 250
+vim.diagnostic.config({
+  virtual_text = false,
+})
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
