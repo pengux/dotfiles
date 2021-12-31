@@ -159,6 +159,8 @@ assign [title="Slack"] 3
 for_window [title="Slack"] focus
 assign [class="Skype"] 3
 for_window [class="Skype"] focus
+assign [class="Signal"] 3
+for_window [class="Signal"] focus
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -278,7 +280,6 @@ include /etc/sway/config.d/*
 exec --no-startup-id libinput-gestures-setup restart
 exec systemctl --user start mako
 exec --no-startup-id rot8
-exec xrdb -load ~/.Xresources
 exec alacritty
 exec mullvad-vpn
 exec fcitx -d -r
@@ -287,11 +288,7 @@ exec slack
 exec skypeforlinux
 exec signal-desktop
 
-include "$HOME/.cache/wal/colors-sway"
-exec wal -R
-# output * background $wallpaper fill
 output * bg `$HOME/.config/sway/random_bg` fill
-client.focused $color0 $background $foreground $color7 $background
 
 #
 # Status Bar:
@@ -311,6 +308,6 @@ client.focused $color0 $background $foreground $color7 $background
 #     }
 # }
 bar {
-    swaybar_command systemctl --user start waybar
+    swaybar_command waybar
 }
 
