@@ -82,6 +82,11 @@ require('packer').startup(function()
   }
   use 'nvim-lua/lsp-status.nvim'
   use 'gennaro-tedesco/nvim-peekup' -- peek at registers
+  use 'onsails/lspkind-nvim'
+  use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+
+  use {'akinsho/flutter-tools.nvim', requires = 'nvim-lua/plenary.nvim'} -- Flutter
+  use {'iamcco/markdown-preview.nvim', run='cd app && yarn install'}
 end)
 
 --Set highlight on search
@@ -231,8 +236,8 @@ vim.api.nvim_set_keymap('n', '<leader>sz', [[<cmd>lua require('telescope.builtin
 vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>f', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
 
@@ -309,6 +314,16 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
+local lspkind = require('lspkind')
+
+local source_mapping = {
+	buffer = "[Buffer]",
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[Lua]",
+	cmp_tabnine = "[TN]",
+	path = "[Path]",
+}
+
 local cmp = require 'cmp'
 cmp.setup {
   snippet = {
@@ -350,6 +365,21 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'buffer' },
+    { name = 'cmp_tabnine' },
+  },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.kind = lspkind.presets.default[vim_item.kind]
+      local menu = source_mapping[entry.source.name]
+      if entry.source.name == 'cmp_tabnine' then
+        if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+          menu = entry.completion_item.data.detail .. ' ' .. menu
+        end
+        vim_item.kind = ''
+      end
+      vim_item.menu = menu
+      return vim_item
+    end
   },
 }
 
@@ -519,3 +549,6 @@ require'lualine'.setup({
 -- nvim-peekup
 vim.g.peekup_paste_after = '""'
 require('nvim-peekup.config').on_keystroke["delay"] = '1ms'
+
+-- flutter-tools
+require("flutter-tools").setup{}
