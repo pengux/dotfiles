@@ -282,6 +282,12 @@ vim.api.nvim_set_keymap(
 	[[<cmd>lua require('telescope.builtin').grep_string()<CR>]],
 	{ noremap = true, silent = true }
 )
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>sj",
+	[[<cmd>lua require('telescope.builtin').jumplist()<CR>]],
+	{ noremap = true, silent = true }
+)
 -- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
@@ -378,10 +384,10 @@ local source_mapping = {
 local cmp = require("cmp")
 cmp.setup({
 	preselect = cmp.PreselectMode.None,
-	select = true,
-	completion = {
-		completeopt = "menu,menuone,noinsert",
-	},
+	-- select = true,
+	-- completion = {
+	-- 	completeopt = "menu,menuone,noinsert",
+	-- },
 	snippet = {
 		expand = function(args)
 			vim.fn["vsnip#anonymous"](args.body)
@@ -396,7 +402,6 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
 		}),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
