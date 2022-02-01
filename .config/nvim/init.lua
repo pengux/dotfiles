@@ -87,7 +87,7 @@ require("packer").startup(function()
 
 	use({ "akinsho/flutter-tools.nvim", requires = "nvim-lua/plenary.nvim" }) -- Flutter
 	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
-	use("dbeniamine/cheat.sh-vim")
+	use("dbeniamine/cheat.sh-vim") -- <leader>KB
 end)
 
 --Set highlight on search
