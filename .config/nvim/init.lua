@@ -176,6 +176,13 @@ vim.o.expandtab = false
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 
+vim.cmd([[
+augroup Indentation
+    autocmd!
+    autocmd FileType html,css,javascript,php set expandtab shiftwidth=2 tabstop=2
+augroup END
+]])
+
 --Map blankline
 vim.g.indent_blankline_char = "┊"
 vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
