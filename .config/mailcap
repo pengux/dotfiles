@@ -6,7 +6,7 @@ video/*; setsid mpv --quiet %s &; copiousoutput
 application/pdf; zathura %s ;
 application/pgp-encrypted; gpg -d '%s'; copiousoutput;
 application/ms-tnef; tnef -w %s
-application/vnd.openxmlformats-officedocument.wordprocessingml.document; xdg-open %s
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; xdg-open %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; mimeo %s
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; mimeo %s
 text/calendar; mutt-ics; copiousoutput
 application/ics; mutt-ics; copiousoutput
