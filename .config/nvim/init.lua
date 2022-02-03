@@ -88,6 +88,17 @@ require("packer").startup(function()
 	use({ "akinsho/flutter-tools.nvim", requires = "nvim-lua/plenary.nvim" }) -- Flutter
 	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
 	use("dbeniamine/cheat.sh-vim") -- <leader>KB
+	use({
+		"AckslD/nvim-neoclip.lua",
+		requires = {
+			-- you'll need at least one of these
+			-- {'nvim-telescope/telescope.nvim'},
+			-- {'ibhagwan/fzf-lua'},
+		},
+		config = function()
+			require("neoclip").setup()
+		end,
+	})
 end)
 
 --Set highlight on search
@@ -286,6 +297,12 @@ vim.api.nvim_set_keymap(
 	"n",
 	"<leader>sj",
 	[[<cmd>lua require('telescope.builtin').jumplist()<CR>]],
+	{ noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>p",
+	[[<cmd>lua require('telescope').extensions.neoclip.default()<CR>]],
 	{ noremap = true, silent = true }
 )
 -- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
