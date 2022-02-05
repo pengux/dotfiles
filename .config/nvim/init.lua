@@ -65,6 +65,10 @@ require("packer").startup(function()
 	use("phaazon/hop.nvim") -- Easymotion
 	use("cohama/lexima.vim") -- auto close (brackets) pairs
 
+	use("mfussenegger/nvim-dap")
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use({ "leoluz/nvim-dap-go", requires = { "mfussenegger/nvim-dap" } })
+
 	use("ray-x/go.nvim") -- Go
 
 	use({
@@ -613,8 +617,30 @@ require("nvim_comment").setup()
 vim.g.user_emmet_install_global = 0
 vim.cmd([[autocmd FileType html,css,php EmmetInstall]])
 
+--nvim-dap
+local dap = require("dap")
+dap.defaults.fallback.external_terminal = {
+	command = "/usr/bin/alacritty",
+	args = { "-e" },
+}
+vim.api.nvim_set_keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>dr", "<cmd>lua require'dap'.run_to_cursor()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>dsu", "<cmd>lua require'dap'.step_out()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", { noremap = true })
+
+--nvim-dap-ui
+require("dapui").setup()
+
+--nvim-dap-go
+require("dap-go").setup()
+
 --go.nvim
-require("go").setup()
+require("go").setup({
+	dap_debug_keymap = true,
+})
 -- Import on save
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
 
