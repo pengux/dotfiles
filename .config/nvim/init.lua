@@ -39,6 +39,16 @@ require("packer").startup(function()
 			})
 		end,
 	})
+
+	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+	use({
+		"TimUntersberger/neogit",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+		},
+	})
+
 	-- Highlight, edit, and navigate code using a fast incremental parsing library
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	-- Additional textobjects for treesitter
@@ -699,5 +709,12 @@ require("flutter-tools").setup({
 		-- cmd = { "dart", "language-server" },
 		on_attach = on_attach,
 		capabilities = capabilities,
+	},
+})
+
+--neogit
+require("neogit").setup({
+	integrations = {
+		diffview = true,
 	},
 })
