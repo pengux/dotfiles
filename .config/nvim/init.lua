@@ -643,9 +643,62 @@ vim.api.nvim_set_keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr
 vim.api.nvim_set_keymap("n", "<leader>dsu", "<cmd>lua require'dap'.step_out()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", { noremap = true })
+vim.api.nvim_set_keymap("v", "<leader>de", "<cmd>lua require'dapui'.eval()<cr>", { noremap = true })
+
+dap.adapters.dlv_spawn = function(cb)
+	local stdout = vim.loop.new_pipe(false)
+	local handle
+	local pid_or_err
+	local port = 38697
+	local opts = {
+		stdio = { nil, stdout },
+		args = { "dap", "-l", "127.0.0.1:" .. port },
+		detached = true,
+	}
+	handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
+		stdout:close()
+		handle:close()
+		if code ~= 0 then
+			print("dlv exited with code", code)
+		end
+	end)
+	assert(handle, "Error running dlv: " .. tostring(pid_or_err))
+	stdout:read_start(function(err, chunk)
+		assert(not err, err)
+		if chunk then
+			vim.schedule(function()
+				--- You could adapt this and send `chunk` to somewhere else
+				require("dap.repl").append(chunk)
+			end)
+		end
+	end)
+	-- Wait for delve to start
+	vim.defer_fn(function()
+		cb({ type = "server", host = "127.0.0.1", port = port })
+	end, 100)
+end
+
+dap.configurations.go = {
+	{
+		type = "dlv_spawn",
+		name = "Launch dlv & file",
+		request = "launch",
+		program = "${file}",
+	},
+}
 
 --nvim-dap-ui
-require("dapui").setup()
+local dapui = require("dapui")
+dapui.setup()
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	dapui.open()
+end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+-- 	dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+-- 	dapui.close()
+-- end
 
 --nvim-dap-go
 require("dap-go").setup()
@@ -674,10 +727,10 @@ local null_ls = require("null-ls")
 null_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	debug = true,
 	sources = {
 		null_ls.builtins.diagnostics.golangci_lint,
 		null_ls.builtins.formatting.stylua,
+		-- null_ls.builtins.formatting.dart_format,
 	},
 })
 
@@ -708,6 +761,9 @@ require("nvim-peekup.config").on_keystroke["delay"] = "1ms"
 
 --flutter-tools
 require("flutter-tools").setup({
+	debugger = {
+		enabled = true,
+	},
 	lsp = {
 		-- cmd = { "dart", "language-server" },
 		on_attach = on_attach,
@@ -717,7 +773,12 @@ require("flutter-tools").setup({
 
 --neogit
 require("neogit").setup({
+	disable_commit_confirmation = true,
 	integrations = {
 		diffview = true,
 	},
 })
+vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>Neogit<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>gl", "<cmd>Neogit log<cr>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>gp", "<cmd>Neogit push<cr>", { noremap = true })
