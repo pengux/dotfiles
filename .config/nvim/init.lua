@@ -141,6 +141,9 @@ vim.o.splitbelow = true
 
 vim.o.scrolloff = 5
 
+--Hide ~ at the end of buffer
+vim.o.fcs = "eob: "
+
 --Backup, Swap and View Files
 --Create dirs
 vim.cmd([[
