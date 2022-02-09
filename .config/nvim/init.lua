@@ -7,8 +7,8 @@ end
 
 vim.cmd([[
 augroup Packer
-	autocmd!
-	autocmd BufWritePost init.lua PackerCompile
+  autocmd!
+  autocmd BufWritePost init.lua PackerCompile
 augroup end
 ]])
 
@@ -147,10 +147,10 @@ vim.o.fcs = "eob: "
 --Backup, Swap and View Files
 --Create dirs
 vim.cmd([[
-silent execute '!mkdir -p $HOME/.vim/.backup'
-silent execute '!mkdir -p $HOME/.vim/.swap'
-silent execute '!mkdir -p $HOME/.vim/.views'
-silent execute '!mkdir -p $HOME/.vim/.undo'
+  silent execute '!mkdir -p $HOME/.vim/.backup'
+  silent execute '!mkdir -p $HOME/.vim/.swap'
+  silent execute '!mkdir -p $HOME/.vim/.views'
+  silent execute '!mkdir -p $HOME/.vim/.undo'
 ]])
 vim.o.backup = true
 vim.o.undofile = true
@@ -194,8 +194,8 @@ vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
 --Highlight on yank
 vim.cmd([[
 augroup YankHighlight
-	autocmd!
-	autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  autocmd!
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 augroup end
 ]])
 
@@ -203,13 +203,6 @@ augroup end
 vim.o.expandtab = false
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-
-vim.cmd([[
-augroup Indentation
-    autocmd!
-    autocmd FileType html,css,javascript,php set expandtab shiftwidth=2 tabstop=2
-augroup END
-]])
 
 --Map blankline
 vim.g.indent_blankline_char = "┊"
@@ -234,21 +227,21 @@ let g:netrw_preview=1           " open previews vertically
 autocmd FileType netrw setl bufhidden=wipe
 
 fun! ExOpen()
-	let g:last_bufnr = bufnr('%')
-	exe "normal \<Plug>VinegarUp"
+  let g:last_bufnr = bufnr('%')
+  exe "normal \<Plug>VinegarUp"
 endf
 
 fun! ExClose()
-	if &filetype == "netrw"
-		exe ':b' . g:last_bufnr
-	endif
+  if &filetype == "netrw"
+    exe ':b' . g:last_bufnr
+  endif
 endf
 
 augroup netrw
-	autocmd!
-	autocmd filetype netrw nmap <buffer> <Leader>e :call ExClose()<CR>
-	autocmd filetype netrw nmap <buffer> l <CR>
-	autocmd filetype netrw nmap <buffer> h <Plug>VinegarUp
+autocmd!
+  autocmd filetype netrw nmap <buffer> <Leader>e :call ExClose()<CR>
+  autocmd filetype netrw nmap <buffer> l <CR>
+  autocmd filetype netrw nmap <buffer> h <Plug>VinegarUp
 augroup END
 ]])
 
