@@ -113,6 +113,8 @@ require("packer").startup(function()
 			require("neoclip").setup()
 		end,
 	})
+
+	use({ "nvim-orgmode/orgmode" })
 end)
 
 --Set highlight on search
@@ -327,11 +329,23 @@ vim.api.nvim_set_keymap(
 
 --Treesitter configuration
 --Parsers must be installed manually via :TSInstall
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.org = {
+	install_info = {
+		url = "https://github.com/milisims/tree-sitter-org",
+		revision = "f110024d539e676f25b72b7c80b0fd43c34264ef",
+		files = { "src/parser.c", "src/scanner.cc" },
+	},
+	filetype = "org",
+}
+
 require("nvim-treesitter.configs").setup({
 	-- One of "all", "maintained" (parsers with maintainers), or a list of languages
 	ensure_installed = "maintained",
 	highlight = {
 		enable = true, -- false will disable the whole extension
+		disable = { "org" }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+		additional_vim_regex_highlighting = { "org" }, -- Required since TS highlighter doesn't support all syntax features (conceal)
 	},
 	incremental_selection = {
 		enable = true,
@@ -775,3 +789,9 @@ vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>Neogit<cr>", { noremap = true }
 vim.api.nvim_set_keymap("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>gl", "<cmd>Neogit log<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>gp", "<cmd>Neogit push<cr>", { noremap = true })
+
+--orgmode
+require("orgmode").setup({
+	org_agenda_files = { "~/org/*" },
+	org_default_notes_file = "~/org/refile.org",
+})
