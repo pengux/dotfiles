@@ -630,6 +630,18 @@ vim.api.nvim_set_keymap(
 	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
 	{}
 )
+vim.api.nvim_set_keymap(
+	"v",
+	"<leader>w",
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
+	{}
+)
+vim.api.nvim_set_keymap(
+	"v",
+	"<leader>W",
+	"<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
+	{}
+)
 
 require("nvim_comment").setup()
 
