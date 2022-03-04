@@ -329,16 +329,6 @@ vim.api.nvim_set_keymap(
 
 --Treesitter configuration
 --Parsers must be installed manually via :TSInstall
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.org = {
-	install_info = {
-		url = "https://github.com/milisims/tree-sitter-org",
-		revision = "f110024d539e676f25b72b7c80b0fd43c34264ef",
-		files = { "src/parser.c", "src/scanner.cc" },
-	},
-	filetype = "org",
-}
-
 require("nvim-treesitter.configs").setup({
 	-- One of "all", "maintained" (parsers with maintainers), or a list of languages
 	ensure_installed = "maintained",
@@ -807,3 +797,4 @@ require("orgmode").setup({
 	org_agenda_files = { "~/org/*" },
 	org_default_notes_file = "~/org/refile.org",
 })
+require("orgmode").setup_ts_grammar()
