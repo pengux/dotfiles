@@ -282,7 +282,7 @@ exec systemctl --user start mako
 exec --no-startup-id rot8
 exec alacritty
 exec mullvad-vpn
-exec fcitx -d -r
+exec fcitx5 -d -r
 exec firefox
 exec slack
 exec skypeforlinux
