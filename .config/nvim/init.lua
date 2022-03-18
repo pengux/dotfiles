@@ -107,7 +107,7 @@ require("packer").startup(function()
 		"AckslD/nvim-neoclip.lua",
 		requires = {
 			-- you'll need at least one of these
-			-- {'nvim-telescope/telescope.nvim'},
+			{ "nvim-telescope/telescope.nvim" },
 			-- {'ibhagwan/fzf-lua'},
 		},
 		config = function()
