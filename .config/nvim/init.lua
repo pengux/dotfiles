@@ -173,6 +173,11 @@ vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Search selected text
+vim.cmd([[
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+]])
+
 --Easier cursor navigation between split windows using CTRL and h,j,k, or l
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true })
