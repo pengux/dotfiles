@@ -259,6 +259,7 @@ vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
 --Telescope
 require("telescope").setup({
 	defaults = {
+		layout_strategy = "vertical",
 		mappings = {
 			i = {
 				["<C-u>"] = false,
