@@ -506,7 +506,7 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
-		"gi",
+		"si",
 		[[<cmd>lua require('telescope.builtin').lsp_implementations{wrap_results=true}()<CR>]],
 		opts
 	)
@@ -519,7 +519,7 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
-		"gr",
+		"sr",
 		[[<cmd>lua require('telescope.builtin').lsp_references({wrap_results=true})<CR>]],
 		opts
 	)
