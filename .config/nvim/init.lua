@@ -62,14 +62,7 @@ require("packer").startup(function()
 	use("hrsh7th/cmp-vsnip")
 	use("hrsh7th/vim-vsnip")
 	use("rafamadriz/friendly-snippets")
-	use({
-		"blackCauldron7/surround.nvim",
-		config = function()
-			require("surround").setup({
-				mappings_style = "sandwich",
-			})
-		end,
-	}) -- visual select then s<char>
+	use("tpope/vim-surround") -- visual select then s<char>, or cs<from><to>
 	use("andymass/vim-matchup")
 	use("AndrewRadev/splitjoin.vim") -- trigger: gS and gJ
 	use("phaazon/hop.nvim") -- Easymotion
