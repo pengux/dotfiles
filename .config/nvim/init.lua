@@ -194,6 +194,7 @@ vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
 
 -- Map key for saving changes
 vim.api.nvim_set_keymap("n", "<leader>.", ":w<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>q", ":q<CR>", { noremap = true })
 
 --Highlight on yank
 vim.cmd([[
@@ -535,7 +536,7 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>df", [[<cmd>lua vim.diagnostic.open_float()<CR>]], opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
