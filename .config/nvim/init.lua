@@ -192,6 +192,9 @@ vim.api.nvim_set_keymap("n", "<leader>li", ":set list! list?<CR>", { noremap = t
 vim.api.nvim_set_keymap("n", "y", '"+y', { noremap = true })
 vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
 
+-- Map key for saving changes
+vim.api.nvim_set_keymap("n", "<leader>.", ":w<CR>", { noremap = true })
+
 --Highlight on yank
 vim.cmd([[
 augroup YankHighlight
@@ -347,7 +350,7 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 	indent = {
-		enable = true,
+		enable = false, -- EXPERIMENTAL, not working properly yet
 	},
 	textobjects = {
 		select = {
