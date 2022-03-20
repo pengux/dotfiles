@@ -95,7 +95,7 @@ require("packer").startup(function()
 
 	use({ "akinsho/flutter-tools.nvim", requires = "nvim-lua/plenary.nvim" }) -- Flutter
 	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
-	use("dbeniamine/cheat.sh-vim") -- <leader>KB
+	use("dbeniamine/cheat.sh-vim") -- <leader>KB, <leader>KE to send first error, <leader>l + <leader>h to navigate in cheat buffer
 	use({
 		"AckslD/nvim-neoclip.lua",
 		requires = {
