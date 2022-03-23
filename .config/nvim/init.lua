@@ -507,8 +507,8 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
-		"si",
-		[[<cmd>lua require('telescope.builtin').lsp_implementations{wrap_results=true}()<CR>]],
+		"<leader>si",
+		[[<cmd>lua require('telescope.builtin').lsp_implementations({wrap_results=true})<CR>]],
 		opts
 	)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
@@ -520,12 +520,12 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
-		"sr",
+		"<leader>sr",
 		[[<cmd>lua require('telescope.builtin').lsp_references({wrap_results=true})<CR>]],
 		opts
 	)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "v", "<space>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "v", "<leader>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
