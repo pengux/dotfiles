@@ -559,10 +559,11 @@ vim.diagnostic.config({
 
 --nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 --Enable the following language servers
-local servers = { "gopls", "terraformls", "rls" }
+local servers = { "gopls", "terraformls", "rls", "html" }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,
