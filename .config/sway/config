@@ -149,9 +149,9 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # App assigned workspaces
-assign [app_id="Waterfowaterfox-g4 2
-for_window [app_id="Waterfowaterfox-g4 focus
-for_window [app_id="Waterfowaterfox-g4 inhibit_idle fullscreen
+assign [app_id="waterfox"] 2
+for_window [app_id="waterfox"] focus
+for_window [app_id="waterfox"] inhibit_idle fullscreen
 assign [title="Chromium"] 2
 for_window [title="Chromium"] focus
 
