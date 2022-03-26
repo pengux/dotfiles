@@ -786,7 +786,7 @@ require("flutter-tools").setup({
 		enabled = true,
 	},
 	lsp = {
-		-- cmd = { "dart", "language-server" },
+		cmd = { "dart", "language-server" },
 		on_attach = on_attach,
 		capabilities = capabilities,
 	},
