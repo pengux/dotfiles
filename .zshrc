@@ -24,14 +24,17 @@ export ANDROID_HOME=$HOME/Android/Sdk
 
 # 10ms for key sequences
 KEYTIMEOUT=1
+
+setopt menucomplete
+
+# History settings
 setopt histignoredups
 setopt histignorespace
-setopt sharehistory
-setopt menucomplete
+setopt incappendhistorytime
+setopt extendedhistory
 HISTFILE=~/.zshhistory
 HISTSIZE=10000
 SAVEHIST=10000
-setopt appendhistory
 
 source ~/.zplug/init.zsh
 zplug "plugins/gitfast", from:oh-my-zsh
