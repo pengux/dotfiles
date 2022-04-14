@@ -109,6 +109,7 @@ require("packer").startup(function()
 	})
 
 	use({ "nvim-orgmode/orgmode" })
+	use({ "github/copilot.vim" })
 end)
 
 --Set highlight on search
@@ -810,3 +811,9 @@ require("orgmode").setup({
 	org_default_notes_file = "~/org/refile.org",
 })
 require("orgmode").setup_ts_grammar()
+
+--github copilot
+vim.cmd([[
+imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+]])
