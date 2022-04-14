@@ -28,6 +28,7 @@ KEYTIMEOUT=1
 setopt menucomplete
 
 # History settings
+# fc -RI to manually import history from other terminals
 setopt histignoredups
 setopt histignorespace
 setopt incappendhistorytime
