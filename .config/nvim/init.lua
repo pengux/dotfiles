@@ -570,7 +570,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 --Enable the following language servers
-local servers = { "gopls", "terraformls", "rls", "html" }
+local servers = { "gopls", "terraformls", "rls", "html", "graphql" }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,
