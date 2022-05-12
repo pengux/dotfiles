@@ -342,7 +342,7 @@ vim.api.nvim_set_keymap(
 --Parsers must be installed manually via :TSInstall
 require("nvim-treesitter.configs").setup({
 	-- One of "all", "maintained" (parsers with maintainers), or a list of languages
-	ensure_installed = "maintained",
+	ensure_installed = "all",
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = { "org" }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
