@@ -110,6 +110,12 @@ require("packer").startup(function()
 
 	use({ "nvim-orgmode/orgmode" })
 	use({ "github/copilot.vim" })
+	use({
+		"tyru/open-browser-github.vim",
+		requires = {
+			{ "tyru/open-browser.vim" },
+		},
+	})
 end)
 
 --Set highlight on search
