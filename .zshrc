@@ -38,6 +38,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 source ~/.zplug/init.zsh
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/gitfast", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/vi-mode", from:oh-my-zsh
@@ -48,6 +49,10 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "b4b4r07/httpstat", \
+    as:command, \
+    use:'(*).sh', \
+    rename-to:'$1'
 zplug load
 
 # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
@@ -84,16 +89,24 @@ alias newpass="head -c 500 /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | fold -
 alias k='kubectl'
 
 # Prompt
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
+# autoload -Uz vcs_info
+# precmd_vcs_info() { vcs_info }
+# precmd_functions+=( precmd_vcs_info )
+# setopt prompt_subst
+# # RPROMPT=\$vcs_info_msg_0_
 # PROMPT=\$vcs_info_msg_0_'%# '
-zstyle ':vcs_info:git:*' formats '%b'
+# zstyle ':vcs_info:git:*' formats '%b'
 
-# added by travis gem
-[ -f /home/peter/.travis/travis.sh ] && source /home/peter/.travis/travis.sh
+autoload -U promptinit; promptinit
+## optionally define some options
+# PURE_CMD_MAX_EXEC_TIME=10
+## change the path color
+# zstyle :prompt:pure:path color white
+## change the color for both `prompt:success` and `prompt:error`
+# zstyle ':prompt:pure:prompt:*' color cyan
+## turn on git stash status
+# zstyle :prompt:pure:git:stash show yes
+# prompt pure
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
