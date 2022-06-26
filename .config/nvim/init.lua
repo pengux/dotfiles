@@ -736,6 +736,7 @@ require("dap-go").setup()
 require("go").setup({
 	dap_debug_keymap = true,
 	run_in_floaterm = true,
+	-- tag_transform = true,
 })
 -- Import on save
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
