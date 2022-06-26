@@ -26,7 +26,8 @@ require("packer").startup(function()
 	use("mattn/emmet-vim")
 	-- UI to select things (files, grep results, open buffers...)
 	use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
-	use("Mofiqul/vscode.nvim") -- Theme inspired by VSCode
+	-- use("Mofiqul/vscode.nvim") -- Theme inspired by VSCode
+	use("dracula/vim")
 	-- Add indentation guides even on blank lines
 	use("lukas-reineke/indent-blankline.nvim")
 	-- Add git related info in the signs columns and popups
@@ -165,9 +166,9 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/.undo/"
 
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
-vim.g.vscode_style = "dark"
-vim.g.vscode_transparent = 1
-vim.cmd([[colorscheme vscode]])
+-- vim.g.vscode_style = "dark"
+-- vim.g.vscode_transparent = 1
+vim.cmd([[colorscheme dracula]])
 
 --Remap space as leader key
 vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
@@ -775,7 +776,7 @@ end
 
 require("lualine").setup({
 	options = {
-		theme = "vscode",
+		theme = "dracula",
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 	},
