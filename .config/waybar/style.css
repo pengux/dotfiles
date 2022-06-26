@@ -1,6 +1,4 @@
 /* use the below line for semi-transparent waybar */
-@import url('../../.cache/wal/colors-waybar.css');
-
 * {
   border: none;
   border-radius: 0;

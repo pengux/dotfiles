@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     // "modules-center": ["sway/window"],
-    "modules-right": ["custom/fcitx", "network", "cpu", "memory", "pulseaudio", "battery", "clock", "tray"],
+    "modules-right": ["network", "cpu", "memory", "disk", "pulseaudio", "battery", "clock", "tray"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -40,9 +40,13 @@
         // "tooltip": false
     },
     "memory": {
-        "format": "{}% ",
+        "format": "{}% ",
 		"on-click": "alacritty -e htop"
     },
+	"disk": {
+		"format": "{percentage_free}% ",
+		"on-click": "alacritty --hold -e df -h"
+	},
     "battery": {
 		"bat": "BAT0",
         "states": {
@@ -58,12 +62,6 @@
         "format-full": "",
         "format-icons": ["", "", "", "", ""],
         "on-click": "alacritty --hold -e acpi -i -b"
-    },
-	"custom/fcitx": {
-		"format": "<b>  </b>{}",
-		"interval": 30,
-		"signal": 1,
-		"exec": "fcitx -d -r"
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
