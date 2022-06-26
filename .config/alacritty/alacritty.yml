@@ -11,7 +11,7 @@
 #import:
 #  - /path/to/alacritty.yml
 import:
-  - ~/.config/alacritty/themes/vscode.yml
+  - ~/.config/alacritty/themes/dracula.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
