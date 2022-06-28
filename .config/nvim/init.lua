@@ -218,6 +218,14 @@ vim.o.expandtab = false
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 
+--Folds
+vim.o.foldmethod = 'indent'
+vim.o.foldenable = false
+-- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.wo.foldcolumn = "1"
+-- vim.wo.foldlevel = 99 -- feel free to decrease the value
+-- vim.wo.foldenable = true
+
 --Map blankline
 vim.g.indent_blankline_char = "┊"
 vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
