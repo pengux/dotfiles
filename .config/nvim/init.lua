@@ -788,6 +788,7 @@ require("lualine").setup({
     theme = "dracula",
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
+    globalstatus = true,
   },
   sections = {
     lualine_x = { "require'lsp-status'.status()", "GetExpandTab()", "encoding", "fileformat", "filetype" },
