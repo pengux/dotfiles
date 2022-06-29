@@ -8,9 +8,9 @@
   min-height: 0;
 }
 
-window#waybar {
+#waybar {
   background-color: #000;
-  opacity: 0.8;
+  opacity: 0.5;
   border-bottom: 3px solid rgba(100, 114, 125, 0.5);
   color: #ffffff;
   transition-property: background-color;
