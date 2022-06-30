@@ -108,6 +108,25 @@ autoload -U promptinit; promptinit
 # zstyle :prompt:pure:git:stash show yes
 # prompt pure
 
+# Ranger
+# Allow deciding whether your shell should change to ranger’s directory on quit
+# https://github.com/ranger/ranger/wiki/Integration-with-other-programs#allow-deciding-whether-your-shell-should-change-to-rangers-directory-on-quit
+function ranger {
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+    )
+    
+    ${ranger_cmd[@]} "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
+}
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
