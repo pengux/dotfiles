@@ -19,9 +19,11 @@ set $right l
 set $term alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu dmenu-wl_run -i -h 30
+# set $menu dmenu-wl_run -i -h 30
+set $menu "rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
 #-fn "Inconsolata Nerd Font Mono"
-set $passmenu passmenu -h 30
+set $passmenu tessen
+set $bitwardenmenu rofi-rbw
 # -fn "Inconsolata Nerd Font Mono"
 
 ### Styles
@@ -95,7 +97,8 @@ bindsym $mod+Shift+c kill
 
 # Start your launcher
 bindsym $mod+space exec $menu
-bindsym $mod+p exec $passmenu
+bindsym $mod+p exec $bitwardenmenu
+bindsym $mod+Shift+p exec $passmenu
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
