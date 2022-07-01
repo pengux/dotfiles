@@ -21,11 +21,10 @@ dotfiles push
 ```
 ### First-time setup
 ```
-chmod +x $HOME/.config/polybar/launch.sh
-chmod +x $HOME/.config/polybar/scripts/check-all-updates.sh
 zplug install
 zplug load
-vim +PlugInstall +qall
+nvim -c ":PackerInstall"
+nvim -c "set ft=go | :GoUpdateBinaries"
 systemctl --user enable --now restic-backup.timer
 systemctl --user enable --now mailsync.timer
 ```
@@ -33,5 +32,11 @@ systemctl --user enable --now mailsync.timer
 ### Setup optional tools
 ```
 go get github.com/joho/godotenv/cmd/godotenv
-systemctl --user enable --now restic-backup-timer
+```
+
+### To update tools
+```
+zplug update
+nvim -c ":PackerInstall"
+nvim -c "set ft=go | :GoUpdateBinaries"
 ```
