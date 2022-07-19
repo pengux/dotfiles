@@ -91,6 +91,7 @@ require("packer").startup(function()
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
   })
   use("nvim-lua/lsp-status.nvim")
+  use("gennaro-tedesco/nvim-peekup") -- peek at registers
   use("onsails/lspkind-nvim")
   use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
 
@@ -197,8 +198,8 @@ vim.o.listchars = "tab:>→,trail:.,precedes:<,extends:>"
 vim.api.nvim_set_keymap("n", "<leader>li", ":set list! list?<CR>", { noremap = true })
 
 --Yank to clipboard
-vim.api.nvim_set_keymap("n", "y", '"+y', { noremap = true })
-vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
+-- vim.api.nvim_set_keymap("n", "y", '"+y', { noremap = true })
+-- vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
 
 -- Map key for saving changes
 vim.api.nvim_set_keymap("n", "<leader>.", ":w<CR>", { noremap = true })
@@ -805,6 +806,10 @@ require("lualine").setup({
     lualine_x = { "require'lsp-status'.status()", "GetExpandTab()", "encoding", "fileformat", "filetype" },
   },
 })
+
+--nvim-peekup
+-- vim.g.peekup_open = '<leader>"'
+require("nvim-peekup.config").on_keystroke["delay"] = "1ms"
 
 --flutter-tools
 require("flutter-tools").setup({
