@@ -91,7 +91,6 @@ require("packer").startup(function()
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
   })
   use("nvim-lua/lsp-status.nvim")
-  use("gennaro-tedesco/nvim-peekup") -- peek at registers
   use("onsails/lspkind-nvim")
   use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
 
@@ -804,10 +803,6 @@ require("lualine").setup({
     lualine_x = { "require'lsp-status'.status()", "GetExpandTab()", "encoding", "fileformat", "filetype" },
   },
 })
-
---nvim-peekup
-vim.g.peekup_paste_after = '""'
-require("nvim-peekup.config").on_keystroke["delay"] = "1ms"
 
 --flutter-tools
 require("flutter-tools").setup({
