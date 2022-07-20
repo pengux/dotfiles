@@ -271,13 +271,16 @@ augroup END
 vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
 
 --Telescope
+local actions_layout = require "telescope.actions.layout"
 require("telescope").setup({
   defaults = {
     layout_strategy = "vertical",
+    path_display = { "truncate" },
     mappings = {
       i = {
         ["<C-u>"] = false,
         ["<C-d>"] = false,
+        ["<C-h>"] = actions_layout.toggle_preview,
       },
     },
   },
@@ -527,7 +530,7 @@ local on_attach = function(client, bufnr)
     bufnr,
     "n",
     "<leader>si",
-    [[<cmd>lua require('telescope.builtin').lsp_implementations({wrap_results=true})<CR>]],
+    [[<cmd>lua require('telescope.builtin').lsp_implementations({wrap_results=true,show_line=false})<CR>]],
     opts
   )
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
@@ -540,7 +543,7 @@ local on_attach = function(client, bufnr)
     bufnr,
     "n",
     "<leader>sr",
-    [[<cmd>lua require('telescope.builtin').lsp_references({wrap_results=true})<CR>]],
+    [[<cmd>lua require('telescope.builtin').lsp_references({wrap_results=true,show_line=false})<CR>]],
     opts
   )
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
