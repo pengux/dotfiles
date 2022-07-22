@@ -198,6 +198,7 @@ vim.o.listchars = "tab:>→,trail:.,precedes:<,extends:>"
 vim.api.nvim_set_keymap("n", "<leader>li", ":set list! list?<CR>", { noremap = true })
 
 --Yank to clipboard
+vim.o.clipboard = "unnamedplus"
 -- vim.api.nvim_set_keymap("n", "y", '"+y', { noremap = true })
 -- vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
 
