@@ -78,7 +78,7 @@ require("packer").startup(function()
   use("ray-x/go.nvim") -- Go
 
   use({
-    "windwp/nvim-spectre",
+    "nvim-pack/nvim-spectre",
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       require("spectre").setup()
