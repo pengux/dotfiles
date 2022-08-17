@@ -292,6 +292,7 @@ exec waterfox-g4
 exec slack
 exec skypeforlinux
 exec signal-desktop
+exec blueman-applet
 
 output * bg `$HOME/.config/sway/random_bg` fill
 
