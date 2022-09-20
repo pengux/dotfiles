@@ -18,7 +18,6 @@ require("packer").startup(function()
   use("tpope/vim-sleuth") -- Autodetect indentation settings
   use("tpope/vim-fugitive") -- Git commands in nvim
   use("tpope/vim-unimpaired")
-  use("tpope/vim-vinegar") -- Improve netrw
   use("ludovicchabant/vim-gutentags") -- Automatic tags management
   use("mg979/vim-visual-multi") -- Multiple cursors
   use("godlygeek/tabular") -- Align text
@@ -26,6 +25,7 @@ require("packer").startup(function()
   use("mattn/emmet-vim")
   -- UI to select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
+  use { "nvim-telescope/telescope-file-browser.nvim" }
   -- use("Mofiqul/vscode.nvim") -- Theme inspired by VSCode
   use("dracula/vim")
   -- Add indentation guides even on blank lines
@@ -233,46 +233,13 @@ vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
 vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 
---netrw and vim-vinegar setup
-vim.cmd([[
-noremap <silent> <Leader>e :call ExOpen()<CR>
-" Override settings to show line numbers
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-let g:netrw_browse_split = 0    " open files in same buffer
-let g:netrw_dirhistmax=0      " keep more history
-let g:netrw_altfile=1           " last edited file '#'
-let g:netrw_use_errorwindow=0   " suppress error window
-let g:netrw_liststyle=0         " thin (change to 3 for tree)
-let g:netrw_banner=0            " no banner
-let g:netrw_altv=1              " open files on right
-let g:netrw_preview=1           " open previews vertically
-" Delete the netrw buffer when hidden
-autocmd FileType netrw setl bufhidden=wipe
-
-fun! ExOpen()
-  let g:last_bufnr = bufnr('%')
-  exe "normal \<Plug>VinegarUp"
-endf
-
-fun! ExClose()
-  if &filetype == "netrw"
-    exe ':b' . g:last_bufnr
-  endif
-endf
-
-augroup netrw
-autocmd!
-  autocmd filetype netrw nmap <buffer> <Leader>e :call ExClose()<CR>
-  autocmd filetype netrw nmap <buffer> l <CR>
-  autocmd filetype netrw nmap <buffer> h <Plug>VinegarUp
-augroup END
-]])
-
 --Gutentags
 vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
 
 --Telescope
 local actions_layout = require "telescope.actions.layout"
+local fb_actions = require "telescope".extensions.file_browser.actions
+local actions = require "telescope.actions"
 require("telescope").setup({
   defaults = {
     layout_strategy = "vertical",
@@ -285,7 +252,27 @@ require("telescope").setup({
       },
     },
   },
+  extensions = {
+    file_browser = {
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          ["<C-H>"] = fb_actions.toggle_hidden,
+          ["<C-h>"] = fb_actions.goto_parent_dir,
+          ["<C-l>"] = actions.select_default,
+        },
+        ["n"] = {
+          ["H"] = fb_actions.toggle_hidden,
+          ["h"] = fb_actions.goto_parent_dir,
+          ["l"] = actions.select_default,
+        },
+      },
+    },
+  },
 })
+
+require("telescope").load_extension("file_browser")
 
 --Telescope
 vim.api.nvim_set_keymap(
@@ -349,6 +336,13 @@ vim.api.nvim_set_keymap(
   "<leader>?",
   [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]],
   { noremap = true, silent = true }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<space>e",
+  ":Telescope file_browser<CR>",
+  { noremap = true }
 )
 -- vim.api.nvim_set_keymap('n', '<leader>f', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
 
