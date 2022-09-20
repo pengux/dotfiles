@@ -580,7 +580,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 --Enable the following language servers
-local servers = { "terraformls", "rls", "html", "graphql" }
+local servers = { "terraformls", "rls", "graphql" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
@@ -596,6 +596,12 @@ lspconfig['gopls'].setup {
       buildFlags = { "-tags=integration" },
     },
   },
+}
+
+lspconfig['html'].setup {
+  cmd = { "vscode-html-languageserver", "--stdio" },
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 -- lspconfig['dartls'].setup {
