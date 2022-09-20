@@ -405,6 +405,9 @@ require("nvim-treesitter.configs").setup({
       -- [options]
     },
   },
+  context_commentstring = {
+    enable = true
+  },
 })
 
 --Set completeopt to have a better completion experience
