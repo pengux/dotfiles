@@ -17,17 +17,16 @@ require("packer").startup(function()
   use("wbthomason/packer.nvim") -- Package manager
   use("tpope/vim-sleuth") -- Autodetect indentation settings
   use("tpope/vim-fugitive") -- Git commands in nvim
+  use("kyazdani42/nvim-web-devicons")
+  use("echasnovski/mini.nvim")
   use("tpope/vim-unimpaired")
   use("ludovicchabant/vim-gutentags") -- Automatic tags management
   use("mg979/vim-visual-multi") -- Multiple cursors
   use("godlygeek/tabular") -- Align text
-  use("terrortylor/nvim-comment")
   use("mattn/emmet-vim")
   -- UI to select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
   use { "nvim-telescope/telescope-file-browser.nvim" }
-  -- use("Mofiqul/vscode.nvim") -- Theme inspired by VSCode
-  use("dracula/vim")
   -- Add indentation guides even on blank lines
   use("lukas-reineke/indent-blankline.nvim")
   -- Add git related info in the signs columns and popups
@@ -64,11 +63,8 @@ require("packer").startup(function()
   use("hrsh7th/cmp-vsnip")
   use("hrsh7th/vim-vsnip")
   use("rafamadriz/friendly-snippets")
-  use("tpope/vim-surround") -- visual select then s<char>, or cs<from><to>
   use("andymass/vim-matchup")
   use("AndrewRadev/splitjoin.vim") -- trigger: gS and gJ
-  use("phaazon/hop.nvim") -- Easymotion
-  use("cohama/lexima.vim") -- auto close (brackets) pairs
 
   use("mfussenegger/nvim-dap")
   use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
@@ -86,10 +82,6 @@ require("packer").startup(function()
   }) -- Search and replace
 
   use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- for linting and formatting purposes
-  use({
-    "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-  })
   use("nvim-lua/lsp-status.nvim")
   use("gennaro-tedesco/nvim-peekup") -- peek at registers
   use("onsails/lspkind-nvim")
@@ -168,7 +160,7 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/.undo/"
 vim.o.termguicolors = true
 -- vim.g.vscode_style = "dark"
 -- vim.g.vscode_transparent = 1
-vim.cmd([[colorscheme dracula]])
+vim.cmd([[colorscheme minischeme]])
 
 --Remap space as leader key
 vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
@@ -235,6 +227,54 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 --Gutentags
 vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
+
+-- Mini
+require('mini.ai').setup()
+require('mini.comment').setup({})
+require('mini.jump2d').setup({})
+require('mini.pairs').setup({})
+require('mini.starter').setup({})
+require('mini.surround').setup({})
+require('mini.tabline').setup({})
+
+vim.api.nvim_set_keymap('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+
+GetExpandTab = function()
+  return vim.o.expandtab and "." or "→"
+end
+
+require('mini.statusline').setup({
+  -- Content of statusline as functions which return statusline string. See
+  -- `:h statusline` and code of default contents (used instead of `nil`).
+  content = {
+    -- Content for active window
+    active = function()
+      local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+      local git           = MiniStatusline.section_git({ trunc_width = 75 })
+      local diagnostics   = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+      local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
+      local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+      local expandTab     = GetExpandTab()
+
+      return MiniStatusline.combine_groups({
+        { hl = mode_hl, strings = { mode } },
+        { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
+        '%<', -- Mark general truncate point
+        { hl = 'MiniStatuslineFilename', strings = { filename } },
+        '%=', -- End left alignment
+        { hl = 'MiniStatuslineFileinfo', strings = { expandTab, fileinfo } },
+      })
+    end,
+    -- Content for inactive window(s)
+    inactive = nil,
+  },
+  -- Whether to use icons by default
+  use_icons = true,
+  -- Whether to set Vim's settings for statusline (make it always shown with
+  -- 'laststatus' set to 2). To use global statusline in Neovim>=0.7.0, set
+  -- this to `false` and 'laststatus' to 3.
+  set_vim_settings = true,
+})
 
 --Telescope
 local actions_layout = require "telescope.actions.layout"
@@ -452,7 +492,7 @@ if cmp then
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-Space>"] = cmp.mapping.complete({}),
       ["<C-e>"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
@@ -647,41 +687,6 @@ lspconfig.sumneko_lua.setup({
   },
 })
 
---hop
-require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
--- vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
--- vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
--- vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
--- vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
--- vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
--- vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>w",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>W",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "v",
-  "<leader>w",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
-  {}
-)
-vim.api.nvim_set_keymap(
-  "v",
-  "<leader>W",
-  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
-  {}
-)
-
-require("nvim_comment").setup()
-
 --Emmet
 vim.g.user_emmet_install_global = 0
 vim.cmd([[autocmd FileType html,css,php EmmetInstall]])
@@ -747,7 +752,7 @@ dap.configurations.go = {
 local dapui = require("dapui")
 dapui.setup()
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open("tray")
+  dapui.open({})
 end
 -- dap.listeners.before.event_terminated["dapui_config"] = function()
 -- 	dapui.close()
@@ -795,23 +800,6 @@ null_ls.setup({
 --lsp-status
 require("lsp-status").config({
   status_symbol = "",
-})
-
---lualine (statusbar)
-GetExpandTab = function()
-  return vim.o.expandtab and "spaces" or "tabs"
-end
-
-require("lualine").setup({
-  options = {
-    theme = "dracula",
-    section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "" },
-    globalstatus = true,
-  },
-  sections = {
-    lualine_x = { "require'lsp-status'.status()", "GetExpandTab()", "encoding", "fileformat", "filetype" },
-  },
 })
 
 --nvim-peekup
