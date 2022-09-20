@@ -254,6 +254,7 @@ require("telescope").setup({
   },
   extensions = {
     file_browser = {
+      hidden = true,
       mappings = {
         ["i"] = {
           ["<C-H>"] = fb_actions.toggle_hidden,
