@@ -172,7 +172,7 @@ vim.cmd([[
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 ]])
 
---Easier cursor navigation between split windows using CTRL and h,j,k, or l
+-- Easier cursor navigation between split windows using CTRL and h,j,k, or l
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true })
@@ -180,8 +180,8 @@ vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { noremap = true })
 -- Zoom a window by editing it in a new tab
 vim.api.nvim_set_keymap("n", "<C-w>z", ":tab sp<CR>", {})
 
---Buffer mappings
---Remap for dealing with word wrap
+-- Buffer mappings
+-- Remap for dealing with word wrap
 vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
@@ -189,7 +189,7 @@ vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true,
 vim.o.listchars = "tab:>→,trail:.,precedes:<,extends:>"
 vim.api.nvim_set_keymap("n", "<leader>li", ":set list! list?<CR>", { noremap = true })
 
---Yank to clipboard
+-- Yank to clipboard
 vim.o.clipboard = "unnamedplus"
 -- vim.api.nvim_set_keymap("n", "y", '"+y', { noremap = true })
 -- vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
@@ -198,7 +198,30 @@ vim.o.clipboard = "unnamedplus"
 vim.api.nvim_set_keymap("n", "<leader>.", ":w<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>q", ":q<CR>", { noremap = true })
 
---Highlight on yank
+-- Buffers navigation
+vim.api.nvim_set_keymap("n", "<S-l>", ":bnext<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<S-h>", ":bprevious<CR>", { noremap = true })
+
+-- Tabs navigation
+vim.api.nvim_set_keymap("n", "<A-h>", ":tabprev<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<A-l>", ":tabnext<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<A-c>", ":tabnew<CR>", { noremap = true })
+
+-- Terminal mappings
+vim.api.nvim_set_keymap('t', '<ESC>', [[<C-\><C-n>]], { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cc', ":term<CR>A", { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cs', ":split<CR>:wincmd j<CR>:term<CR>A", { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ct', ":tabnew<CR>:term<CR>A", { noremap = true })
+vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-n><C-w>l]], { noremap = true })
+vim.api.nvim_set_keymap('t', '<C-h>', [[<C-\><C-n><C-w>h]], { noremap = true })
+vim.api.nvim_set_keymap('t', '<C-k>', [[<C-\><C-n><C-w>k]], { noremap = true })
+vim.api.nvim_set_keymap('t', '<C-j>', [[<C-\><C-n><C-w>j]], { noremap = true })
+
+-- Remap clipboard paste in command mode
+vim.api.nvim_set_keymap('i', '<A-v>', [[<C-r>+]], { noremap = true })
+vim.api.nvim_set_keymap('c', '<A-v>', [[<C-r>+]], { noremap = true })
+
+-- Highlight on yank
 vim.cmd([[
 augroup YankHighlight
   autocmd!
