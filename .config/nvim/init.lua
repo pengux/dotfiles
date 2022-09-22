@@ -253,6 +253,7 @@ vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
 
 -- Mini
 require('mini.ai').setup()
+require('mini.bufremove').setup({})
 require('mini.comment').setup({})
 require('mini.jump2d').setup({})
 require('mini.pairs').setup({})
@@ -260,6 +261,7 @@ require('mini.starter').setup({})
 require('mini.surround').setup({})
 require('mini.tabline').setup({})
 
+vim.api.nvim_set_keymap('n', '<leader>bd', [[:<C-u>lua MiniBufremove.delete()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
 
 GetExpandTab = function()
