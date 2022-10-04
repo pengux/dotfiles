@@ -110,6 +110,7 @@ require("packer").startup(function()
       { "tyru/open-browser.vim" },
     },
   })
+  use({ "samjwill/nvim-unception" }) -- opening files in terminal in same instance of neovim
 end)
 
 --Set highlight on search
