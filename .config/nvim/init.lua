@@ -303,6 +303,7 @@ require('mini.statusline').setup({
 })
 
 --Telescope
+local telescope = require('telescope')
 local actions_layout = require "telescope.actions.layout"
 local fb_actions = require "telescope".extensions.file_browser.actions
 local actions = require "telescope.actions"
@@ -338,7 +339,7 @@ require("telescope").setup({
   },
 })
 
-require("telescope").load_extension("file_browser")
+telescope.load_extension("file_browser")
 
 --Telescope
 vim.api.nvim_set_keymap(
@@ -389,12 +390,7 @@ vim.api.nvim_set_keymap(
   [[<cmd>lua require('telescope.builtin').jumplist()<CR>]],
   { noremap = true, silent = true }
 )
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>p",
-  [[<cmd>lua require('telescope').extensions.neoclip.default()<CR>]],
-  { noremap = true, silent = true }
-)
+vim.keymap.set({'n', 'v'}, '<leader>p', telescope.extensions.neoclip.default, { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
