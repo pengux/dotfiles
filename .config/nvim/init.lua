@@ -574,7 +574,7 @@ vim.diagnostic.config({
 --nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 --Enable the following language servers
 local servers = { "terraformls", "rls", "graphql" }
