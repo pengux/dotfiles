@@ -111,6 +111,36 @@ require("packer").startup(function()
     },
   })
   use({ "samjwill/nvim-unception" }) -- opening files in terminal in same instance of neovim
+  use {
+    "nvim-neorg/neorg",
+    tag = "*",
+    run = ":Neorg sync-parsers",
+    ft = "norg",
+    after = "nvim-treesitter", -- You may want to specify Telescope here as well
+    config = function()
+      require('neorg').setup {
+        load = {
+          ["core.defaults"] = {},
+          ["core.norg.dirman"] = {
+            config = {
+              workspaces = {
+                default = "~/.norg",
+              }
+            }
+          },
+          ["core.presenter"] = {},
+          ["core.norg.completion"] = {
+            config = {
+              engine = "nvim-cmp"
+            }
+          },
+          ["core.norg.concealer"] = {},
+          ["core.export"] = {},
+        }
+      }
+    end
+  }
+  use({ "ray-x/aurora" })
 end)
 
 --Set highlight on search
@@ -161,16 +191,16 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/.undo/"
 vim.o.termguicolors = true
 -- vim.g.vscode_style = "dark"
 -- vim.g.vscode_transparent = 1
-vim.cmd([[colorscheme minischeme]])
+vim.cmd([[colorscheme aurora]])
 
 -- Search selected text
 vim.cmd([[
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+vnoremap // y/\V<C-R>=escape(@",'/\')<cr><cr>
 ]])
 
 --Toggle show whitespace characters
 vim.o.listchars = "tab:>→,trail:.,precedes:<,extends:>"
-vim.api.nvim_set_keymap("n", "<leader>li", ":set list! list?<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>li", ":set list! list?<cr>", { noremap = true })
 
 -- Yank to clipboard
 vim.o.clipboard = "unnamedplus"
