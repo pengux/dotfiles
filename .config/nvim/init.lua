@@ -49,6 +49,8 @@ require("packer").startup(function()
     },
   })
 
+  use("phaazon/hop.nvim") -- Easymotion
+
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   -- Additional textobjects for treesitter
@@ -220,7 +222,7 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", keymap_opts)
 vim.keymap.set("n", "<C-k>", "<C-w>k", keymap_opts)
 vim.keymap.set("n", "<C-l>", "<C-w>l", keymap_opts)
 -- Zoom a window by editing it in a new tab
-vim.keymap.set("n", "<C-w>z", ":tab sp<CR>", {})
+vim.keymap.set("n", "<C-w>z", ":tab sp<cr>", {})
 
 -- Buffer mappings
 -- Remap for dealing with word wrap
@@ -228,23 +230,23 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = t
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- Map key for saving changes
-vim.keymap.set("n", "<leader>.", ":w<CR>", keymap_opts)
-vim.keymap.set("n", "<leader>q", ":q<CR>", keymap_opts)
+vim.keymap.set("n", "<leader>.", ":w<cr>", keymap_opts)
+vim.keymap.set("n", "<leader>q", ":q<cr>", keymap_opts)
 
 -- Buffers navigation
-vim.keymap.set("n", "<S-l>", ":bnext<CR>", keymap_opts)
-vim.keymap.set("n", "<S-h>", ":bprevious<CR>", keymap_opts)
+vim.keymap.set("n", "<S-l>", ":bnext<cr>", keymap_opts)
+vim.keymap.set("n", "<S-h>", ":bprevious<cr>", keymap_opts)
 
 -- Tabs navigation
-vim.keymap.set("n", "<A-h>", ":tabprev<CR>", keymap_opts)
-vim.keymap.set("n", "<A-l>", ":tabnext<CR>", keymap_opts)
-vim.keymap.set("n", "<A-c>", ":tabnew<CR>", keymap_opts)
+vim.keymap.set("n", "<A-h>", ":tabprev<cr>", keymap_opts)
+vim.keymap.set("n", "<A-l>", ":tabnext<cr>", keymap_opts)
+vim.keymap.set("n", "<A-c>", ":tabnew<cr>", keymap_opts)
 
 -- Terminal mappings
 vim.keymap.set("t", "<ESC>", [[<C-\><C-n>]], keymap_opts)
-vim.keymap.set("n", "<leader>cc", ":term<CR>A", keymap_opts)
-vim.keymap.set("n", "<leader>cs", ":split<CR>:wincmd j<CR>:term<CR>A", keymap_opts)
-vim.keymap.set("n", "<leader>ct", ":tabnew<CR>:term<CR>A", keymap_opts)
+vim.keymap.set("n", "<leader>cc", ":term<cr>A", keymap_opts)
+vim.keymap.set("n", "<leader>cs", ":split<cr>:wincmd j<cr>:term<cr>A", keymap_opts)
+vim.keymap.set("n", "<leader>ct", ":tabnew<cr>:term<cr>A", keymap_opts)
 vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], keymap_opts)
 vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], keymap_opts)
 vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], keymap_opts)
@@ -294,14 +296,14 @@ vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
 require('mini.ai').setup()
 require('mini.bufremove').setup({})
 require('mini.comment').setup({})
-require('mini.jump2d').setup({})
+-- require('mini.jump2d').setup({})
 require('mini.pairs').setup({})
 require('mini.starter').setup({})
 require('mini.surround').setup({})
 require('mini.tabline').setup({})
 
-vim.api.nvim_set_keymap('n', '<leader>bd', [[:<C-u>lua MiniBufremove.delete()<CR>]], { noremap = true })
-vim.api.nvim_set_keymap('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>bd', [[:<C-u>lua MiniBufremove.delete()<cr>]], { noremap = true })
+vim.api.nvim_set_keymap('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<cr>]], { noremap = true })
 
 GetExpandTab = function()
   return vim.o.expandtab and "." or "→"
@@ -392,10 +394,10 @@ vim.keymap.set("n", "<leader>sj", telescope_builtin.jumplist, keymap_opts)
 vim.keymap.set({ "n", "v" }, "<leader>p", telescope.extensions.neoclip.default, keymap_opts)
 vim.keymap.set("n", "<leader>sg", telescope_builtin.live_grep, keymap_opts)
 vim.keymap.set("n", "<leader>?", telescope_builtin.oldfiles, keymap_opts)
-vim.keymap.set("n", "<leader>e", "<cmd>Telescope file_browser<CR>", keymap_opts)
+vim.keymap.set("n", "<leader>e", "<cmd>Telescope file_browser<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>de", telescope_builtin.diagnostics, keymap_opts)
--- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<cr>]], { noremap = true, silent = true })
 
 --Treesitter configuration
 --Parsers must be installed manually via :TSInstall
@@ -505,7 +507,7 @@ if cmp then
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete({}),
       ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm({
+      ["<cr>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
       }),
       ["<Tab>"] = cmp.mapping(function(fallback)
@@ -584,11 +586,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("v", "<leader>ca", vim.lsp.buf.range_code_action, opts)
   vim.keymap.set("n", "<leader>fo", vim.lsp.buf.formatting, opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 
   --Format on save
   if client.resolved_capabilities.document_formatting then
@@ -823,6 +825,20 @@ require("orgmode").setup_ts_grammar()
 
 --github copilot
 vim.cmd([[
-imap <silent><script><expr> <C-x> copilot#Accept("\<CR>")
+imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
 ]])
+
+-- hop
+local hop = require("hop")
+hop.setup({ keys = "etovxqpdygfblzhckisuran" })
+-- vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+-- vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+-- vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
+-- vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
+-- vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+-- vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+vim.keymap.set({ "n", "v" }, "<cr>",
+  function() return hop.hint_char1({ direction = require 'hop.hint'.HintDirection.AFTER_CURSOR }) end, keymap_opts)
+vim.keymap.set({ "n", "v" }, "<a-cr>",
+  function() return hop.hint_char1({ direction = require 'hop.hint'.HintDirection.BEFORE_CURSOR }) end, keymap_opts)
