@@ -140,7 +140,8 @@ require("packer").startup(function()
       }
     end
   }
-  use({ "ray-x/aurora" })
+
+  use({ "folke/tokyonight.nvim" })
 end)
 
 --Set highlight on search
@@ -189,9 +190,7 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/.undo/"
 
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
--- vim.g.vscode_style = "dark"
--- vim.g.vscode_transparent = 1
-vim.cmd([[colorscheme aurora]])
+vim.cmd([[colorscheme tokyonight]])
 
 -- Search selected text
 vim.cmd([[
