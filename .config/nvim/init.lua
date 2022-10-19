@@ -49,8 +49,6 @@ require("packer").startup(function()
     },
   })
 
-  use("phaazon/hop.nvim") -- Easymotion
-
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   -- Additional textobjects for treesitter
@@ -293,10 +291,15 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
 
 -- Mini
+local mini_jump2d = require('mini.jump2d')
 require('mini.ai').setup()
 require('mini.bufremove').setup({})
 require('mini.comment').setup({})
--- require('mini.jump2d').setup({})
+mini_jump2d.setup({
+  mappings = {
+    start_jumping = '',
+  },
+})
 require('mini.pairs').setup({})
 require('mini.starter').setup({})
 require('mini.surround').setup({})
@@ -304,6 +307,9 @@ require('mini.tabline').setup({})
 
 vim.api.nvim_set_keymap('n', '<leader>bd', [[:<C-u>lua MiniBufremove.delete()<cr>]], { noremap = true })
 vim.api.nvim_set_keymap('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<cr>]], { noremap = true })
+vim.keymap.set({ "n", "v" }, "<cr>",
+  function() return mini_jump2d.start(mini_jump2d.builtin_opts.single_character) end, keymap_opts)
+vim.cmd [[hi MiniJump2dSpot gui=undercurl,bold,italic]]
 
 GetExpandTab = function()
   return vim.o.expandtab and "." or "→"
@@ -828,17 +834,3 @@ vim.cmd([[
 imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
 ]])
-
--- hop
-local hop = require("hop")
-hop.setup({ keys = "etovxqpdygfblzhckisuran" })
--- vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
--- vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
--- vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
--- vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", {})
--- vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
--- vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-vim.keymap.set({ "n", "v" }, "<cr>",
-  function() return hop.hint_char1({ direction = require 'hop.hint'.HintDirection.AFTER_CURSOR }) end, keymap_opts)
-vim.keymap.set({ "n", "v" }, "<a-cr>",
-  function() return hop.hint_char1({ direction = require 'hop.hint'.HintDirection.BEFORE_CURSOR }) end, keymap_opts)
