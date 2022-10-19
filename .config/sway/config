@@ -166,6 +166,8 @@ assign [class="Skype"] 3
 for_window [class="Skype"] focus
 assign [class="Signal"] 3
 for_window [class="Signal"] focus
+assign [title="WhatsApp for Linux"] 3
+for_window [title="WhatsApp for Linux"] focus
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -292,7 +294,9 @@ exec waterfox-g4
 exec slack
 exec skypeforlinux
 exec signal-desktop
+exec whatsapp-for-linux
 exec blueman-applet
+#exec autotiling-rs
 
 output * bg `$HOME/.config/sway/random_bg` fill
 
