@@ -190,6 +190,13 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/.undo/"
 
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
+require("tokyonight").setup({
+  transparent = true,
+  styles = {
+    sidebars = "transparent",
+    floats = "transparent",
+  },
+})
 vim.cmd([[colorscheme tokyonight]])
 
 -- Search selected text
