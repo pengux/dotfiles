@@ -36,16 +36,16 @@
     },
     "cpu": {
         "format": "{usage}% ",
-		"on-click": "alacritty -e htop"
+		"on-click": "wezterm start -- htop"
         // "tooltip": false
     },
     "memory": {
         "format": "{}% ",
-		"on-click": "alacritty -e htop"
+		"on-click": "wezterm start -- htop"
     },
 	"disk": {
 		"format": "{percentage_free}% ",
-		"on-click": "alacritty --hold -e df -h"
+		"on-click": "czkawka-gui"
 	},
     "battery": {
 		"bat": "BAT0",
@@ -61,7 +61,7 @@
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
         "format-icons": ["", "", "", "", ""],
-        "on-click": "alacritty --hold -e acpi -i -b"
+        "on-click": "wezterm start -- acpi -i -b"
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
