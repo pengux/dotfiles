@@ -48,7 +48,7 @@ return {
       name = 'unix',
     },
   },
-  default_gui_startup_args = { 'connect', 'unix' },
+  -- default_gui_startup_args = { 'connect', 'unix' },
 
   skip_close_confirmation_for_processes_named = {
     'bash',
