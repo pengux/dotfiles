@@ -15,6 +15,10 @@ augroup end
 local use = require("packer").use
 require("packer").startup(function()
   use("wbthomason/packer.nvim") -- Package manager
+
+  -- util packages
+  use("nvim-lua/plenary.nvim")
+
   use("tpope/vim-sleuth") -- Autodetect indentation settings
   use("tpope/vim-fugitive") -- Git commands in nvim
   use("kyazdani42/nvim-web-devicons")
