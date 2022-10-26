@@ -72,7 +72,6 @@ require("packer").startup(function()
   use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
   use({ "leoluz/nvim-dap-go", requires = { "mfussenegger/nvim-dap" } })
 
-  use("ray-x/guihua.lua") -- float term, codeaction and codelens gui support
   use("ray-x/go.nvim") -- Go
   use("simrat39/rust-tools.nvim")
 
