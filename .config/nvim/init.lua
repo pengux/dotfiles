@@ -28,9 +28,9 @@ require("packer").startup(function()
   use("mg979/vim-visual-multi") -- Multiple cursors
   use("godlygeek/tabular") -- Align text
   use("mattn/emmet-vim")
+  use("kevinhwang91/rnvimr") -- Ranger file manager
   -- UI to select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
-  use { "nvim-telescope/telescope-file-browser.nvim" }
   -- Add indentation guides even on blank lines
   use("lukas-reineke/indent-blankline.nvim")
   -- Add git related info in the signs columns and popups
@@ -43,7 +43,6 @@ require("packer").startup(function()
       })
     end,
   })
-
   use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
   use({
     "TimUntersberger/neogit",
@@ -76,6 +75,7 @@ require("packer").startup(function()
 
   use("ray-x/guihua.lua") -- float term, codeaction and codelens gui support
   use("ray-x/go.nvim") -- Go
+  use("simrat39/rust-tools.nvim")
 
   use({
     "nvim-pack/nvim-spectre",
@@ -210,12 +210,10 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<cr><cr>
 
 --Toggle show whitespace characters
 vim.o.listchars = "tab:>→,trail:.,precedes:<,extends:>"
-vim.api.nvim_set_keymap("n", "<leader>li", ":set list! list?<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>li", ":set list! list?<cr>", keymap_opts)
 
 -- Yank to clipboard
 vim.o.clipboard = "unnamedplus"
--- vim.api.nvim_set_keymap("n", "y", '"+y', { noremap = true })
--- vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
 
 local keymap_opts = { noremap = true, silent = true }
 
@@ -244,6 +242,8 @@ vim.keymap.set("n", "<leader>q", ":q<cr>", keymap_opts)
 -- Buffers navigation
 vim.keymap.set("n", "<S-l>", ":bnext<cr>", keymap_opts)
 vim.keymap.set("n", "<S-h>", ":bprevious<cr>", keymap_opts)
+-- delete all buffers except for the active one
+vim.keymap.set("n", "<leader>bD", [[:%bdelete|edit #|normal `"<cr>]], keymap_opts)
 
 -- Tabs navigation
 vim.keymap.set("n", "<A-h>", ":tabprev<cr>", keymap_opts)
@@ -301,25 +301,33 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 vim.g.gutentags_cache_dir = os.getenv("HOME") .. "/.cache/gutentags"
 
 -- Mini
-local mini_jump2d = require('mini.jump2d')
 require('mini.ai').setup()
-require('mini.bufremove').setup({})
+
+local mini_bufremove = require("mini.bufremove")
+mini_bufremove.setup({})
+vim.keymap.set("n", "<leader>bd", mini_bufremove.delete, keymap_opts)
+
 require('mini.comment').setup({})
+
+local mini_jump2d = require('mini.jump2d')
 mini_jump2d.setup({
   mappings = {
     start_jumping = '',
   },
 })
-require('mini.pairs').setup({})
-require('mini.starter').setup({})
-require('mini.surround').setup({})
-require('mini.tabline').setup({})
-
-vim.api.nvim_set_keymap('n', '<leader>bd', [[:<C-u>lua MiniBufremove.delete()<cr>]], { noremap = true })
-vim.api.nvim_set_keymap('v', 'S', [[:<C-u>lua MiniSurround.add('visual')<cr>]], { noremap = true })
 vim.keymap.set({ "n", "v" }, "<cr>",
   function() return mini_jump2d.start(mini_jump2d.builtin_opts.single_character) end, keymap_opts)
 vim.cmd [[hi MiniJump2dSpot gui=undercurl,bold,italic]]
+
+require('mini.pairs').setup({})
+
+require('mini.starter').setup({})
+
+local mini_surround = require('mini.surround')
+mini_surround.setup({})
+vim.keymap.set("v", "S", function() return mini_surround.add('visual') end, keymap_opts)
+
+require('mini.tabline').setup({})
 
 GetExpandTab = function()
   return vim.o.expandtab and "." or "→"
@@ -361,7 +369,6 @@ require('mini.statusline').setup({
 --Telescope
 local telescope = require('telescope')
 local actions_layout = require "telescope.actions.layout"
-local fb_actions = require "telescope".extensions.file_browser.actions
 local actions = require "telescope.actions"
 local telescope_builtin = require('telescope.builtin')
 require("telescope").setup({
@@ -373,24 +380,6 @@ require("telescope").setup({
         ["<C-u>"] = false,
         ["<C-d>"] = false,
         ["<C-h>"] = actions_layout.toggle_preview,
-      },
-    },
-  },
-  extensions = {
-    file_browser = {
-      hidden = true,
-      path = "%:p:h",
-      mappings = {
-        ["i"] = {
-          ["<C-H>"] = fb_actions.toggle_hidden,
-          ["<C-h>"] = fb_actions.goto_parent_dir,
-          ["<C-l>"] = actions.select_default,
-        },
-        ["n"] = {
-          ["H"] = fb_actions.toggle_hidden,
-          ["h"] = fb_actions.goto_parent_dir,
-          ["l"] = actions.select_default,
-        },
       },
     },
   },
@@ -410,10 +399,7 @@ vim.keymap.set("n", "<leader>sj", telescope_builtin.jumplist, keymap_opts)
 vim.keymap.set({ "n", "v" }, "<leader>p", telescope.extensions.neoclip.default, keymap_opts)
 vim.keymap.set("n", "<leader>sg", telescope_builtin.live_grep, keymap_opts)
 vim.keymap.set("n", "<leader>?", telescope_builtin.oldfiles, keymap_opts)
-vim.keymap.set("n", "<leader>e", "<cmd>Telescope file_browser<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>de", telescope_builtin.diagnostics, keymap_opts)
--- vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<cr>]], { noremap = true, silent = true })
 
 --Treesitter configuration
 --Parsers must be installed manually via :TSInstall
@@ -599,8 +585,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>sr",
     function() return telescope_builtin.lsp_references({ wrap_results = true, show_line = false }) end, opts)
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("v", "<leader>ca", vim.lsp.buf.range_code_action, opts)
+  vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>fo", vim.lsp.buf.formatting, opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
@@ -625,7 +610,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 --Enable the following language servers
-local servers = { "terraformls", "rls", "graphql" }
+local servers = { "terraformls", "graphql" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
@@ -839,8 +824,31 @@ require("orgmode").setup({
 })
 require("orgmode").setup_ts_grammar()
 
+-- rust tools
+local rust_tools = require("rust-tools")
+rust_tools.setup({
+  server = {
+    on_attach = on_attach,
+  },
+})
+
 --github copilot
 vim.cmd([[
 imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
+""""]])
+
+-- Ranger
+vim.g.rnvimr_vanilla = 1
+vim.g.rnvimr_enable_picker = 1
+vim.cmd([[
+ let g:rnvimr_layout = {
+           \ 'relative': 'editor',
+           \ 'width': &columns,
+           \ 'height': &lines - 2,
+           \ 'col': 0,
+           \ 'row': 0,
+           \ 'style': 'minimal'
+           \ }
 ]])
+vim.keymap.set("n", "<leader>e", "<cmd>RnvimrToggle<cr>", keymap_opts)
