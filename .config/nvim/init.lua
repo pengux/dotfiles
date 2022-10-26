@@ -216,14 +216,14 @@ vim.cmd([[
 vnoremap // y/\V<C-R>=escape(@",'/\')<cr><cr>
 ]])
 
+local keymap_opts = { noremap = true, silent = true }
+
 --Toggle show whitespace characters
 vim.o.listchars = "tab:>→,trail:.,precedes:<,extends:>"
 vim.keymap.set("n", "<leader>li", ":set list! list?<cr>", keymap_opts)
 
 -- Yank to clipboard
 vim.o.clipboard = "unnamedplus"
-
-local keymap_opts = { noremap = true, silent = true }
 
 --Remap space as leader key
 vim.g.mapleader = " "
