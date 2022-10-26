@@ -847,18 +847,13 @@ let g:copilot_no_tab_map = v:true
 -- LF
 -- This feature will not work if the plugin is lazy-loaded
 -- vim.g.lf_netrw = 1
-local lf = require("lf")
-lf.setup(
-  {
-    border = "rounded",
-    highlights = { -- highlights passed to toggleterm
-      Normal = { guibg = 'none' },
-      NormalFloat = { link = 'Normal' },
-      FloatBorder = {
-        guifg = 'none',
-        guibg = 'none'
-      }
-    },
-  }
-)
+require("lf").setup({
+  border = "rounded",
+  winblend = 0,
+  -- direction = "horizontal",
+  -- highlights = {
+  --   Normal = {guibg = "none"},
+  --   NormalFloat = {guibg = "none"},
+  -- }
+})
 vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
