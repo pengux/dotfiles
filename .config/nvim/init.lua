@@ -28,7 +28,6 @@ require("packer").startup(function()
   use("mg979/vim-visual-multi") -- Multiple cursors
   use("godlygeek/tabular") -- Align text
   use("mattn/emmet-vim")
-  use("kevinhwang91/rnvimr") -- Ranger file manager
   -- UI to select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
   -- Add indentation guides even on blank lines
@@ -146,6 +145,14 @@ require("packer").startup(function()
   }
 
   use({ "folke/tokyonight.nvim" })
+
+  use({ "akinsho/toggleterm.nvim" })
+  use(
+    {
+      "lmburns/lf.nvim",
+      requires = { "plenary.nvim", "toggleterm.nvim" }
+    }
+  )
 end)
 
 --Set highlight on search
@@ -385,8 +392,6 @@ require("telescope").setup({
   },
 })
 
-telescope.load_extension("file_browser")
-
 --Telescope
 vim.keymap.set("n", "<leader>sb", telescope_builtin.buffers, keymap_opts)
 vim.keymap.set("n", "<leader>sf", function() return telescope_builtin.find_files({ previewer = false }) end, keymap_opts)
@@ -585,7 +590,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>sr",
     function() return telescope_builtin.lsp_references({ wrap_results = true, show_line = false }) end, opts)
-  vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, opts)
+  vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>fo", vim.lsp.buf.formatting, opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
@@ -838,17 +843,21 @@ imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
 """"]])
 
--- Ranger
-vim.g.rnvimr_vanilla = 1
-vim.g.rnvimr_enable_picker = 1
-vim.cmd([[
- let g:rnvimr_layout = {
-           \ 'relative': 'editor',
-           \ 'width': &columns,
-           \ 'height': &lines - 2,
-           \ 'col': 0,
-           \ 'row': 0,
-           \ 'style': 'minimal'
-           \ }
-]])
-vim.keymap.set("n", "<leader>e", "<cmd>RnvimrToggle<cr>", keymap_opts)
+-- LF
+-- This feature will not work if the plugin is lazy-loaded
+-- vim.g.lf_netrw = 1
+local lf = require("lf")
+lf.setup(
+  {
+    border = "rounded",
+    highlights = { -- highlights passed to toggleterm
+      Normal = { guibg = 'none' },
+      NormalFloat = { link = 'Normal' },
+      FloatBorder = {
+        guifg = 'none',
+        guibg = 'none'
+      }
+    },
+  }
+)
+vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
