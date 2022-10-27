@@ -849,11 +849,12 @@ let g:copilot_no_tab_map = v:true
 -- vim.g.lf_netrw = 1
 require("lf").setup({
   border = "rounded",
+  height = 0.90, -- height of the *floating* window
+  width = 0.90, -- width of the *floating* window
   winblend = 0,
   -- direction = "horizontal",
   -- highlights = {
   --   Normal = {guibg = "none"},
   --   NormalFloat = {guibg = "none"},
-  -- }
 })
 vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
