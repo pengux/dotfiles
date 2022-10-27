@@ -45,28 +45,70 @@ Xft.rgba: rgb
 !
 ! URxvt*background:            S_base03
 
-*background:              S_base03
-*foreground:              S_base0
-*fading:                  40
-*fadeColor:               S_base03
-*cursorColor:             S_base1
-*pointerColorBackground:  S_base01
-*pointerColorForeground:  S_base1
+/* *background:              S_base03 */
+/* *foreground:              S_base0 */
+/* *fading:                  40 */
+/* *fadeColor:               S_base03 */
+/* *cursorColor:             S_base1 */
+/* *pointerColorBackground:  S_base01 */
+/* *pointerColorForeground:  S_base1 */
+/*  */
+/* *color0:                  S_base02 */
+/* *color1:                  S_red */
+/* *color2:                  S_green */
+/* *color3:                  S_yellow */
+/* *color4:                  S_blue */
+/* *color5:                  S_magenta */
+/* *color6:                  S_cyan */
+/* *color7:                  S_base2 */
+/* *color9:                  S_orange */
+/* *color8:                  S_base03 */
+/* *color10:                 S_base01 */
+/* *color11:                 S_base00 */
+/* *color12:                 S_base0 */
+/* *color13:                 S_violet */
+/* *color14:                 S_base1 */
+/* *color15:                 S_base3 */
 
-*color0:                  S_base02
-*color1:                  S_red
-*color2:                  S_green
-*color3:                  S_yellow
-*color4:                  S_blue
-*color5:                  S_magenta
-*color6:                  S_cyan
-*color7:                  S_base2
-*color9:                  S_orange
-*color8:                  S_base03
-*color10:                 S_base01
-*color11:                 S_base00
-*color12:                 S_base0
-*color13:                 S_violet
-*color14:                 S_base1
-*color15:                 S_base3
+! Dracula Xresources palette
+/* *.foreground: #F8F8F2 */
+/* *.background: #282A36 */
+/* *.color0:     #000000 */
+/* *.color8:     #4D4D4D */
+/* *.color1:     #FF5555 */
+/* *.color9:     #FF6E67 */
+/* *.color2:     #50FA7B */
+/* *.color10:    #5AF78E */
+/* *.color3:     #F1FA8C */
+/* *.color11:    #F4F99D */
+/* *.color4:     #BD93F9 */
+/* *.color12:    #CAA9FA */
+/* *.color5:     #FF79C6 */
+/* *.color13:    #FF92D0 */
+/* *.color6:     #8BE9FD */
+/* *.color14:    #9AEDFE */
+/* *.color7:     #BFBFBF */
+/* *.color15:    #E6E6E6 */
 
+! TokyoNight colors for Xresources
+*background: #222436
+*foreground: #c8d3f5
+
+*color0: #1b1d2b
+*color1: #ff757f
+*color2: #c3e88d
+*color3: #ffc777
+*color4: #82aaff
+*color5: #c099ff
+*color6: #86e1fc
+*color7: #828bb8
+
+*color8: #444a73
+*color9: #ff757f
+*color10: #c3e88d
+*color11: #ffc777
+*color12: #82aaff
+*color13: #c099ff
+*color14: #86e1fc
+*color15: #c8d3f5
+ 
