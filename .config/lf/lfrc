@@ -101,8 +101,8 @@ cmd zip ${{
     rm -rf $1
 }}
 
-set previewer ~/tools/pv.sh
-set cleaner ~/tools/pv_cleaner.sh
+set previewer ~/lf/pv.sh
+set cleaner ~/lf/pv_cleaner.sh
 # &ctpv -s $id
 # &ctpvquit $id}
 
