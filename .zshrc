@@ -133,7 +133,10 @@ if [ -f "$LFCD" ]; then
     source "$LFCD"
 fi
 bindkey -s '^o' 'lfcd\n'  # zsh
-alias lf='lfcd'
+alias lf="lfcd"
+
+# Nvim
+alias n="nvim"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
