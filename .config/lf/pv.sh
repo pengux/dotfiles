@@ -4,8 +4,8 @@ w=$2
 h=$3
 x=$4
 y=$5
-echo "$@" >> ~/tmp/pv.log
-echo "$x","$y","$w","$h" "$1" >> ~/tmp/pv.log
+# echo "$@" >> ~/tmp/pv.log
+# echo "$x","$y","$w","$h" "$1" >> ~/tmp/pv.log
 case "$1" in
 	*.tar*) tar tf "$1";;
 	*.zip) unzip -l "$1";;
