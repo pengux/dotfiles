@@ -592,7 +592,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>sr",
     function() return telescope_builtin.lsp_references({ wrap_results = true, show_line = false }) end, opts)
   vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>fo", vim.lsp.buf.formatting, opts)
+  vim.keymap.set("n", "<leader>fo", function() return vim.lsp.buf.format({ async = true }) end, opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
@@ -601,7 +601,7 @@ local on_attach = function(client, bufnr)
 
   --Format on save
   if client.server_capabilities.document_formatting then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })")
   end
 end
 
@@ -678,6 +678,11 @@ lspconfig.sumneko_lua.setup({
       },
     },
   },
+})
+
+lspconfig.pylsp.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
 })
 
 --Emmet
