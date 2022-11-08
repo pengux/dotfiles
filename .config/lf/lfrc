@@ -117,3 +117,8 @@ map c
 map cl clear
 map cf push %touch<space>
 map cd push %mkdir<space>
+
+map q %{{
+  lf -remote "send $id :cd $OLDPWD; quit"
+}}
+map Q quit
