@@ -17,6 +17,13 @@ set shellopts '-eu'
 # commands accordingly.
 set ifs "\n"
 
+# order files by latest first
+set sortby time
+set reverse true
+
+# Format timestamp in bottom bar
+set timefmt "Mon 2006-01-02 15:04:05"
+
 # leave some space at the top and the bottom of the screen
 set scrolloff 10
 
