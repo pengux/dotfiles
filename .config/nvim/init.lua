@@ -605,7 +605,8 @@ local on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 
   --Format on save
-  if client.server_capabilities.document_formatting then
+  -- print(vim.inspect(client.server_capabilities))
+  if client.server_capabilities.documentFormattingProvider then
     vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })")
   end
 end
@@ -617,7 +618,6 @@ vim.diagnostic.config({
 
 --nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 --Enable the following language servers
