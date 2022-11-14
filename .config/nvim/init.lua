@@ -324,7 +324,13 @@ mini_jump2d.setup({
   },
 })
 vim.keymap.set({ "n", "v" }, "<cr>",
-  function() return mini_jump2d.start(mini_jump2d.builtin_opts.single_character) end, keymap_opts)
+  function()
+    if vim.bo.buftype == "quickfix" then
+      vim.cmd [[execute "normal! \<CR>"]]
+    else
+      mini_jump2d.start(mini_jump2d.builtin_opts.single_character)
+    end
+  end, keymap_opts)
 vim.cmd [[hi MiniJump2dSpot gui=undercurl,bold,italic]]
 
 require('mini.pairs').setup({})
@@ -377,7 +383,6 @@ require('mini.statusline').setup({
 --Telescope
 local telescope = require('telescope')
 local actions_layout = require "telescope.actions.layout"
-local actions = require "telescope.actions"
 local telescope_builtin = require('telescope.builtin')
 require("telescope").setup({
   defaults = {
