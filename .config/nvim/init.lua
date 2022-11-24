@@ -151,6 +151,24 @@ require("packer").startup(function()
       requires = { "plenary.nvim", "toggleterm.nvim" }
     }
   )
+  use({ "joechrisellis/lsp-format-modifications.nvim" })
+  use {
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup {
+        dimming = {
+          -- alpha = 0.5, -- amount of dimming
+          -- we try to get the foreground from the highlight groups or fallback color
+          -- color = { "Normal", "#ffffff" },
+          -- term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
+          inactive = true, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+        },
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 end)
 
 --Set highlight on search
@@ -604,8 +622,12 @@ local on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 
   --Format on save
-  -- print(vim.inspect(client.server_capabilities))
-  if client.server_capabilities.documentFormattingProvider then
+  print(vim.inspect(client.server_capabilities))
+  -- exclude gopls for documentRangeFormattingProvider because of https://github.com/golang/go/issues/31150
+  if client.server_capabilities.documentRangeFormattingProvider then
+    local lsp_format_modifications = require "lsp-format-modifications"
+    lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
+  elseif client.server_capabilities.documentFormattingProvider then
     vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })")
   end
 end
