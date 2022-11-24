@@ -83,7 +83,6 @@ require("packer").startup(function()
     end,
   }) -- Search and replace
 
-  use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- for linting and formatting purposes
   use("nvim-lua/lsp-status.nvim")
   use("gennaro-tedesco/nvim-peekup") -- peek at registers
   use("onsails/lspkind-nvim")
@@ -621,7 +620,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 --Enable the following language servers
-local servers = { "terraformls", "graphql" }
+local servers = { "terraformls", "graphql", "golangci_lint_ls" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
@@ -786,19 +785,6 @@ vim.keymap.set("v", "<leader>ss", spectre.open_visual, keymap_opts)
 vim.keymap.set("n", "<leader>sw", function() spectre.open_visual({ select_word = true }) end, keymap_opts
 )
 vim.keymap.set("n", "<leader>sp", spectre.open_file_search, keymap_opts)
-
--- null-ls.nvim
-local null_ls = require("null-ls")
-
-null_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  sources = {
-    null_ls.builtins.diagnostics.golangci_lint,
-    -- null_ls.builtins.formatting.stylua,
-    -- null_ls.builtins.formatting.dart_format,
-  },
-})
 
 --lsp-status
 require("lsp-status").config({
