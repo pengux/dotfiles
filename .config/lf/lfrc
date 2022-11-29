@@ -108,6 +108,9 @@ cmd zip ${{
     rm -rf $1
 }}
 
+cmd yank_path $printf '%s' "$fx" | wl-copy
+map Y yank_path
+
 set previewer ~/.config/lf/pv.sh
 set cleaner ~/.config/lf/pv_cleaner.sh
 # &ctpv -s $id
