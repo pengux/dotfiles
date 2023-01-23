@@ -622,7 +622,7 @@ local on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 
   --Format on save
-  print(vim.inspect(client.server_capabilities))
+  -- print(vim.inspect(client.server_capabilities))
   -- exclude gopls for documentRangeFormattingProvider because of https://github.com/golang/go/issues/31150
   if client.server_capabilities.documentRangeFormattingProvider then
     local lsp_format_modifications = require "lsp-format-modifications"
