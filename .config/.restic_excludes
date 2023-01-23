@@ -3,3 +3,6 @@
 /home/peter/Dropbox
 /home/peter/go/pkg/mod
 /home/peter/.cache
+/var/cache
+/var/log
+/var/tmp
