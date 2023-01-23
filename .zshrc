@@ -79,6 +79,8 @@ alias gcl='git clone'
 alias gco='git checkout'
 alias gup='git pull --rebase'
 
+alias gobinupdate='$HOME/go/bin/gup'
+
 # Manage dotfiles with git bare repository
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
@@ -133,7 +135,6 @@ if [ -f "$LFCD" ]; then
     source "$LFCD"
 fi
 bindkey -s '^o' 'lfcd\n'  # zsh
-alias lf="lfcd"
 
 # Nvim
 alias n="nvim"
