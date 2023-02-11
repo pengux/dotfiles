@@ -235,10 +235,6 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<cr><cr>
 
 local keymap_opts = { noremap = true, silent = true }
 
---Toggle show whitespace characters
-vim.o.listchars = "tab:>→,trail:.,precedes:<,extends:>"
-vim.keymap.set("n", "<leader>li", ":set list! list?<cr>", keymap_opts)
-
 -- Yank to clipboard
 vim.o.clipboard = "unnamedplus"
 
@@ -246,6 +242,11 @@ vim.o.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.keymap.set("", "<Space>", "<Nop>", keymap_opts)
+vim.keymap.set("", "§", "<Esc>", keymap_opts)
+
+--Toggle show whitespace characters
+vim.o.listchars =  "tab:>~,trail:.,precedes:<,extends:>"
+vim.keymap.set("n", "<leader>li", ":set list! list?<cr>", keymap_opts)
 
 -- Easier cursor navigation between split windows using CTRL and h,j,k, or l
 vim.keymap.set("n", "<C-h>", "<C-w>h", keymap_opts)
