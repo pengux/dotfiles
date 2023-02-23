@@ -242,7 +242,6 @@ vim.o.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.keymap.set("", "<Space>", "<Nop>", keymap_opts)
-vim.keymap.set("", "§", "<Esc>", keymap_opts)
 
 --Toggle show whitespace characters
 vim.o.listchars =  "tab:>~,trail:.,precedes:<,extends:>"
@@ -877,3 +876,8 @@ require("lf").setup({
   --   NormalFloat = {guibg = "none"},
 })
 vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
+
+-- Voice to text with whisper
+vim.keymap.set("n", "<leader>v", ":r !vtt<cr>", keymap_opts)
+vim.keymap.set("n", "<leader>vsv", ":r !vtt Swedish<cr>", keymap_opts)
+vim.keymap.set("n", "<leader>vvn", ":r !vtt Vietnamese<cr>", keymap_opts)

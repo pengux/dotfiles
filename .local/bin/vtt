@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Voice-to-stdout
+
+set -eu
+lang="${1:-English}"
+
+# Unlimited length, CD quality
+arecord -q -d 0 -r44100 -f S16_LE vtt.wav &
+pid=$!
+trap "kill $pid" ERR INT
+
+tmux popup -d "$PWD" -E "
+  echo -n 'Recording.  Hit enter to stop: '
+  read
+  kill $pid
+
+  echo 'Transcribing using $lang'
+  whisper vtt.wav --language $lang --model tiny --fp16 False --output_format txt
+"
+
+cat vtt.wav.txt | tr $'\n' ' '
+rm vtt.wav vtt.wav.txt
