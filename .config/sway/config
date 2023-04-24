@@ -295,6 +295,7 @@ exec skypeforlinux
 exec signal-desktop
 exec whatsapp-for-linux
 exec blueman-applet
+exec protonmail-bridge
 #exec autotiling-rs
 
 output * bg `$HOME/.config/sway/random_bg` fill
