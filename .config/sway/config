@@ -74,7 +74,8 @@ input type:mouse {
 }
 
 input type:keyboard {
-	xkb_layout se,vn
+    xkb_options caps:escape
+    xkb_layout se,vn
     repeat_rate 100
     repeat_delay 250
 }
