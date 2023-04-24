@@ -169,6 +169,16 @@ require("packer").startup(function()
       }
     end
   }
+  use {
+    "SmiteshP/nvim-navbuddy",
+    requires = {
+      "neovim/nvim-lspconfig",
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+      "numToStr/Comment.nvim",        -- Optional
+      "nvim-telescope/telescope.nvim" -- Optional
+    }
+  }
 end)
 
 --Set highlight on search
@@ -598,6 +608,15 @@ if cmp then
   })
 end
 
+-- navbuddy
+local navbuddy = require("nvim-navbuddy")
+navbuddy.setup{
+  lsp = {
+    preference = { "gopls" },
+  }
+}
+vim.keymap.set("n", "<leader>t", "<cmd>Navbuddy<cr>", keymap_opts)
+
 --LSP settings
 local lspconfig = require("lspconfig")
 local on_attach = function(client, bufnr)
@@ -629,6 +648,10 @@ local on_attach = function(client, bufnr)
     lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
   elseif client.server_capabilities.documentFormattingProvider then
     vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })")
+  end
+
+  if client.server_capabilities.documentSymbolProvider then
+    navbuddy.attach(client, bufnr)
   end
 end
 
