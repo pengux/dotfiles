@@ -41,12 +41,13 @@ source ~/.zplug/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/gitfast", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
-zplug "plugins/vi-mode", from:oh-my-zsh
+# zplug "plugins/vi-mode", from:oh-my-zsh
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 zplug "agkozak/zsh-z"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
+zplug "softmoth/zsh-vim-mode"
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug "b4b4r07/httpstat", \
