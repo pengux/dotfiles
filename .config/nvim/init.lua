@@ -105,6 +105,27 @@ require("packer").startup(function()
 
   use({ "nvim-orgmode/orgmode" })
   use({ "github/copilot.vim" })
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("copilot").setup({
+  --       filetypes = {
+  --         go = true,
+  --       },
+  --       -- suggestion = { enabled = false },
+  --       -- panel = { enabled = false },
+  --     })
+  --   end,
+  -- }
+  -- use {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua" },
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end
+  -- }
   use({
     "tyru/open-browser-github.vim",
     requires = {
@@ -697,12 +718,11 @@ lspconfig['html'].setup {
 --
 -- Example custom server
 -- Make runtime files discoverable to the server
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+-- local runtime_path = vim.split(package.path, ";")
+-- table.insert(runtime_path, "lua/?.lua")
+-- table.insert(runtime_path, "lua/?/init.lua")
 
-lspconfig.sumneko_lua.setup({
-  cmd = { "lua-language-server" },
+lspconfig.lua_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -711,7 +731,7 @@ lspconfig.sumneko_lua.setup({
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = "LuaJIT",
         -- Setup your lua path
-        path = runtime_path,
+        -- path = runtime_path,
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
