@@ -352,6 +352,12 @@ vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
 vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 
+-- Format JSON using jq. Use command 'gq%'
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "json",
+  command = "set formatprg=jq",
+})
+
 -- Mini
 require('mini.ai').setup()
 
