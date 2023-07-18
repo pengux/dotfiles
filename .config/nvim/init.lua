@@ -42,13 +42,13 @@ require("packer").startup(function()
     end,
   })
   use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
-  use({
-    "TimUntersberger/neogit",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
-    },
-  })
+  -- use {
+  --   'TimUntersberger/neogit',
+  --   requires = {
+  --     "nvim-lua/plenary.nvim",
+  --     "sindrets/diffview.nvim",
+  --   },
+  -- }
 
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -868,17 +868,17 @@ require("flutter-tools").setup({
   },
 })
 
---neogit
-require("neogit").setup({
-  disable_commit_confirmation = true,
-  integrations = {
-    diffview = true,
-  },
-})
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", keymap_opts)
-vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", keymap_opts)
-vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", keymap_opts)
-vim.keymap.set("n", "<leader>gp", "<cmd>Neogit push<cr>", keymap_opts)
+-- --neogit
+-- require("neogit").setup({
+--   disable_commit_confirmation = true,
+--   integrations = {
+--     diffview = true,
+--   },
+-- })
+-- vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", keymap_opts)
+-- vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", keymap_opts)
+-- vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", keymap_opts)
+-- vim.keymap.set("n", "<leader>gp", "<cmd>Neogit push<cr>", keymap_opts)
 
 --orgmode
 require("orgmode").setup({
