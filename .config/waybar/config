@@ -61,7 +61,7 @@
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
         "format-icons": ["", "", "", "", ""],
-        "on-click": "foot -H 'acpi -i -b'"
+        "on-click": "foot -H acpi -i -b"
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
