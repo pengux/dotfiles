@@ -924,16 +924,18 @@ imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
 """"]])
 
-require('fm-nvim').setup{
+local fm_nvim = require("fm-nvim")
+fm_nvim.setup{
   ui = {
     float = {
       border = "single"
     }
   }
 }
-vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
+vim.keymap.set("n", "<leader>e", function() return fm_nvim.Lf(vim.fn.expand('%:p')) end, keymap_opts)
 
 -- Voice to text with whisper
 vim.keymap.set("n", "<leader>v", ":r !vtt<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>vsv", ":r !vtt Swedish<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>vvn", ":r !vtt Vietnamese<cr>", keymap_opts)
+
