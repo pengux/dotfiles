@@ -134,43 +134,28 @@ require("packer").startup(function()
   use({ "samjwill/nvim-unception" }) -- opening files in terminal in same instance of neovim
   use {
     "nvim-neorg/neorg",
-    tag = "*",
-    run = ":Neorg sync-parsers",
-    ft = "norg",
-    after = "nvim-treesitter", -- You may want to specify Telescope here as well
     config = function()
       require('neorg').setup {
         load = {
-          ["core.defaults"] = {},
-          ["core.norg.dirman"] = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
             config = {
               workspaces = {
-                default = "~/.norg",
-              }
-            }
+                notes = "~/notes",
+              },
+            },
           },
-          ["core.presenter"] = {},
-          ["core.norg.completion"] = {
-            config = {
-              engine = "nvim-cmp"
-            }
-          },
-          ["core.norg.concealer"] = {},
-          ["core.export"] = {},
-        }
+        },
       }
-    end
+    end,
+    run = ":Neorg sync-parsers",
+    requires = "nvim-lua/plenary.nvim",
   }
 
   use({ "folke/tokyonight.nvim" })
 
-  use({ "akinsho/toggleterm.nvim" })
-  use(
-    {
-      "lmburns/lf.nvim",
-      requires = { "plenary.nvim", "toggleterm.nvim" }
-    }
-  )
+  use {'is0n/fm-nvim'}
   use({ "joechrisellis/lsp-format-modifications.nvim" })
   use {
     "folke/twilight.nvim",
@@ -939,19 +924,13 @@ imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
 """"]])
 
--- LF
--- This feature will not work if the plugin is lazy-loaded
--- vim.g.lf_netrw = 1
-require("lf").setup({
-  border = "rounded",
-  height = 0.90, -- height of the *floating* window
-  width = 0.90, -- width of the *floating* window
-  winblend = 0,
-  -- direction = "horizontal",
-  -- highlights = {
-  --   Normal = {guibg = "none"},
-  --   NormalFloat = {guibg = "none"},
-})
+require('fm-nvim').setup{
+  ui = {
+    float = {
+      border = "single"
+    }
+  }
+}
 vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
 
 -- Voice to text with whisper
