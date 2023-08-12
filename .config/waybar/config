@@ -40,7 +40,7 @@
         // "tooltip": false
     },
     "memory": {
-        "format": "{}% ",
+        "format": "{}% 󰍛",
 		"on-click": "foot -H htop"
     },
 	"disk": {
@@ -55,7 +55,7 @@
             "critical": 15
         },
         "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% 󰂄",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
@@ -67,8 +67,8 @@
         // "interface": "wlp2*", // (Optional) To force the use of this interface
 		/* "interval": 1, */
         "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} 󰈀",
+        "format-linked": "{ifname} (No IP) 󰲛",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
 		/* "tooltip-format-wifi": "{essid} ({signalStrength}%)" */
