@@ -21,7 +21,7 @@ require("packer").startup(function()
 
   use("tpope/vim-sleuth") -- Autodetect indentation settings
   use("tpope/vim-fugitive") -- Git commands in nvim
-  use("kyazdani42/nvim-web-devicons")
+  use 'nvim-tree/nvim-web-devicons'
   use("echasnovski/mini.nvim")
   use("tpope/vim-unimpaired")
   use("mg979/vim-visual-multi") -- Multiple cursors
