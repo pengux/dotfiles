@@ -31,16 +31,6 @@ require("packer").startup(function()
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
   -- Add indentation guides even on blank lines
   use("lukas-reineke/indent-blankline.nvim")
-  -- Add git related info in the signs columns and popups
-  use({
-    "lewis6991/gitsigns.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("gitsigns").setup({
-        -- debug_mode = true,
-      })
-    end,
-  })
   use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
   -- use {
   --   'TimUntersberger/neogit',
@@ -155,7 +145,14 @@ require("packer").startup(function()
 
   use({ "folke/tokyonight.nvim" })
 
-  use { 'is0n/fm-nvim' }
+  -- use { 'is0n/fm-nvim' }
+  use({ "akinsho/toggleterm.nvim" })
+  use(
+    {
+      "lmburns/lf.nvim",
+      requires = { "plenary.nvim", "toggleterm.nvim" }
+    }
+  )
   use({ "joechrisellis/lsp-format-modifications.nvim" })
   use {
     "folke/twilight.nvim",
@@ -182,6 +179,12 @@ require("packer").startup(function()
       "MunifTanjim/nui.nvim",
       "numToStr/Comment.nvim",        -- Optional
       "nvim-telescope/telescope.nvim" -- Optional
+    }
+  }
+  use {
+    'tanvirtin/vgit.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
     }
   }
 end)
@@ -924,17 +927,29 @@ imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
 """"]])
 
-local fm_nvim = require("fm-nvim")
-fm_nvim.setup {
-  ui = {
-    float = {
-      border = "single"
-    }
-  }
-}
-vim.keymap.set("n", "<leader>e", function() return fm_nvim.Lf(vim.fn.expand('%:p')) end, keymap_opts)
+-- LF
+-- This feature will not work if the plugin is lazy-loaded
+-- vim.g.lf_netrw = 1
+require("lf").setup({
+  border = "rounded",
+  winblend = 0,
+  direction = "float",
+  -- highlights = {
+  --   Normal = {guibg = "none"},
+  --   NormalFloat = {guibg = "none"},
+})
+vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
 
 -- Voice to text with whisper
 vim.keymap.set("n", "<leader>v", ":r !vtt<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>vsv", ":r !vtt Swedish<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>vvn", ":r !vtt Vietnamese<cr>", keymap_opts)
+
+-- vgit
+require('vgit').setup({
+  settings = {
+    live_blame = {
+      enabled = false,
+    }
+  }
+})
