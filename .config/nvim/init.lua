@@ -145,14 +145,7 @@ require("packer").startup(function()
 
   use({ "folke/tokyonight.nvim" })
 
-  -- use { 'is0n/fm-nvim' }
   use({ "akinsho/toggleterm.nvim" })
-  use(
-    {
-      "lmburns/lf.nvim",
-      requires = { "plenary.nvim", "toggleterm.nvim" }
-    }
-  )
   use({ "joechrisellis/lsp-format-modifications.nvim" })
   use {
     "folke/twilight.nvim",
@@ -906,6 +899,50 @@ require("flutter-tools").setup({
 -- vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", keymap_opts)
 -- vim.keymap.set("n", "<leader>gp", "<cmd>Neogit push<cr>", keymap_opts)
 
+-- Lazygit
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit  = Terminal:new({
+  cmd = "lazygit",
+  hidden = true,
+  direction = "float",
+})
+
+function _lazygit_toggle()
+  lazygit:toggle()
+end
+
+vim.keymap.set("n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", keymap_opts)
+
+function lf_toggle()
+  local lf_temp_path = "/tmp/lfpickerpath"
+  local lfpicker = Terminal:new({
+    cmd = "lf -selection-path " .. lf_temp_path,
+    count = 101,   -- use high value to no intersect with regular OpenTerm cmd
+    direction = "float",
+    on_close = function(_)
+      local file = io.open(lf_temp_path, "r")
+      if file == nil then
+        return
+      end
+      local name = file:read("*a")
+      file:close()
+      os.remove(lf_temp_path)
+      local timer = vim.loop.new_timer()
+      timer:start(
+        0,
+        0,
+        vim.schedule_wrap(function()
+          vim.cmd("edit " .. name)
+        end)
+      )
+    end,
+  })
+
+  lfpicker:toggle()
+end
+
+vim.keymap.set("n", "<leader>e", "<cmd>lua lf_toggle()<CR>", keymap_opts)
+
 --orgmode
 require("orgmode").setup({
   org_agenda_files = { "~/org/*" },
@@ -926,19 +963,6 @@ vim.cmd([[
 imap <silent><script><expr> <C-x> copilot#Accept("\<cr>")
 let g:copilot_no_tab_map = v:true
 """"]])
-
--- LF
--- This feature will not work if the plugin is lazy-loaded
--- vim.g.lf_netrw = 1
-require("lf").setup({
-  border = "rounded",
-  winblend = 0,
-  direction = "float",
-  -- highlights = {
-  --   Normal = {guibg = "none"},
-  --   NormalFloat = {guibg = "none"},
-})
-vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
 
 -- Voice to text with whisper
 vim.keymap.set("n", "<leader>v", ":r !vtt<cr>", keymap_opts)
