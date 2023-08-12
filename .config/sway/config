@@ -290,8 +290,8 @@ exec foot
 exec mullvad-vpn
 exec fcitx5 -d -r
 exec waterfox-g4
-exec slack
-exec skypeforlinux
+#exec slack
+#exec skypeforlinux
 exec signal-desktop
 exec whatsapp-for-linux
 exec blueman-applet
