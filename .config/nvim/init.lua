@@ -19,13 +19,13 @@ require("packer").startup(function()
   -- util packages
   use("nvim-lua/plenary.nvim")
 
-  use("tpope/vim-sleuth") -- Autodetect indentation settings
+  use("tpope/vim-sleuth")   -- Autodetect indentation settings
   use("tpope/vim-fugitive") -- Git commands in nvim
   use 'nvim-tree/nvim-web-devicons'
   use("echasnovski/mini.nvim")
   use("tpope/vim-unimpaired")
   use("mg979/vim-visual-multi") -- Multiple cursors
-  use("godlygeek/tabular") -- Align text
+  use("godlygeek/tabular")      -- Align text
   use("mattn/emmet-vim")
   -- UI to select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
@@ -56,7 +56,7 @@ require("packer").startup(function()
   use("nvim-treesitter/nvim-treesitter-textobjects")
   use("JoosepAlviste/nvim-ts-context-commentstring")
   use("neovim/nvim-lspconfig") -- Collection of configurations for built-in LSP client
-  use("hrsh7th/nvim-cmp") -- Autocompletion plugin
+  use("hrsh7th/nvim-cmp")      -- Autocompletion plugin
   use("hrsh7th/cmp-nvim-lsp")
   use("hrsh7th/cmp-buffer")
   use("hrsh7th/cmp-path")
@@ -89,7 +89,7 @@ require("packer").startup(function()
 
   use({ "akinsho/flutter-tools.nvim", requires = "nvim-lua/plenary.nvim" }) -- Flutter
   use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
-  use("dbeniamine/cheat.sh-vim") -- <leader>KB, <leader>KE to send first error, <leader>l + <leader>h to navigate in cheat buffer
+  use("dbeniamine/cheat.sh-vim")                                            -- <leader>KB, <leader>KE to send first error, <leader>l + <leader>h to navigate in cheat buffer
   use({
     "AckslD/nvim-neoclip.lua",
     requires = {
@@ -137,9 +137,9 @@ require("packer").startup(function()
     config = function()
       require('neorg').setup {
         load = {
-          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.defaults"] = {},  -- Loads default behaviour
           ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = { -- Manages Neorg workspaces
+          ["core.dirman"] = {      -- Manages Neorg workspaces
             config = {
               workspaces = {
                 notes = "~/notes",
@@ -155,7 +155,7 @@ require("packer").startup(function()
 
   use({ "folke/tokyonight.nvim" })
 
-  use {'is0n/fm-nvim'}
+  use { 'is0n/fm-nvim' }
   use({ "joechrisellis/lsp-format-modifications.nvim" })
   use {
     "folke/twilight.nvim",
@@ -259,7 +259,7 @@ vim.g.maplocalleader = " "
 vim.keymap.set("", "<Space>", "<Nop>", keymap_opts)
 
 --Toggle show whitespace characters
-vim.o.listchars =  "tab:>~,trail:.,precedes:<,extends:>"
+vim.o.listchars = "tab:>~,trail:.,precedes:<,extends:>"
 vim.keymap.set("n", "<leader>li", ":set list! list?<cr>", keymap_opts)
 
 -- Easier cursor navigation between split windows using CTRL and h,j,k, or l
@@ -396,7 +396,7 @@ require('mini.statusline').setup({
       local expandTab     = GetExpandTab()
 
       return MiniStatusline.combine_groups({
-        { hl = mode_hl, strings = { mode } },
+        { hl = mode_hl,                 strings = { mode } },
         { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
         '%<', -- Mark general truncate point
         { hl = 'MiniStatuslineFilename', strings = { filename } },
@@ -453,8 +453,8 @@ require("nvim-treesitter.configs").setup({
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
   ensure_installed = "all",
   highlight = {
-    enable = true, -- false will disable the whole extension
-    disable = { "org" }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    enable = true,                                 -- false will disable the whole extension
+    disable = { "org" },                           -- Remove this to use TS highlighter for some of the highlights (Experimental)
     additional_vim_regex_highlighting = { "org" }, -- Required since TS highlighter doesn't support all syntax features (conceal)
   },
   incremental_selection = {
@@ -587,8 +587,8 @@ if cmp then
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
-        -- they way you will only jump inside the snippet region
+          -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+          -- they way you will only jump inside the snippet region
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         elseif has_words_before() then
@@ -650,7 +650,7 @@ end
 
 -- navbuddy
 local navbuddy = require("nvim-navbuddy")
-navbuddy.setup{
+navbuddy.setup {
   lsp = {
     preference = { "gopls" },
   }
@@ -925,7 +925,7 @@ let g:copilot_no_tab_map = v:true
 """"]])
 
 local fm_nvim = require("fm-nvim")
-fm_nvim.setup{
+fm_nvim.setup {
   ui = {
     float = {
       border = "single"
@@ -938,4 +938,3 @@ vim.keymap.set("n", "<leader>e", function() return fm_nvim.Lf(vim.fn.expand('%:p
 vim.keymap.set("n", "<leader>v", ":r !vtt<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>vsv", ":r !vtt Swedish<cr>", keymap_opts)
 vim.keymap.set("n", "<leader>vvn", ":r !vtt Vietnamese<cr>", keymap_opts)
-
