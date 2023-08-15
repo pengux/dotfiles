@@ -146,7 +146,13 @@ require("packer").startup(function()
   use({ "folke/tokyonight.nvim" })
 
   use({ "akinsho/toggleterm.nvim" })
-  use({ "joechrisellis/lsp-format-modifications.nvim" })
+  use(
+    {
+      "lmburns/lf.nvim",
+      requires = { "plenary.nvim", "toggleterm.nvim" }
+    }
+  )
+  -- use({ "joechrisellis/lsp-format-modifications.nvim" })
   use {
     "folke/twilight.nvim",
     config = function()
@@ -445,82 +451,29 @@ vim.keymap.set("n", "<leader>de", telescope_builtin.diagnostics, keymap_opts)
 
 --Treesitter configuration
 --Parsers must be installed manually via :TSInstall
-require("nvim-treesitter.configs").setup({
-  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = "all",
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = false,
+
+  ignore_install = {},
+  modules = {},
+
   highlight = {
-    enable = true,                                 -- false will disable the whole extension
-    disable = { "org" },                           -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    additional_vim_regex_highlighting = { "org" }, -- Required since TS highlighter doesn't support all syntax features (conceal)
-  },
-  incremental_selection = {
     enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
   },
-  indent = {
-    enable = false, -- EXPERIMENTAL, not working properly yet
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer",
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-    },
-    matchup = {
-      enable = true, -- mandatory, false will disable the whole extension
-      -- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
-      -- [options]
-    },
-  },
-  context_commentstring = {
-    enable = true
-  },
-})
+}
 
 --Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
 
 --nvim-cmp setup
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
 local lspkind = require("lspkind")
 
 local source_mapping = {
@@ -669,7 +622,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>sr",
     function() return telescope_builtin.lsp_references({ wrap_results = true, show_line = false }) end, opts)
   vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>fo", function() return vim.lsp.buf.format({ async = true }) end, opts)
+  vim.keymap.set("n", "<leader>fo", function() return vim.lsp.buf.format({ async = false }) end, opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
@@ -679,12 +632,12 @@ local on_attach = function(client, bufnr)
   --Format on save
   -- print(vim.inspect(client.server_capabilities))
   -- exclude gopls for documentRangeFormattingProvider because of https://github.com/golang/go/issues/31150
-  if client.server_capabilities.documentRangeFormattingProvider then
-    local lsp_format_modifications = require "lsp-format-modifications"
-    lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
-  elseif client.server_capabilities.documentFormattingProvider then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })")
-  end
+  -- if client.server_capabilities.documentRangeFormattingProvider then
+  --   local lsp_format_modifications = require "lsp-format-modifications"
+  --   lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
+  -- elseif client.server_capabilities.documentFormattingProvider then
+  --   vim.cmd("autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.format({ async = false })")
+  -- end
 
   if client.server_capabilities.documentSymbolProvider then
     navbuddy.attach(client, bufnr)
@@ -855,8 +808,13 @@ require("go").setup({
   run_in_floaterm = true,
   -- tag_transform = true,
 })
--- Import on save
-vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  command = "%!goimports",
+  group = format_sync_grp,
+})
 
 --Spectre
 local spectre = require("spectre")
@@ -913,35 +871,19 @@ end
 
 vim.keymap.set("n", "<leader>gg", "<cmd>lua _lazygit_toggle()<CR>", keymap_opts)
 
-function lf_toggle()
-  local lf_temp_path = "/tmp/lfpickerpath"
-  local lfpicker = Terminal:new({
-    cmd = "lf -selection-path " .. lf_temp_path,
-    count = 101,   -- use high value to no intersect with regular OpenTerm cmd
-    direction = "float",
-    on_close = function(_)
-      local file = io.open(lf_temp_path, "r")
-      if file == nil then
-        return
-      end
-      local name = file:read("*a")
-      file:close()
-      os.remove(lf_temp_path)
-      local timer = vim.loop.new_timer()
-      timer:start(
-        0,
-        0,
-        vim.schedule_wrap(function()
-          vim.cmd("edit " .. name)
-        end)
-      )
-    end,
-  })
+-- lf
+-- This feature will not work if the plugin is lazy-loaded
+-- vim.g.lf_netrw = 1
+require("lf").setup({
+  border = "rounded",
+  winblend = 0,
+  direction = "float",
+  -- highlights = {
+  --   Normal = {guibg = "none"},
+  --   NormalFloat = {guibg = "none"},
+})
 
-  lfpicker:toggle()
-end
-
-vim.keymap.set("n", "<leader>e", "<cmd>lua lf_toggle()<CR>", keymap_opts)
+vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
 
 --orgmode
 require("orgmode").setup({
