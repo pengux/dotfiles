@@ -644,6 +644,14 @@ local on_attach = function(client, bufnr)
   end
 end
 
+-- Format on save using LSP
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.js,*.jsx,*.ts,*.tsx,*.dart,*.html,*.css,*.json,*.yaml,*.yml",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end
+})
+
 --Hide virtual text for lsp diagnostics, use <leader>df mapping declared above to show them
 vim.diagnostic.config({
   virtual_text = false,
