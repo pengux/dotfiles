@@ -36,12 +36,12 @@
     },
     "cpu": {
         "format": "{usage}% ",
-		"on-click": "foot -H htop"
+		"on-click": "wezterm start htop"
         // "tooltip": false
     },
     "memory": {
         "format": "{}% 󰍛",
-		"on-click": "foot -H htop"
+		"on-click": "wezterm start htop"
     },
 	"disk": {
 		"format": "{percentage_free}% ",
@@ -61,7 +61,7 @@
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
         "format-icons": ["", "", "", "", ""],
-        "on-click": "foot -H acpi -i -b"
+        "on-click": "wezterm start acpi -i -b"
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface

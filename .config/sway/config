@@ -16,7 +16,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term wezterm
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 # set $menu dmenu-wl_run -i -h 30
@@ -167,6 +167,8 @@ assign [class="Signal"] 3
 for_window [class="Signal"] focus
 assign [title="WhatsApp for Linux"] 3
 for_window [title="WhatsApp for Linux"] focus
+assign [title="Element"] 3
+for_window [title="Element"] focus
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -286,7 +288,7 @@ include /etc/sway/config.d/*
 exec --no-startup-id libinput-gestures-setup restart
 exec systemctl --user start mako
 exec --no-startup-id rot8
-exec foot
+exec wezterm
 exec mullvad-vpn
 exec fcitx5 -d -r
 exec waterfox-g4
