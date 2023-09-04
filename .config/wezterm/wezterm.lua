@@ -4,23 +4,16 @@ local act = wezterm.action
 local copy_mode = nil
 if wezterm.gui then
   copy_mode = wezterm.gui.default_key_tables().copy_mode
-  table.insert(
-    copy_mode,
-    {
-      key = "y",
-      mods = "NONE",
-      action = act.Multiple {
-        { CopyTo = "Clipboard" },
-        { CopyMode = "Close" },
-      },
-    }
-  )
   -- Enter search mode to edit the pattern.
   -- When the search pattern is an empty string the existing pattern is preserved
-  table.insert(copy_mode, { key = "/", mods = "SHIFT", action = act { Search = { CaseSensitiveString = "" } } })
-  table.insert(copy_mode, { key = "?", mods = "SHIFT", action = act { Search = { CaseInSensitiveString = "" } } })
-  table.insert(copy_mode, { key = "n", mods = "CTRL", action = act { CopyMode = "NextMatch" } })
-  table.insert(copy_mode, { key = "p", mods = "CTRL", action = act { CopyMode = "PriorMatch" } })
+  table.insert(copy_mode, { key = "/", mods = "SHIFT", action = act { Search = { CaseInSensitiveString = "" } } })
+  table.insert(copy_mode, { key = "n", mods = "NONE", action = wezterm.action { CopyMode = "NextMatch" } })
+  table.insert(copy_mode, { key = "N", mods = "SHIFT", action = wezterm.action { CopyMode = "PriorMatch" } })
+  table.insert(copy_mode, { key = 'r', mods = 'CTRL', action = act.CopyMode 'CycleMatchType' })
+
+  search_mode = wezterm.gui.default_key_tables().search_mode
+  table.insert(search_mode, { key = "Escape", mods = "NONE", action = wezterm.action { CopyMode = "Close" } })
+  table.insert(search_mode, { key = "Enter", mods = "NONE", action = "ActivateCopyMode" })
 end
 
 return {
@@ -30,6 +23,7 @@ return {
   window_background_opacity = 0.9,
   hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,
+  tab_max_width = 100,
   use_fancy_tab_bar = false,
   leader = { key = "z", mods = "ALT" },
   window_padding = {
@@ -46,7 +40,7 @@ return {
     -- Open/Close
     { key = "c", mods = "LEADER",     action = act { SpawnTab = "CurrentPaneDomain" } },
     { key = "x", mods = "LEADER",     action = act { CloseCurrentPane = { confirm = false } } },
-    { key = "X", mods = "LEADER",     action = act { CloseCurrentTab = { confirm = false } } },
+    { key = "w", mods = "LEADER",     action = act { CloseCurrentTab = { confirm = false } } },
 
 
     -- Navigation
@@ -111,5 +105,6 @@ return {
 
   key_tables = {
     copy_mode = copy_mode,
+    search_mode = search_mode,
   },
 }
