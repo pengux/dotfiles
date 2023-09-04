@@ -21,6 +21,7 @@ return {
   font_size = 11,
   color_scheme = "Tokyo Night (Gogh)",
   window_background_opacity = 0.9,
+  force_reverse_video_cursor = true,
   hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,
   tab_max_width = 100,
