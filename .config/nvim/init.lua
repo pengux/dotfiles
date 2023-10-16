@@ -152,23 +152,6 @@ require("packer").startup(function()
   )
   -- use({ "joechrisellis/lsp-format-modifications.nvim" })
   use {
-    "folke/twilight.nvim",
-    config = function()
-      require("twilight").setup {
-        dimming = {
-          -- alpha = 0.5, -- amount of dimming
-          -- we try to get the foreground from the highlight groups or fallback color
-          -- color = { "Normal", "#ffffff" },
-          -- term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
-          inactive = true, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
-        },
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-  use {
     "SmiteshP/nvim-navbuddy",
     requires = {
       "neovim/nvim-lspconfig",
@@ -242,6 +225,7 @@ require("tokyonight").setup({
 })
 vim.o.background = "dark"
 vim.cmd([[colorscheme tokyonight]])
+vim.cmd.highlight({ "Cursor", "guibg=reverse", "guifg=NONE" })
 
 -- Search selected text
 vim.cmd([[
@@ -339,6 +323,7 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 -- Mini
 require('mini.ai').setup()
+require('mini.align').setup()
 
 local mini_bufremove = require("mini.bufremove")
 mini_bufremove.setup({})
@@ -443,7 +428,7 @@ vim.keymap.set("n", "<leader>de", telescope_builtin.diagnostics, keymap_opts)
 
 --Treesitter configuration
 --Parsers must be installed manually via :TSInstall
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = "all",
 
@@ -728,10 +713,6 @@ vim.cmd([[autocmd FileType html,css,php EmmetInstall]])
 
 --nvim-dap
 local dap = require("dap")
-dap.defaults.fallback.external_terminal = {
-  command = "/usr/bin/alacritty",
-  args = { "-e" },
-}
 
 vim.keymap.set("n", "<leader>dc", dap.continue, keymap_opts)
 vim.keymap.set("n", "<leader>dr", dap.run_to_cursor, keymap_opts)
@@ -830,6 +811,7 @@ require("nvim-peekup.config").on_keystroke["delay"] = "1ms"
 require("flutter-tools").setup({
   debugger = {
     enabled = true,
+    run_via_dap = true,
   },
   lsp = {
     cmd = { "dart", "language-server" },
