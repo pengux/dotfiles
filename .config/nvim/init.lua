@@ -18,6 +18,7 @@ require("packer").startup(function()
 
   -- util packages
   use("nvim-lua/plenary.nvim")
+  use { "nvim-neotest/nvim-nio" }
 
   use("tpope/vim-sleuth")   -- Autodetect indentation settings
   use("tpope/vim-fugitive") -- Git commands in nvim
