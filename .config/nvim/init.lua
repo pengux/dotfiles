@@ -624,7 +624,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 --Enable the following language servers
-local servers = { "terraformls", "graphql", "golangci_lint_ls", "eslint", "tsserver" }
+local servers = { "terraformls", "graphql", "golangci_lint_ls", "eslint", "tsserver", "jsonnet_ls" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
