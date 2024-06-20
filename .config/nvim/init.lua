@@ -90,7 +90,6 @@ require("packer").startup(function()
     end,
   })
 
-  use({ "nvim-orgmode/orgmode" })
   use({ "github/copilot.vim" })
   -- use {
   --   "zbirenbaum/copilot.lua",
@@ -120,27 +119,6 @@ require("packer").startup(function()
     },
   })
   use({ "samjwill/nvim-unception" }) -- opening files in terminal in same instance of neovim
-  use {
-    "nvim-neorg/neorg",
-    config = function()
-      require('neorg').setup {
-        load = {
-          ["core.defaults"] = {},  -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = {      -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-            },
-          },
-        },
-      }
-    end,
-    run = ":Neorg sync-parsers",
-    requires = "nvim-lua/plenary.nvim",
-  }
-
   use({ "folke/tokyonight.nvim" })
 
   use({ "akinsho/toggleterm.nvim" })
@@ -865,13 +843,6 @@ require("lf").setup({
 })
 
 vim.keymap.set("n", "<leader>e", "<cmd>Lf<cr>", keymap_opts)
-
---orgmode
-require("orgmode").setup({
-  org_agenda_files = { "~/org/*" },
-  org_default_notes_file = "~/org/refile.org",
-})
-require("orgmode").setup_ts_grammar()
 
 -- rust tools
 local rust_tools = require("rust-tools")
