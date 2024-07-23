@@ -54,7 +54,31 @@ require("packer").startup(function()
   use("saadparwaiz1/cmp_luasnip")
   use("rafamadriz/friendly-snippets")
   use("andymass/vim-matchup")
-  use("AndrewRadev/splitjoin.vim") -- trigger: gS and gJ
+  use({
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
+    config = function()
+      local langs = require('treesj.langs').presets
+
+      -- Add fallback to all language
+      for _, nodes in pairs(langs) do
+        nodes.comment = {
+          both = {
+            fallback = function(tsn)
+              -- mini.splitjoin returns `nil` if nothing to toggle
+              local res = require('mini.splitjoin').toggle()
+
+              if not res then
+                vim.cmd('normal! gww')
+              end
+            end,
+          },
+        }
+      end
+
+      require('treesj').setup({ --[[ your config ]] })
+    end,
+  })
 
   use("mfussenegger/nvim-dap")
   use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
@@ -901,4 +925,21 @@ require('gen').setup({
   -- list_models = '<omitted lua function>', -- Retrieves a list of model names
   debug = false -- Prints errors and the command which is run.
 })
-vim.keymap.set({ 'n', 'v' }, '<leader>ai', ':Gen<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>ai', ':Gen<CR>', keymap_opts)
+
+-- treesj
+local langs = require 'treesj.langs'['presets']
+
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  pattern = '*',
+  callback = function()
+    local opts = { buffer = true }
+    if langs[vim.bo.filetype] then
+      vim.keymap.set({ "n", "v" }, 'gS', '<Cmd>TSJSplit<CR>', opts)
+      vim.keymap.set({ "n", "v" }, 'gJ', '<Cmd>TSJJoin<CR>', opts)
+    else
+      vim.keymap.set({ "n", "v" }, 'gS', MiniSplitjoin.split, opts)
+      vim.keymap.set({ "n", "v" }, 'gJ', MiniSplitjoin.join, opts)
+    end
+  end,
+})
