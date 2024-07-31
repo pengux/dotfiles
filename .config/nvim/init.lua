@@ -333,6 +333,7 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 -- Mini
 require('mini.ai').setup()
 require('mini.align').setup()
+require('mini.splitjoin').setup()
 
 local mini_bufremove = require("mini.bufremove")
 mini_bufremove.setup({})
