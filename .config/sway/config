@@ -16,7 +16,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term wezterm
+set $term foot
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 # set $menu dmenu-wl_run -i -h 30
@@ -38,7 +38,7 @@ output $laptop pos 0 0 res 3840x2400
 output DP-1 pos 1920 0 res 1920x1080
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-# output * bg `$HOME/.config/sway/random_bg` fill
+output * bg `$HOME/.config/sway/random_bg` fill
 #
 # Example configuration:
 #
