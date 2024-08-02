@@ -44,6 +44,7 @@ source ~/.zplug/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/gitfast", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/ssh-agent", from:oh-my-zsh
 # zplug "plugins/vi-mode", from:oh-my-zsh
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 zplug "agkozak/zsh-z"
