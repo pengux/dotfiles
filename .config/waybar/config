@@ -11,7 +11,7 @@
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
-        "format": "{name}: {icon}",
+        "format": "{icon}",
         "format-icons": {
             "1": "",
             "2": "",
@@ -35,16 +35,16 @@
         // "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "{usage}% ",
-		"on-click": "wezterm start htop"
+        "format": " {usage}%",
+		"on-click": "foot -H htop"
         // "tooltip": false
     },
     "memory": {
-        "format": "{}% 󰍛",
-		"on-click": "wezterm start htop"
+        "format": "󰍛 {}%",
+		"on-click": "foot -H htop"
     },
 	"disk": {
-		"format": "{percentage_free}% ",
+		"format": " {percentage_free}%",
 		"on-click": "czkawka-gui"
 	},
     "battery": {
@@ -55,31 +55,31 @@
             "critical": 15
         },
         "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% 󰂄",
-        "format-plugged": "{capacity}% ",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         "format-full": "",
         "format-icons": ["", "", "", "", ""],
-        "on-click": "wezterm start acpi -i -b"
+        "on-click": "foot -H acpi -i -b"
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
 		/* "interval": 1, */
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} 󰈀",
-        "format-linked": "{ifname} (No IP) 󰲛",
+        "format-wifi": " {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈀 {ifname}: {ipaddr}/{cidr}",
+        "format-linked": "󰲛 {ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
 		/* "tooltip-format-wifi": "{essid} ({signalStrength}%)" */
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
+        "format": "{icon} {volume}% {format_source}",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": "󰖁 {icon} {format_source}",
+        "format-muted": "󰖁 {format_source}",
+        "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
             "headphones": "",
