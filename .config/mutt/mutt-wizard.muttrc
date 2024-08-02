@@ -6,8 +6,18 @@
 set mailcap_path = /home/peter/.config/mailcap
 set date_format="%y/%m/%d %I:%M%p"
 set index_format="%2C %zs %?X?A& ? %D %-15.15F %s (%-4.4c)"
-# set sort = 'reverse-date'
-set sort = 'reverse-threads'
+
+# Sort by newest conversation first.
+set charset = "utf-8"
+set uncollapse_jump
+set sort_re
+set sort = reverse-threads
+set sort_aux = last-date-received
+
+set send_charset = "utf-8:iso-8859-1:us-ascii"
+
+set editor = "nvim"
+
 set smtp_authenticators = 'gssapi:login'
 set query_command = "abook --mutt-query '%s'"
 set rfc2047_parameters = yes
