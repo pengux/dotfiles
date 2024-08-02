@@ -83,6 +83,7 @@ alias gst='git status'
 alias gcl='git clone'
 alias gco='git checkout'
 alias gup='git pull --rebase'
+alias gsw='git switch'
 
 alias gobinupdate='$HOME/go/bin/gup'
 
