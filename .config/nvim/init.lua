@@ -420,7 +420,7 @@ vim.keymap.set("n", "<leader>sf", function() return telescope_builtin.find_files
 vim.keymap.set("n", "<leader>gf", function() return telescope_builtin.git_files({ previewer = false }) end, keymap_opts)
 vim.keymap.set("n", "<leader>sz", telescope_builtin.current_buffer_fuzzy_find, keymap_opts)
 vim.keymap.set("n", "<leader>sh", telescope_builtin.help_tags, keymap_opts)
-vim.keymap.set("n", "<leader>st", telescope_builtin.tags, keymap_opts)
+vim.keymap.set("n", "<leader>so", telescope_builtin.current_buffer_tags, keymap_opts)
 vim.keymap.set("n", "<leader>sd", telescope_builtin.grep_string, keymap_opts)
 vim.keymap.set("n", "<leader>sj", telescope_builtin.jumplist, keymap_opts)
 vim.keymap.set({ "n", "v" }, "<leader>p", telescope.extensions.neoclip.default, keymap_opts)
