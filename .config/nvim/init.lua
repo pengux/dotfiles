@@ -893,19 +893,19 @@ require('vgit').setup({
 -- vale
 require("vale").setup({
   -- path to the vale binary.
-  bin="/usr/bin/vale",
+  bin = "/usr/bin/vale",
   -- path to your vale-specific configuration.
-  vale_config_path="$HOME/.config/vale/vale.ini",
+  vale_config_path = "$HOME/.config/vale/vale.ini",
 })
 
 require('gen').setup({
-  model = "zephyr", -- The default model to use.
-  host = "localhost", -- The host running the Ollama service.
-  port = "11434", -- The port on which the Ollama service is listening.
+  model = "zephyr",       -- The default model to use.
+  host = "localhost",     -- The host running the Ollama service.
+  port = "11434",         -- The port on which the Ollama service is listening.
   display_mode = "float", -- The display mode. Can be "float" or "split".
-  show_prompt = false, -- Shows the Prompt submitted to Ollama.
-  show_model = false, -- Displays which model you are using at the beginning of your chat session.
-  no_auto_close = false, -- Never closes the window automatically.
+  show_prompt = false,    -- Shows the Prompt submitted to Ollama.
+  show_model = false,     -- Displays which model you are using at the beginning of your chat session.
+  no_auto_close = false,  -- Never closes the window automatically.
   init = function(options) pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
   -- Function to initialize Ollama
   command = function(options)
