@@ -76,7 +76,7 @@ require("packer").startup(function()
         }
       end
 
-      require('treesj').setup({ --[[ your config ]] })
+      require('treesj').setup({})
     end,
   })
 
