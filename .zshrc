@@ -4,7 +4,7 @@ export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/.yarn/bin:$HOME/.gem/ruby/2.7.0/b
 
 export EDITOR=nvim
 export VISUAL=nvim
-export BROWSER=waterfox-g4
+export BROWSER=firefox
 
 # Wayland
 export QT_QPA_PLATFORM=wayland-egl
