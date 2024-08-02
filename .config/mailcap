@@ -1,12 +1,12 @@
-text/plain; $EDITOR %s ;
-text/html; mimeo %s ; nametemplate=%s.html
+text/plain; xdg-open %s ;
+text/html; xdg-open %s ; nametemplate=%s.html
 text/html; w3m -I %{charset} -T text/html -o display_link_number=1 ; copiousoutput; nametemplate=%s.html
 image/*; imv %s ; copiousoutput
 video/*; setsid mpv --quiet %s &; copiousoutput
 application/pdf; zathura %s ;
 application/pgp-encrypted; gpg -d '%s'; copiousoutput;
 application/ms-tnef; tnef -w %s
-application/vnd.openxmlformats-officedocument.wordprocessingml.document; mimeo %s
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; mimeo %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; xdg-open %s
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; xdg-open %s
 text/calendar; mutt-ics; copiousoutput
 application/ics; mutt-ics; copiousoutput
