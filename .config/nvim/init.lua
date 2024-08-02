@@ -144,7 +144,7 @@ require("packer").startup(function()
     },
   })
   use({ "samjwill/nvim-unception" }) -- opening files in terminal in same instance of neovim
-  use({ "folke/tokyonight.nvim" })
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   use({ "akinsho/toggleterm.nvim" })
   use(
@@ -224,16 +224,8 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/.undo/"
 
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
-require("tokyonight").setup({
-  transparent = true,
-  style = "moon",
-  styles = {
-    sidebars = "transparent",
-    floats = "transparent",
-  },
-})
 vim.o.background = "dark"
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme catppuccin]])
 vim.cmd.highlight({ "Cursor", "guibg=reverse", "guifg=NONE" })
 
 -- Search selected text
