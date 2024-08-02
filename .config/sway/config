@@ -77,7 +77,7 @@ input type:keyboard {
     xkb_options caps:escape
     xkb_layout se,vn
     repeat_rate 100
-    repeat_delay 250
+    repeat_delay 300
 }
 
 input "1386:18670:Wacom_HID_48EE_Finger" map_to_output eDP-1
@@ -153,9 +153,9 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # App assigned workspaces
-assign [app_id="waterfox"] 2
-for_window [app_id="waterfox"] focus
-for_window [app_id="waterfox"] inhibit_idle fullscreen
+assign [app_id="firefox"] 2
+for_window [app_id="firefox"] focus
+for_window [app_id="firefox"] inhibit_idle fullscreen
 assign [title="Chromium"] 2
 for_window [title="Chromium"] focus
 
@@ -165,8 +165,6 @@ assign [class="Skype"] 3
 for_window [class="Skype"] focus
 assign [class="Signal"] 3
 for_window [class="Signal"] focus
-assign [title="WhatsApp for Linux"] 3
-for_window [title="WhatsApp for Linux"] focus
 assign [title="Element"] 3
 for_window [title="Element"] focus
 
@@ -288,21 +286,17 @@ include /etc/sway/config.d/*
 exec --no-startup-id libinput-gestures-setup restart
 exec systemctl --user start mako
 exec --no-startup-id rot8
-exec wezterm
+exec foot
 exec mullvad-vpn
-exec fcitx5 -d -r
-exec waterfox-g4
+# exec fcitx5 -d -r
+exec firefox
 #exec slack
 #exec skypeforlinux
 exec signal-desktop
-exec whatsapp-for-linux
 exec blueman-applet
 exec protonmail-bridge
 #exec autotiling-rs
 
-output * bg `$HOME/.config/sway/random_bg` fill
-
-#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
