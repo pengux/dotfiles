@@ -1,12 +1,12 @@
 {
     "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 24, // Waybar height (to be removed for auto height)
+    // "height": 24, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     // "modules-center": ["sway/window"],
-    "modules-right": ["network", "cpu", "memory", "disk", "pulseaudio", "battery", "clock", "tray"],
+    "modules-right": ["pulseaudio", "network", "cpu", "memory", "disk", "battery", "clock", "tray"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,

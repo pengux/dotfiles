@@ -14,21 +14,20 @@
 #waybar {
   background: transparent;
   color: @text;
-  margin: 0px 5px;
+  margin: 0;
 }
 
 #workspaces {
   border-radius: 1rem;
-  padding: 0.5rem;
-  margin: 5px 0;
+  margin: 5px 0.4rem 0 0.4rem;
   background-color: @surface0;
-  padding: 0;
+  padding: 0 0.5rem;
 }
 
 #workspaces button {
   color: @lavender;
   border-radius: 1rem;
-  padding: 0 0.8rem;
+  padding: 0 0.5rem;
 }
 
 #workspaces button.active {
@@ -41,23 +40,26 @@
   border-radius: 1rem;
 }
 
-#custom-music,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#network,
+#mode,
 #tray,
 #backlight,
 #clock,
 #battery,
-#pulseaudio,
-#custom-lock,
-#custom-power {
+#pulseaudio {
   background-color: @surface0;
-  padding: 0.5rem;
-  margin: 5px 0;
+  padding: 0.5rem 1rem;
+  margin: 5px 0 0 0;
 }
 
 #clock {
   color: @blue;
   border-radius: 0px 1rem 1rem 0px;
-  margin-right: 1rem;
+  margin-right: 0.4rem;
 }
 
 #battery {
@@ -86,35 +88,9 @@
   margin-left: 1rem;
 }
 
-#custom-music {
-  color: @mauve;
-  border-radius: 1rem;
-}
-
-#custom-lock {
-    border-radius: 1rem 0px 0px 1rem;
-    color: @lavender;
-}
-
-#custom-power {
-    margin-right: 1rem;
-    border-radius: 0px 1rem 1rem 0px;
-    color: @red;
-}
-
 #tray {
-  margin-right: 1rem;
+  margin-right: 0.4rem;
   border-radius: 1rem;
-}
-
-#cpu,
-#memory,
-#disk,
-#temperature,
-#network,
-#mode {
-  padding: 0 0.3rem;
-  margin: 0 0.8rem;
 }
 
 /* #clock { */
