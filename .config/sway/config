@@ -28,7 +28,8 @@ set $calcmenu "rofi -show calc -modi calc -no-show-match -no-sort"
 # -fn "Inconsolata Nerd Font Mono"
 
 ### Styles
-default_border pixel 1
+default_border none
+hide_edge_borders --i3 smart
 
 ### Output configuration
 #
