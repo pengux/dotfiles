@@ -87,14 +87,6 @@ require("packer").startup(function()
   use("ray-x/go.nvim") -- Go
   use("simrat39/rust-tools.nvim")
 
-  use({
-    "nvim-pack/nvim-spectre",
-    requires = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("spectre").setup()
-    end,
-  }) -- Search and replace
-
   use("nvim-lua/lsp-status.nvim")
   use("gennaro-tedesco/nvim-peekup") -- peek at registers
   use("onsails/lspkind-nvim")
@@ -421,7 +413,7 @@ vim.keymap.set("n", "<leader>gf", function() return telescope_builtin.git_files(
 vim.keymap.set("n", "<leader>sz", telescope_builtin.current_buffer_fuzzy_find, keymap_opts)
 vim.keymap.set("n", "<leader>sh", telescope_builtin.help_tags, keymap_opts)
 vim.keymap.set("n", "<leader>so", telescope_builtin.current_buffer_tags, keymap_opts)
-vim.keymap.set("n", "<leader>sd", telescope_builtin.grep_string, keymap_opts)
+vim.keymap.set({ "n", "v" }, "<leader>sd", telescope_builtin.grep_string, keymap_opts)
 vim.keymap.set("n", "<leader>sj", telescope_builtin.jumplist, keymap_opts)
 vim.keymap.set({ "n", "v" }, "<leader>p", telescope.extensions.neoclip.default, keymap_opts)
 vim.keymap.set("n", "<leader>sg", telescope_builtin.live_grep, keymap_opts)
@@ -791,14 +783,6 @@ require("go").setup({
   run_in_floaterm = true,
   -- tag_transform = true,
 })
-
---Spectre
-local spectre = require("spectre")
-vim.keymap.set("n", "<leader>ss", spectre.open, keymap_opts)
-vim.keymap.set("v", "<leader>ss", spectre.open_visual, keymap_opts)
-vim.keymap.set("n", "<leader>sw", function() spectre.open_visual({ select_word = true }) end, keymap_opts
-)
-vim.keymap.set("n", "<leader>sp", spectre.open_file_search, keymap_opts)
 
 --lsp-status
 require("lsp-status").config({
