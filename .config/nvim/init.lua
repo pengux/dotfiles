@@ -28,6 +28,7 @@ require("packer").startup(function()
   use("mg979/vim-visual-multi") -- Multiple cursors
   use("godlygeek/tabular")      -- Align text
   use("mattn/emmet-vim")
+  use("dhruvasagar/vim-table-mode")
   -- UI to select things (files, grep results, open buffers...)
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
   use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
