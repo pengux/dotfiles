@@ -37,8 +37,8 @@ setopt histignorespace
 setopt incappendhistorytime
 setopt extendedhistory
 HISTFILE=~/.zshhistory
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 
 source ~/.zplug/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
