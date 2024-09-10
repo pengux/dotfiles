@@ -169,6 +169,14 @@ require("packer").startup(function()
   use {
     'David-Kunz/gen.nvim'
   }
+  use({
+    "aserowy/tmux.nvim",
+    config = function() return require("tmux").setup({
+      navigation = {
+        enable_default_keybindings = false,
+      },
+    }) end
+  })
 end)
 
 --Set highlight on search
@@ -241,11 +249,15 @@ vim.o.listchars = "tab:>~,trail:.,precedes:<,extends:>"
 vim.keymap.set("n", "<leader>li", ":set list! list?<cr>", keymap_opts)
 
 -- Easier cursor navigation between split windows using CTRL and h,j,k, or l
-vim.keymap.set("n", "<C-h>", "<C-w>h", keymap_opts)
-vim.keymap.set("n", "<C-j>", "<C-w>j", keymap_opts)
-vim.keymap.set("n", "<C-k>", "<C-w>k", keymap_opts)
-vim.keymap.set("n", "<C-l>", "<C-w>l", keymap_opts)
+-- vim.keymap.set("n", "<C-h>", "<C-w>h", keymap_opts)
+-- vim.keymap.set("n", "<C-j>", "<C-w>j", keymap_opts)
+-- vim.keymap.set("n", "<C-k>", "<C-w>k", keymap_opts)
+-- vim.keymap.set("n", "<C-l>", "<C-w>l", keymap_opts)
 -- Zoom a window by editing it in a new tab
+vim.keymap.set("n", "<C-h>", "<cmd>lua require'tmux'.move_left()<cr>", keymap_opts)
+vim.keymap.set("n", "<C-j>", "<cmd>lua require'tmux'.move_bottom()<cr>", keymap_opts)
+vim.keymap.set("n", "<C-k>", "<cmd>lua require'tmux'.move_top()<cr>", keymap_opts)
+vim.keymap.set("n", "<C-l>", "<cmd>lua require'tmux'.move_right()<cr>", keymap_opts)
 vim.keymap.set("n", "<C-w>z", ":tab sp<cr>", {})
 
 -- Buffer mappings
