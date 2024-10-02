@@ -344,7 +344,7 @@ mini_jump2d.setup({
     start_jumping = '',
   },
 })
-vim.keymap.set({ "n", "v" }, "t",
+vim.keymap.set({ "n", "v" }, "m",
   function()
     if vim.bo.buftype == "quickfix" then
       vim.cmd [[execute "normal! \<CR>"]]
