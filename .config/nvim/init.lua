@@ -77,7 +77,10 @@ require("packer").startup(function()
         }
       end
 
-      require('treesj').setup({})
+      local tsj = require('treesj')
+      tsj.setup({
+        max_join_length = 1000,
+      })
     end,
   })
 
