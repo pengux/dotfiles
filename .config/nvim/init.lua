@@ -666,6 +666,12 @@ for _, lsp in ipairs(servers) do
   })
 end
 
+lspconfig['harper_ls'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "markdown", "gitcommit" },
+}
+
 lspconfig['gopls'].setup {
   on_attach = on_attach,
   capabilities = capabilities,
