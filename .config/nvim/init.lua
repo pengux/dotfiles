@@ -300,6 +300,13 @@ vim.keymap.set("i", '<A-v>', [[<C-r>+]], keymap_opts)
 vim.keymap.set("c", '<A-v>', [[<C-r>+]], keymap_opts)
 
 -- Diagnostic navigation
+vim.keymap.set("n", "<leader>dt", function()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.disable()
+  else
+    vim.diagnostic.enable()
+  end
+end)
 vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, keymap_opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, keymap_opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, keymap_opts)
