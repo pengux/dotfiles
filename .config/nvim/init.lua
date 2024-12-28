@@ -934,20 +934,3 @@ require('gen').setup({
   debug = false -- Prints errors and the command which is run.
 })
 vim.keymap.set({ 'n', 'v' }, '<leader>ai', ':Gen<CR>', keymap_opts)
-
--- treesj
-local langs = require 'treesj.langs'['presets']
-
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  pattern = '*',
-  callback = function()
-    local opts = { buffer = true }
-    if langs[vim.bo.filetype] then
-      vim.keymap.set({ "n", "v" }, 'gS', '<Cmd>TSJSplit<CR>', opts)
-      vim.keymap.set({ "n", "v" }, 'gJ', '<Cmd>TSJJoin<CR>', opts)
-    else
-      vim.keymap.set({ "n", "v" }, 'gS', MiniSplitjoin.split, opts)
-      vim.keymap.set({ "n", "v" }, 'gJ', MiniSplitjoin.join, opts)
-    end
-  end,
-})
