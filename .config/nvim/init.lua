@@ -174,11 +174,13 @@ require("packer").startup(function()
   }
   use({
     "aserowy/tmux.nvim",
-    config = function() return require("tmux").setup({
-      navigation = {
-        enable_default_keybindings = false,
-      },
-    }) end
+    config = function()
+      return require("tmux").setup({
+        navigation = {
+          enable_default_keybindings = false,
+        },
+      })
+    end
   })
 end)
 
