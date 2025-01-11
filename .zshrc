@@ -143,4 +143,12 @@ source ~/.zsh_conf/*
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-source /etc/profile.d/google-cloud-cli.sh
+source $HOME/.config/google-cloud-cli/google-cloud-cli.sh
+
+eval "$(pyenv init --path)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/peter/tools/google-cloud-cli/google-cloud-sdk/path.zsh.inc' ]; then . '/home/peter/tools/google-cloud-cli/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/peter/tools/google-cloud-cli/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/peter/tools/google-cloud-cli/google-cloud-sdk/completion.zsh.inc'; fi
