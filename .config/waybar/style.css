@@ -58,8 +58,8 @@
 
 #clock {
   color: @blue;
-  border-radius: 0px 1rem 1rem 0px;
   margin-right: 0.4rem;
+  border-radius: 1rem;
 }
 
 #battery {
@@ -85,12 +85,12 @@
 #pulseaudio {
   color: @maroon;
   border-radius: 1rem 0px 0px 1rem;
-  margin-left: 1rem;
+  margin-left: 0;
 }
 
 #tray {
+  border-radius: 0px 1rem 1rem 0px;
   margin-right: 0.4rem;
-  border-radius: 1rem;
 }
 
 /* #clock { */
