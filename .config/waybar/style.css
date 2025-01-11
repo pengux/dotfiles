@@ -1,0 +1,99 @@
+@import "catppuccin-mocha.css";
+
+* {
+  border: none;
+  border-radius: 0;
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: "IntelOne Mono", Monospace, Helvetica, Arial,
+    sans-serif;
+  font-size: 14px;
+  min-height: 0;
+  color: @text;
+}
+
+#waybar {
+  background: transparent;
+  color: @text;
+  margin: 0;
+}
+
+#workspaces {
+  border-radius: 1rem;
+  margin: 5px 0.4rem 0 0.4rem;
+  background-color: @surface0;
+  padding: 0 0.5rem;
+}
+
+#workspaces button {
+  color: @lavender;
+  border-radius: 1rem;
+  padding: 0 0.5rem;
+}
+
+#workspaces button.active {
+  background-color: @sky;
+  border-radius: 1rem;
+}
+
+#workspaces button:hover {
+  color: @sapphire;
+  border-radius: 1rem;
+}
+
+#cpu,
+#memory,
+#disk,
+#temperature,
+#network,
+#mode,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio {
+  background-color: @surface0;
+  padding: 0.5rem 1rem;
+  margin: 5px 0 0 0;
+}
+
+#clock {
+  color: @blue;
+  border-radius: 0px 1rem 1rem 0px;
+  margin-right: 0.4rem;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+#battery.warning:not(.charging) {
+  color: @red;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#backlight, #battery {
+    border-radius: 0;
+}
+
+#pulseaudio {
+  color: @maroon;
+  border-radius: 1rem 0px 0px 1rem;
+  margin-left: 1rem;
+}
+
+#tray {
+  margin-right: 0.4rem;
+  border-radius: 1rem;
+}
+
+/* #clock { */
+/*   background-color: #64727d; */
+/* } */
+

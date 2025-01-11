@@ -1,4 +1,4 @@
-Xft.dpi: 192
+Xft.dpi: 98
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
@@ -45,62 +45,70 @@ Xft.rgba: rgb
 !
 ! URxvt*background:            S_base03
 
-*background:              S_base03
-*foreground:              S_base0
-*fading:                  40
-*fadeColor:               S_base03
-*cursorColor:             S_base1
-*pointerColorBackground:  S_base01
-*pointerColorForeground:  S_base1
+/* *background:              S_base03 */
+/* *foreground:              S_base0 */
+/* *fading:                  40 */
+/* *fadeColor:               S_base03 */
+/* *cursorColor:             S_base1 */
+/* *pointerColorBackground:  S_base01 */
+/* *pointerColorForeground:  S_base1 */
+/*  */
+/* *color0:                  S_base02 */
+/* *color1:                  S_red */
+/* *color2:                  S_green */
+/* *color3:                  S_yellow */
+/* *color4:                  S_blue */
+/* *color5:                  S_magenta */
+/* *color6:                  S_cyan */
+/* *color7:                  S_base2 */
+/* *color9:                  S_orange */
+/* *color8:                  S_base03 */
+/* *color10:                 S_base01 */
+/* *color11:                 S_base00 */
+/* *color12:                 S_base0 */
+/* *color13:                 S_violet */
+/* *color14:                 S_base1 */
+/* *color15:                 S_base3 */
 
-*color0:                  S_base02
-*color1:                  S_red
-*color2:                  S_green
-*color3:                  S_yellow
-*color4:                  S_blue
-*color5:                  S_magenta
-*color6:                  S_cyan
-*color7:                  S_base2
-*color9:                  S_orange
-*color8:                  S_base03
-*color10:                 S_base01
-*color11:                 S_base00
-*color12:                 S_base0
-*color13:                 S_violet
-*color14:                 S_base1
-*color15:                 S_base3
+! Dracula Xresources palette
+/* *.foreground: #F8F8F2 */
+/* *.background: #282A36 */
+/* *.color0:     #000000 */
+/* *.color8:     #4D4D4D */
+/* *.color1:     #FF5555 */
+/* *.color9:     #FF6E67 */
+/* *.color2:     #50FA7B */
+/* *.color10:    #5AF78E */
+/* *.color3:     #F1FA8C */
+/* *.color11:    #F4F99D */
+/* *.color4:     #BD93F9 */
+/* *.color12:    #CAA9FA */
+/* *.color5:     #FF79C6 */
+/* *.color13:    #FF92D0 */
+/* *.color6:     #8BE9FD */
+/* *.color14:    #9AEDFE */
+/* *.color7:     #BFBFBF */
+/* *.color15:    #E6E6E6 */
 
+! TokyoNight colors for Xresources
+*background: #222436
+*foreground: #c8d3f5
 
-! ------------------------------------------------------------------------------
-! URxvt
-! ------------------------------------------------------------------------------
+*color0: #1b1d2b
+*color1: #ff757f
+*color2: #c3e88d
+*color3: #ffc777
+*color4: #82aaff
+*color5: #c099ff
+*color6: #86e1fc
+*color7: #828bb8
 
-URxvt*depth: 32
-URxvt*background: S_base03
-URxvt*font: xft:Consolas:antialiasing=true:size=12,xft:Inconsolata Nerd Font Mono:size=16
-URxvt*letterspace: 0
-URxvt*scrollBar: false
-URxvt*internalBorder:  20
-URxvt.intensityStyles: false
-URxvt.depth: 24
-URxvt.geometry:         90x30
-
-URxvt.perl-ext-common: default,matcher,clipboard,keyboard-select,resize-font,url-select
-URxvt.url-select.launcher: /usr/bin/xdg-open
-URxvt.matcher.button: 1
-URxvt.secondaryWheel: 1
-URxvt.iso14755: false
-! URxvt.keyboard-select.clipboard: true
-
-! macros for clipboard and selection
-! URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-! URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.keysym.C-minus:   resize-font:smaller
-URxvt.keysym.C-plus:    resize-font:bigger
-URxvt.keysym.C-0:   	resize-font:reset
-URxvt.keysym.M-c:       perl:clipboard:copy
-URxvt.keysym.M-v:       perl:clipboard:paste
-URxvt.keysym.M-C-v:     perl:clipboard:paste_escaped
-URxvt.keysym.M-z:  		perl:keyboard-select:activate
-URxvt.keysym.M-s:       perl:keyboard-select:search
-URxvt.keysym.M-u:       perl:url-select:select_next
+*color8: #444a73
+*color9: #ff757f
+*color10: #c3e88d
+*color11: #ffc777
+*color12: #82aaff
+*color13: #c099ff
+*color14: #86e1fc
+*color15: #c8d3f5
+ 
